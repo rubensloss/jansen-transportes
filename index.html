@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jansen Transportes | Transporte Executivo, Vans, Ônibus, Cargas e Guincho no ES</title>
+  <meta name="description" content="Jansen Transportes e Serviços em Vila Velha e Vitória ES. Aluguel de vans executivas, sedans para casamentos e traslados, SUV BYD Song Plus, micro-ônibus, caminhões baú de carga e guincho plataforma 24h.">
+  
+  <!-- Favicon Oficial da Jansen -->
+  <link rel="icon" type="image/png" href="img/logo_jansen_icon.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jansen: {
+              bg: '#070d1e',
+              surface: '#0d1733',
+              card: 'rgba(13, 23, 51, 0.88)',
+              blue: '#1d4ed8',
+              blueLight: '#3b82f6',
+              cyan: '#00d2ff',
+              whatsapp: '#25D366'
+            }
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Outfit + Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Estilos Customizados Jansen -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#070d1e] text-slate-100 selection:bg-blue-600 selection:text-white font-body pb-16 md:pb-0">
+
+  <!-- =========================================================
+       NAVBAR GLASS FLUTUANTE (LOGO DESTACADA E BOTÕES ALINHADOS)
+       ========================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6 flex-nowrap">
+      
+      <!-- Logotipo Oficial da Jansen em Alta Resolução (Aumentada e Destacada) -->
+      <a href="#" class="flex items-center shrink-0 group py-1">
+        <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-[60px] sm:h-[68px] md:h-[76px] w-auto object-contain transition-transform group-hover:scale-105">
+      </a>
+
+      <!-- Menu de Navegação Desktop (Alinhado em 1 linha sem quebra) -->
+      <nav class="hidden lg:flex items-center gap-4 xl:gap-7 text-xs xl:text-sm font-semibold text-slate-300 shrink-0">
+        <a href="#hero-scrolly" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Nossa Frota</a>
+        <a href="#cotacao" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Simular Rota</a>
+        <a href="#servicos" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Serviços</a>
+        <a href="#experiencia" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Galeria Real</a>
+        <a href="#guias" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Dicas e Rotas ES</a>
+        <a href="#diferenciais" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Segurança</a>
+        <a href="#depoimentos" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Avaliações Google</a>
+        <a href="#contato" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Contato</a>
+      </nav>
+
+      <!-- Ações Diretas: Telefone e Botão de WhatsApp Perfeitamente Alinhados -->
+      <div class="hidden md:flex items-center gap-3 xl:gap-4 shrink-0 flex-nowrap">
+        <a href="tel:5527992733774" class="whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-200 hover:text-white transition-all shrink-0">
+          <i class="fa-solid fa-phone text-blue-400 text-xs"></i>
+          <span>(27) 99273-3774</span>
+        </a>
+        <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20Transportes%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whitespace-nowrap inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/20 transition-all transform hover:scale-[1.02] shrink-0 leading-none h-[42px]">
+          <i class="fa-brands fa-whatsapp text-base leading-none"></i>
+          <span class="leading-none">Cotar no WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Botão Hambúrguer Mobile -->
+      <button id="mobile-menu-toggle" class="md:hidden text-slate-200 hover:text-white text-2xl focus:outline-none p-2" aria-label="Abrir Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Dropdown Mobile -->
+    <div id="mobile-menu-dropdown" class="hidden md:hidden glass-nav border-t border-white/10 px-6 py-5 flex flex-col gap-4">
+      <a href="#hero-scrolly" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Nossa Frota</a>
+      <a href="#cotacao" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Simular Cotação</a>
+      <a href="#servicos" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Serviços Oferecidos</a>
+      <a href="#experiencia" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Galeria da Frota Real</a>
+      <a href="#guias" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Dicas e Rotas no ES</a>
+      <a href="#diferenciais" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Segurança e ANTT</a>
+      <a href="#depoimentos" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Avaliações Google</a>
+      <a href="#contato" class="text-slate-200 hover:text-blue-400 font-semibold py-1">Localização e Contato</a>
+      <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="w-full text-center py-3.5 rounded-xl bg-[#25D366] text-black font-bold text-sm flex items-center justify-center gap-2 mt-2 shadow-lg">
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>Falar no WhatsApp (27) 99739-2787</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SCROLLYTELLING: 5 ESTÁGIOS DA FROTA (CALIBRADOS E SEM CORTES)
+       ========================================================================= -->
+  <section id="hero-scrolly" class="hero-fullscreen-section">
+    
+    <!-- Camada 01: Toyota Corolla Executivo / BYD Song Plus (Foto 100% Inteira) -->
+    <div class="hero-bg-layer active">
+      <img src="img/frota_corolla_hero_perfect.jpg" alt="Toyota Corolla Executivo Jansen" class="hero-bg-img pos-sedan">
+      <div class="hero-scrim-overlay"></div>
+    </div>
+
+    <!-- Camada 02: Vans Executivas VIP (Mercedes Sprinter e Master - Enquadramento Correto) -->
+    <div class="hero-bg-layer">
+      <img src="img/frota_van_hotel.jpg" alt="Van Executiva VIP Jansen" class="hero-bg-img pos-van">
+      <div class="hero-scrim-overlay"></div>
+    </div>
+
+    <!-- Camada 03: Micro-ônibus Volare DW9 (Foto Afastada com Visão Ampla do Ônibus) -->
+    <div class="hero-bg-layer">
+      <img src="img/frota_onibus_real.jpg" alt="Micro-ônibus Volare DW9 Jansen" class="hero-bg-img pos-onibus">
+      <div class="hero-scrim-overlay"></div>
+    </div>
+
+    <!-- Camada 04: Caminhão Mercedes Accelo 1016 Baú (Logística e Cargas) -->
+    <div class="hero-bg-layer">
+      <img src="img/frota_caminhao_accelo.jpg" alt="Caminhão Mercedes Accelo Baú Jansen" class="hero-bg-img pos-caminhao">
+      <div class="hero-scrim-overlay"></div>
+    </div>
+
+    <!-- Camada 05: Guincho Plataforma Volkswagen Delivery Prime 24h -->
+    <div class="hero-bg-layer">
+      <img src="img/frota_guincho_plataforma.jpg" alt="Guincho Plataforma Volkswagen Delivery Jansen" class="hero-bg-img pos-guincho">
+      <div class="hero-scrim-overlay"></div>
+    </div>
+
+    <!-- Conteúdo em Primeiro Plano do Hero -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hero-content-container">
+      
+      <!-- Topo: Selo de Autoridade e Nota Google 4.9 (+120 Avaliações) -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#070d1e]/90 border border-blue-500/35 backdrop-blur-md shadow-lg">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse"></span>
+          <span class="text-xs uppercase tracking-wider text-blue-200 font-bold">10+ Anos de Tradição no ES</span>
+          <span class="text-slate-500 text-xs">•</span>
+          <div class="flex items-center gap-1.5 text-amber-400 text-xs">
+            <i class="fa-solid fa-star"></i>
+            <span class="font-extrabold text-white">4.9</span>
+            <span class="text-slate-300 font-medium">(+120 avaliações no Google)</span>
+          </div>
+        </div>
+        <div class="text-right hidden sm:block">
+          <span class="text-xs tracking-widest text-blue-400 uppercase font-extrabold bg-[#070d1e]/70 px-3 py-1 rounded-full border border-white/10">Vila Velha e Grande Vitória</span>
+        </div>
+      </div>
+
+      <!-- Meio: Textos Dinâmicos dos 5 Veículos da Frota -->
+      <div class="max-w-2xl py-6 my-auto">
+        
+        <!-- Slide 01 Textos: Sedans e Carros Executivos -->
+        <div class="slide-caption-item active">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+            <span>01 // Sedans Executivos e Casamentos</span>
+          </div>
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
+            Toyota Corolla Executivo e BYD Song Plus
+          </h1>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+            Transporte executivo com motorista a rigor. Especialistas no dia da noiva e cerimônias, atendimento corporativo a diretorias e traslados ao Aeroporto de Vitória com pontualidade britânica e discrição absoluta.
+          </p>
+        </div>
+
+        <!-- Slide 02 Textos: Vans Executivas VIP -->
+        <div class="slide-caption-item">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+            <span>02 // Vans Executivas com Motorista</span>
+          </div>
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
+            Mercedes Sprinter e Renault Master VIP
+          </h1>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+            Vans executivas com poltronas reclináveis personalizadas, ar-condicionado duplo, cortinas, tomadas e wi-fi. O máximo de comodidade para viagens turísticas em Pedra Azul, Domingos Martins e eventos corporativos.
+          </p>
+        </div>
+
+        <!-- Slide 03 Textos: Micro-ônibus e Ônibus -->
+        <div class="slide-caption-item">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+            <span>03 // Fretamento, Turismo e Excursões</span>
+          </div>
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
+            Micro-ônibus Volare DW9 e Ônibus
+          </h1>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+            Micro-ônibus Volare DW9 executivo (31 lugares) e ônibus rodoviários para congressos, excursões turísticas, viagens interestaduais e grupos escolares com seguro total de passageiros e registro ANTT.
+          </p>
+        </div>
+
+        <!-- Slide 04 Textos: Cargas e Logística -->
+        <div class="slide-caption-item">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+            <span>04 // Logística e Cargas Fechadas</span>
+          </div>
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
+            Caminhões Mercedes Accelo Baú e Furgões
+          </h1>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+            Frota própria para distribuição urbana, transporte comercial e mercadorias no Espírito Santo. Caminhões Accelo 1016 com baú fechado e furgões para coletas ágeis e fretes com total integridade.
+          </p>
+        </div>
+
+        <!-- Slide 05 Textos: Auto Socorro e Guincho -->
+        <div class="slide-caption-item">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-red-600/30 border border-red-400/50 text-red-200 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+            <span>05 // Auto Socorro e Reboque 24h</span>
+          </div>
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
+            Guincho Plataforma Volkswagen Delivery
+          </h1>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+            Caminhão Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta. Remoção segura de veículos de passeio, utilitários, furgões e máquinas com atendimento de emergência 24 horas.
+          </p>
+        </div>
+
+        <!-- Botões de Ação do Hero -->
+        <div class="flex flex-wrap items-center gap-4 pt-3">
+          <button id="hero-main-cta" class="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm uppercase tracking-wider transition-all transform hover:scale-105 shadow-xl shadow-blue-600/30 flex items-center gap-3">
+            <span>Cotar Sedan Executivo</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <a href="#cotacao" class="px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-slate-100 text-sm font-bold uppercase tracking-wider flex items-center gap-2 border border-white/20 backdrop-blur-md transition-all">
+            <span>Simulador de Rota</span>
+            <i class="fa-solid fa-calculator text-blue-400"></i>
+          </a>
+        </div>
+
+        <!-- Micro-gatilhos de Conversão -->
+        <div class="flex flex-wrap items-center gap-5 text-xs text-slate-300 pt-3 font-medium">
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-400"></i> Resposta em até 5 minutos</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-certificate text-blue-400"></i> Orçamento sem compromisso</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-invoice text-emerald-400"></i> Faturamento para Empresas</span>
+        </div>
+
+      </div>
+
+      <!-- Rodapé do Hero: 5 Cards com as Fotos Reais dos Veículos -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 max-w-5xl pt-2">
+        
+        <!-- Card 01: Sedans e SUV -->
+        <div class="vehicle-thumb-card active p-2.5 flex items-center gap-2.5" data-slide="0">
+          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
+            <img src="img/frota_corolla.jpg" class="w-full h-full object-cover object-center" alt="Corolla">
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-[9px] uppercase tracking-wider text-blue-400 font-bold truncate">1 a 4 Lugares</div>
+            <div class="text-xs font-bold text-white truncate">Sedan e SUV</div>
+            <div class="text-[10px] text-slate-300 truncate">Corolla e BYD</div>
+          </div>
+        </div>
+
+        <!-- Card 02: Vans -->
+        <div class="vehicle-thumb-card p-2.5 flex items-center gap-2.5" data-slide="1">
+          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
+            <img src="img/frota_van_hotel.jpg" class="w-full h-full object-cover object-center" alt="Vans">
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-[9px] uppercase tracking-wider text-blue-400 font-bold truncate">5 a 15 Lugares</div>
+            <div class="text-xs font-bold text-white truncate">Vans VIP</div>
+            <div class="text-[10px] text-slate-300 truncate">Sprinter e Master</div>
+          </div>
+        </div>
+
+        <!-- Card 03: Micro e Ônibus -->
+        <div class="vehicle-thumb-card p-2.5 flex items-center gap-2.5" data-slide="2">
+          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
+            <img src="img/servico_onibus_card.jpg" class="w-full h-full object-cover object-center" alt="Ônibus">
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-[9px] uppercase tracking-wider text-blue-400 font-bold truncate">16 a 46 Lugares</div>
+            <div class="text-xs font-bold text-white truncate">Ônibus e Micro</div>
+            <div class="text-[10px] text-slate-300 truncate">Volare DW9 31L</div>
+          </div>
+        </div>
+
+        <!-- Card 04: Caminhões e Cargas -->
+        <div class="vehicle-thumb-card p-2.5 flex items-center gap-2.5" data-slide="3">
+          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
+            <img src="img/servico_caminhao_center.jpg" class="w-full h-full object-cover object-center" alt="Caminhões">
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-[9px] uppercase tracking-wider text-blue-400 font-bold truncate">Cargas e Fretes</div>
+            <div class="text-xs font-bold text-white truncate">Caminhões Baú</div>
+            <div class="text-[10px] text-slate-300 truncate">Accelo e Furgões</div>
+          </div>
+        </div>
+
+        <!-- Card 05: Auto Socorro e Guincho -->
+        <div class="vehicle-thumb-card p-2.5 flex items-center gap-2.5" data-slide="4">
+          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
+            <img src="img/frota_guincho_plataforma.jpg" class="w-full h-full object-cover object-center" alt="Guincho">
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-[9px] uppercase tracking-wider text-red-400 font-bold truncate">Socorro 24h</div>
+            <div class="text-xs font-bold text-white truncate">Guincho VW</div>
+            <div class="text-[10px] text-slate-300 truncate">Delivery Prime</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- INDICADOR NUMÉRICO LATERAL DIREITO (01 -> 02 -> 03 -> 04 -> 05) -->
+    <div class="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-30 flex-col items-center select-none">
+      <div class="step-number active" data-slide="0">01</div>
+      <div class="vertical-indicator-track">
+        <div class="vertical-indicator-progress"></div>
+      </div>
+      <div class="step-number" data-slide="1">02</div>
+      <div class="h-1.5"></div>
+      <div class="step-number" data-slide="2">03</div>
+      <div class="h-1.5"></div>
+      <div class="step-number" data-slide="3">04</div>
+      <div class="h-1.5"></div>
+      <div class="step-number" data-slide="4">05</div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       MOTOR DE CONVERSÃO: SIMULADOR DE COTAÇÃO RÁPIDA
+       ========================================================= -->
+  <section id="cotacao" class="relative z-30 py-20 bg-gradient-to-b from-[#070d1e] via-[#0b1633] to-[#070d1e] border-t border-b border-blue-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-600/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">
+          <i class="fa-solid fa-calculator"></i> Cotação Expressa em 5 Minutos
+        </div>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Simule sua Viagem ou Frete</h2>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Preencha os dados e receba a confirmação de disponibilidade de veículo e cotação direta no WhatsApp comercial da Jansen.
+        </p>
+      </div>
+
+      <!-- Card do Simulador no Azul Jansen -->
+      <div class="glass-card rounded-2xl p-6 sm:p-10 border border-blue-500/20 shadow-2xl relative overflow-hidden">
+        
+        <!-- Luz de Fundo Azul -->
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <form id="quote-calculator-form" class="space-y-6 relative z-10">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            
+            <!-- Campo 1: Tipo de Serviço -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
+                <i class="fa-solid fa-car-side text-blue-400 mr-1.5"></i> Modalidade
+              </label>
+              <select id="sim-service" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+                <option value="executivo">Transporte Executivo e Transfer Aeroporto</option>
+                <option value="casamento">Carro para Casamento e Noivas (Corolla)</option>
+                <option value="byd">SUV Híbrido VIP (BYD Song Plus)</option>
+                <option value="van">Van Executiva VIP (Turismo e Grupos)</option>
+                <option value="onibus">Micro-ônibus Volare (31L) e Ônibus</option>
+                <option value="carga">Transporte de Cargas (Caminhão Baú / Furgão)</option>
+                <option value="guincho">Auto Socorro e Guincho Plataforma 24h</option>
+              </select>
+            </div>
+
+            <!-- Campo 2: Capacidade Pretendida -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
+                <i class="fa-solid fa-user-group text-blue-400 mr-1.5"></i> Capacidade / Volume
+              </label>
+              <select id="sim-passengers" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+                <option value="1-4">1 a 4 pessoas (Sedan Corolla e BYD)</option>
+                <option value="5-15" selected>5 a 15 pessoas (Van Executiva VIP)</option>
+                <option value="16-46">16 a 46 pessoas (Micro-ônibus e Ônibus)</option>
+                <option value="carga">Cargas Fracionadas ou Fechadas (Baú)</option>
+              </select>
+            </div>
+
+            <!-- Campo 3: Ponto de Origem -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
+                <i class="fa-solid fa-location-dot text-blue-400 mr-1.5"></i> Ponto de Coleta ou Origem
+              </label>
+              <input type="text" id="sim-origin" value="Vila Velha e Vitória" placeholder="Ex: Itapuã, Vila Velha" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+            </div>
+
+            <!-- Campo 4: Destino -->
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
+                <i class="fa-solid fa-flag-checkered text-blue-400 mr-1.5"></i> Destino
+              </label>
+              <input type="text" id="sim-destination" placeholder="Ex: Pedra Azul / Domingos Martins" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors" required>
+            </div>
+
+          </div>
+
+          <!-- Atalhos Rápidos de Destino no ES -->
+          <div>
+            <span class="text-[11px] text-slate-400 uppercase tracking-wider block mb-2 font-semibold">Destinos Frequentes no Espírito Santo:</span>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="dest-pill text-xs px-3.5 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 hover:border-blue-400 hover:text-white transition-colors text-slate-200" data-dest="Aeroporto de Vitória (VIX)">
+                ✈️ Aeroporto de Vitória
+              </button>
+              <button type="button" class="dest-pill text-xs px-3.5 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 hover:border-blue-400 hover:text-white transition-colors text-slate-200" data-dest="Pedra Azul / Domingos Martins">
+                ⛰️ Pedra Azul (Montanhas)
+              </button>
+              <button type="button" class="dest-pill text-xs px-3.5 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 hover:border-blue-400 hover:text-white transition-colors text-slate-200" data-dest="Praias de Guarapari">
+                🏖️ Praias de Guarapari
+              </button>
+              <button type="button" class="dest-pill text-xs px-3.5 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 hover:border-blue-400 hover:text-white transition-colors text-slate-200" data-dest="Convento da Penha / Morro do Moreno">
+                ⛪ Convento da Penha
+              </button>
+              <button type="button" class="dest-pill text-xs px-3.5 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 hover:border-blue-400 hover:text-white transition-colors text-slate-200" data-dest="Área Portuária e Industrial do ES">
+                🏭 Distrito Industrial e Portos
+              </button>
+            </div>
+          </div>
+
+          <!-- Linha Inferior: Data + Badge do Veículo Recomendado + Botão WhatsApp -->
+          <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5">
+            
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-1">
+                  Data Prevista
+                </label>
+                <input type="date" id="sim-date" class="bg-[#070d1e] border border-blue-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-400">
+              </div>
+              <div id="sim-recommended-vehicle" class="pt-4">
+                <!-- Inserido dinamicamente pelo JS -->
+              </div>
+            </div>
+
+            <button type="submit" id="sim-submit-whatsapp" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold text-sm tracking-wider uppercase flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] shadow-xl shadow-[#25D366]/25">
+              <i class="fa-brands fa-whatsapp text-xl"></i>
+              <span>Enviar Cotação para WhatsApp</span>
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       LINHA COMPLETA DE SERVIÇOS (SOLUÇÕES COMPLETAS EM TRANSPORTE E LOGÍSTICA)
+       ========================================================================= -->
+  <section id="servicos" class="py-20 bg-[#070d1e]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-[0.25em] block mb-2">Linha Completa de Serviços</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Soluções Completas em Transporte e Logística</h2>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Veículos executivos, vans, micro-ônibus, caminhões baú e guinchos com pontualidade e máximo rigor no Espírito Santo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Serviço 1: Casamentos e Cerimônias (Recepção Cerimonial com Motorista a Rigor) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_casamento_cerimonial.jpg" alt="Recepção de Casamentos e Noivas Jansen Transportes" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Noivas e Eventos
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Casamentos e Cerimônias</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Chegada triunfal com motorista particular a rigor abrindo a porta, ar-condicionado digital e vans executivas coordenadas para padrinhos e familiares no grande dia.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Casamento." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Cotar para Casamento</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 2: Transporte Executivo e Transfer Aeroporto (Ok) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_executivo_byd.jpg" alt="SUV BYD Song Plus Executivo Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Executivo VIP
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Executivo e Transfer Aeroporto</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Sedans executivos Toyota Corolla e SUV BYD Song Plus para viagens de negócios, recepção VIP no Aeroporto de Vitória (VIX) e deslocamentos corporativos com discrição.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Transporte%20Executivo." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Agendar Transfer</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 3: Vans VIP e Passeios Turísticos (Foto Aproximada e Centralizada) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_van_montanhas_zoom.jpg" alt="Van Mercedes Sprinter em Domingos Martins" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Turismo Capixaba
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Vans VIP e Passeios Turísticos</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Roteiros inesquecíveis: Pedra Azul, Rota do Lagarto, Domingos Martins, Convento da Penha e Praias de Guarapari com vans equipadas com ar duplo e poltronas reclináveis.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Passeios%20Tur%C3%ADsticos." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Roteiros no ES</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 4: Fretamento de Micro-ônibus e Ônibus (Foto 100% Preenchida - Ok) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_onibus_card.jpg" alt="Micro-ônibus Volare DW9 Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                31 Lugares
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Fretamento e Excursões</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Micro-ônibus Volare DW9 com 31 lugares e ônibus rodoviários executivos para congressos, viagens interestaduais, excursões escolares e eventos de empresas.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Micro-%C3%B4nibus." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Cotar Micro-ônibus</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 5: Transporte de Cargas e Baús (Foto Centralizada - Ok) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_caminhao_center.jpg" alt="Caminhão Mercedes Accelo Baú Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Logística Dedicada
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Transporte de Cargas e Baús</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Caminhões Mercedes Accelo 1016 com baú fechado para distribuição urbana, fretes dedicados de mercadorias, insumos industriais e logística comercial no Espírito Santo.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Transporte%20de%20Cargas." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Cotar Cargas e Frete</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 6: Auto Socorro e Guincho Plataforma 24h (Ok) -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="h-56 overflow-hidden relative bg-black/40">
+              <img src="img/servico_guincho_card.jpg" alt="Guincho Plataforma Volkswagen Delivery Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Emergência 24h
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 font-heading">Auto Socorro e Guincho 24h</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta para reboque e socorro imediato de veículos de passeio, vans e utilitários.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20preciso%20de%20um%20Guincho%20com%20urg%C3%AAncia." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-white uppercase tracking-wider transition-colors">
+              <span>Solicitar Guincho Agora</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       GALERIA DA FROTA COMPLETA EM DETALHES (FOTOS 100% REAIS)
+       ========================================================= -->
+  <section id="experiencia" class="py-20 bg-gradient-to-b from-[#070d1e] via-[#0b1633] to-[#070d1e] border-t border-blue-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-[0.25em] block mb-2">Transparência e Qualidade Real</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Nossa Frota Completa em Detalhes</h2>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Conheça cada um dos veículos próprios da Jansen: sedans, SUV híbrido, vans executivas, micro-ônibus, caminhões e guincho em operação real no ES.
+        </p>
+      </div>
+
+      <!-- Grid com 6 Destaques da Frota Completa -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Toyota Corolla Executivo -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/frota_corolla.jpg" alt="Toyota Corolla Executivo Jansen" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
+              <i class="fa-solid fa-car mr-1"></i> Sedan Executivo VIP
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Toyota Corolla com Motorista</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Ar-condicionado digital, bancos em couro e motorista a rigor para atendimento a noivas, diretorias e traslados ao Aeroporto de Vitória.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: SUV Híbrido BYD Song Plus -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-cyan-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/frota_byd_real.jpg" alt="BYD Song Plus SUV Jansen" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-cyan-300 text-[11px] font-bold px-3 py-1 rounded-full border border-cyan-500/30">
+              <i class="fa-solid fa-leaf mr-1"></i> SUV Premium Híbrido
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">BYD Song Plus Silencioso</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Alta tecnologia e rodagem silenciosa para executivos e clientes exigentes que buscam sofisticação e conforto premium.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: Vans no Hotel Quality Suites (Van Centralizada) -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/detalhe_van_hotel_center.jpg" alt="Van Renault Master no Hotel Quality Suites" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
+              <i class="fa-solid fa-hotel mr-1"></i> Recepção em Hotéis
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Recepção Noturna e Congressos</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Van Renault Master posicionada na portaria dos principais hotéis de Vila Velha e Vitória para recepção exclusiva de hóspedes e executivos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4: Interior VIP das Vans -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/frota_van_interior.jpg" alt="Interior da Van Executiva Jansen" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
+              <i class="fa-solid fa-couch mr-1"></i> Conforto Premium
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Poltronas Ergonômicas e Ar Duplo</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Capas personalizadas azuis Jansen, cortinas térmicas, iluminação individual e espaço amplo para você e seu grupo viajarem com comodidade.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 5: Micro-ônibus Volare DW9 Executivo (31 Lugares) -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/servico_onibus_card.jpg" alt="Micro-ônibus Volare DW9 Jansen" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
+              <i class="fa-solid fa-bus mr-1"></i> 31 Lugares Executivo
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Volare DW9 para Grupos e Turismo</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Veículo revisado com seguro APP de passageiros e registro ANTT para viagens de excursão, turismo em Domingos Martins e eventos escolares.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 6: Caminhões Mercedes Baú e Guincho 24h -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
+          <div class="h-64 overflow-hidden relative">
+            <img src="img/frota_caminhao_815.jpg" alt="Caminhão Mercedes Accelo Baú" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-3 py-1 rounded-full border border-emerald-500/30">
+              <i class="fa-solid fa-truck-ramp-box mr-1"></i> Cargas e Socorro 24h
+            </span>
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Accelo Baú e Guincho Plataforma</h4>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Caminhões baú de alumínio para logística dedicada e caminhão guincho VW Delivery com plataforma hidráulica e asa delta para reboque 24 horas.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       CENTRAL DE GUIAS E DICAS DE TRANSPORTE NO ES (ESTRATÉGIA SEO E GEO IA)
+       ========================================================================= -->
+  <section id="guias" class="py-20 bg-[#070d1e] border-t border-blue-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-[0.25em] block mb-2">Inteligência de Rotas e Turismo</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Dicas e Guias de Transporte no ES</h2>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Informações práticas e roteiros para transfers aeroportuários, casamentos, viagens para montanhas capixabas e logística de eventos.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Artigo 1: Rota das Montanhas (Hotel Fazenda China Park e Região Serrana) -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-400/50 transition-all">
+          <div>
+            <div class="h-48 overflow-hidden relative">
+              <img src="img/guia_china_park_montanhas.jpg" alt="Van Jansen no Hotel Fazenda China Park e Rota das Montanhas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Roteiro Turístico
+              </span>
+            </div>
+            <div class="p-6">
+              <span class="text-[11px] text-blue-400 font-semibold block mb-1">Guia Regional • Montanhas Capixabas</span>
+              <h3 class="text-lg font-bold text-white mb-2 font-heading leading-snug">
+                Como Planejar Viagem em Grupo para Pedra Azul e Domingos Martins
+              </h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Descubra as vantagens do aluguel de vans executivas com motorista experiente na BR-262: paradas gastronômicas, segurança nas curvas da serra e tranquilidade para toda a família.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Leitura de 3 min</span>
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vi%20o%20guia%20de%20Pedra%20Azul%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20van." target="_blank" class="text-xs font-bold text-blue-400 hover:text-white flex items-center gap-1.5 transition-colors">
+              <span>Cotar Roteiro</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Artigo 2: Casamentos e Transporte de Noivas (Recepção com Motorista a Rigor) -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-400/50 transition-all">
+          <div>
+            <div class="h-48 overflow-hidden relative">
+              <img src="img/servico_casamento_cerimonial.jpg" alt="Recepção de Noiva e Carro de Casamento com Motorista Particular no ES" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Casamentos no ES
+              </span>
+            </div>
+            <div class="p-6">
+              <span class="text-[11px] text-blue-400 font-semibold block mb-1">Checklist • Noivas de Vila Velha e Vitória</span>
+              <h3 class="text-lg font-bold text-white mb-2 font-heading leading-snug">
+                Transporte no Grande Dia: Do Salão à Cerimônia sem Imprevistos
+              </h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Tudo o que você precisa saber ao contratar o carro da noiva executivo e coordenar vans para padrinhos e convidados com pontualidade impecável em igrejas e cerimonais.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Leitura de 4 min</span>
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Transporte%20de%20Casamento." target="_blank" class="text-xs font-bold text-blue-400 hover:text-white flex items-center gap-1.5 transition-colors">
+              <span>Cotar Casamento</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Artigo 3: Transfer Aeroporto VIX Corporativo (Frota Premium e Agilidade) -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-400/50 transition-all">
+          <div>
+            <div class="h-48 overflow-hidden relative">
+              <img src="img/guia_aeroporto_executivo.jpg" alt="Transfer Executivo Aeroporto de Vitória VIX com Frota Premium" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                Corporativo VIP
+              </span>
+            </div>
+            <div class="p-6">
+              <span class="text-[11px] text-blue-400 font-semibold block mb-1">Logística de Negócios • Aeroporto VIX</span>
+              <h3 class="text-lg font-bold text-white mb-2 font-heading leading-snug">
+                Transfer Aeroporto de Vitória: Por Que Empresas Preferem Faturamento Mensal
+              </h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Entenda como a recepção com placa de identificação, monitoramento de voo em tempo real e emissão de Nota Fiscal simplificam a gestão corporativa de viagens no ES.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Leitura de 3 min</span>
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento%20para%20Transfer%20Corporativo." target="_blank" class="text-xs font-bold text-blue-400 hover:text-white flex items-center gap-1.5 transition-colors">
+              <span>Cotar Transfer</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       DIFERENCIAIS E CREDIBILIDADE (ÍCONES CORRIGIDOS E CONTADOR)
+       ========================================================= -->
+  <section id="diferenciais" class="py-20 bg-gradient-to-b from-[#070d1e] to-[#0a142c]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-[0.25em] block mb-2">Garantia e Confiança</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Por Que Escolher a Jansen Transportes?</h2>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Segurança jurídica, pontualidade britânica e veículos próprios sempre higienizados e revisados.
+        </p>
+      </div>
+
+      <!-- 4 Pilares com Ícones Visíveis e Certificados -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="glass-card p-6 rounded-xl border border-blue-500/20">
+          <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-xl mb-4">
+            <i class="fa-solid fa-certificate"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 font-heading">ANTT e CADASTUR</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Empresa 100% legalizada perante os órgãos de fiscalização federal e estadual. Viagens com tranquilidade e seguro total de passageiros e cargas.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl border border-blue-500/20">
+          <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-xl mb-4">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 font-heading">Pontualidade Rigorosa</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Motoristas posicionados com antecedência no local combinado e monitoramento de voos em tempo real para recepção no aeroporto.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl border border-blue-500/20">
+          <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-xl mb-4">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 font-heading">Faturamento Corporativo</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Emissão de Nota Fiscal eletrônica para empresas, contratos de prestação de serviços e faturamento quinzenal ou mensal.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl border border-blue-500/20">
+          <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-xl mb-4">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 font-heading">Motoristas Profissionais</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Condutores discretos, educados e treinados para condução defensiva e trajetos rodoviários no Espírito Santo e interestaduais.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Números Oficiais da Jansen com Animação Contador -->
+      <div id="counter-section" class="mt-14 pt-10 border-t border-blue-900/40 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl sm:text-5xl font-extrabold text-blue-400 font-heading mb-1 counter-item" data-target="4.9" data-prefix="⭐ " data-decimals="1">⭐ 0.0</div>
+          <div class="text-xs uppercase tracking-wider text-slate-200 font-bold">+120 Avaliações no Google</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-extrabold text-blue-400 font-heading mb-1 counter-item" data-target="10000" data-prefix="+" data-separator=".">+0</div>
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Viagens Concluídas</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-extrabold text-blue-400 font-heading mb-1 counter-item" data-target="2050" data-prefix="+" data-separator=".">+0</div>
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Clientes Atendidos</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-extrabold text-blue-400 font-heading mb-1 counter-item" data-target="10" data-prefix="" data-suffix="+ Anos">0+ Anos</div>
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">De Tradição no ES</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       DEPOIMENTOS REAIS DOS CLIENTES (FOTOS REAIS E 5 ESTRELAS)
+       ========================================================= -->
+  <section id="depoimentos" class="py-20 bg-[#070d1e]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-[0.25em] block mb-2">Quem Contratou Recomenda</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Veja a Opinião dos Nossos Clientes</h2>
+        <div class="flex items-center justify-center gap-1.5 text-amber-400 text-sm mb-2">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span class="text-slate-200 font-bold text-xs ml-2">Nota 4.9 no Google com mais de 120 avaliações</span>
+        </div>
+      </div>
+
+      <!-- Grid com as 4 Avaliações Reais dos Clientes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Depoimento 1: Rayssa Couto -->
+        <div class="glass-card p-6 rounded-2xl border border-blue-500/20 relative flex flex-col justify-between">
+          <i class="fa-solid fa-quote-right text-blue-500/10 text-5xl absolute top-4 right-4 pointer-events-none"></i>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="img/feedback1.png" alt="Rayssa Couto" class="w-12 h-12 rounded-full object-cover border-2 border-blue-400 shadow-md">
+              <div>
+                <h4 class="text-sm font-bold text-white font-heading">rayssacouto_</h4>
+                <div class="text-amber-400 text-xs">★★★★★</div>
+              </div>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              "Empresa de qualidade e satisfação. Além de possuir ótimos veículos. Vale a pena contratar 👏🏻🤝🏻"
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/10 text-[10px] text-blue-400 font-semibold">
+            Cliente Verificada • Avaliação Google
+          </div>
+        </div>
+
+        <!-- Depoimento 2: Isabele Victoriano -->
+        <div class="glass-card p-6 rounded-2xl border border-blue-500/20 relative flex flex-col justify-between">
+          <i class="fa-solid fa-quote-right text-blue-500/10 text-5xl absolute top-4 right-4 pointer-events-none"></i>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="img/feedback2.png" alt="Isabele Victoriano" class="w-12 h-12 rounded-full object-cover border-2 border-blue-400 shadow-md">
+              <div>
+                <h4 class="text-sm font-bold text-white font-heading">isabelevitorianoo</h4>
+                <div class="text-amber-400 text-xs">★★★★★</div>
+              </div>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              "Profissionais que não encontrei em outros lugares! Gostei demais, recomendo para todos"
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/10 text-[10px] text-blue-400 font-semibold">
+            Cliente Verificada • Avaliação Google
+          </div>
+        </div>
+
+        <!-- Depoimento 3: Vivi Wagmaker -->
+        <div class="glass-card p-6 rounded-2xl border border-blue-500/20 relative flex flex-col justify-between">
+          <i class="fa-solid fa-quote-right text-blue-500/10 text-5xl absolute top-4 right-4 pointer-events-none"></i>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="img/feedback3.png" alt="Vivi Wagmaker" class="w-12 h-12 rounded-full object-cover border-2 border-blue-400 shadow-md">
+              <div>
+                <h4 class="text-sm font-bold text-white font-heading">vivi_wagmaker</h4>
+                <div class="text-amber-400 text-xs">★★★★★</div>
+              </div>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              "Empresa que presta um serviço de qualidade 👏 super indico"
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/10 text-[10px] text-blue-400 font-semibold">
+            Cliente Verificada • Avaliação Google
+          </div>
+        </div>
+
+        <!-- Depoimento 4: Rebeca Meireles -->
+        <div class="glass-card p-6 rounded-2xl border border-blue-500/20 relative flex flex-col justify-between">
+          <i class="fa-solid fa-quote-right text-blue-500/10 text-5xl absolute top-4 right-4 pointer-events-none"></i>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="img/feedback4.png" alt="Rebeca Meireles" class="w-12 h-12 rounded-full object-cover border-2 border-blue-400 shadow-md">
+              <div>
+                <h4 class="text-sm font-bold text-white font-heading">rebeca.meireless</h4>
+                <div class="text-amber-400 text-xs">★★★★★</div>
+              </div>
+            </div>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              "Empresa incrível, com profissionais capacitados e qualificados!!! 👏👏"
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/10 text-[10px] text-blue-400 font-semibold">
+            Cliente Verificada • Avaliação Google
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       BANNER FINAL DE CONVERSÃO
+       ========================================================= -->
+  <section class="py-16 bg-gradient-to-r from-[#060c1c] via-[#0e1d44] to-[#060c1c] border-t border-b border-blue-500/30 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+      <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">
+        Pronto Para Reservar Seu Transporte ou Frete?
+      </h2>
+      <p class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-normal">
+        Atendimento imediato pelo WhatsApp para cotações personalizadas de passageiros, turismo, casamentos, cargas e socorro guincho.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20e%20gostaria%20de%20um%20or%C3%A7amento%20personalizado." target="_blank" class="px-8 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-extrabold text-sm uppercase tracking-wider flex items-center gap-3 shadow-xl shadow-[#25D366]/30 transition-all transform hover:scale-105">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          <span>Falar no WhatsApp (27) 99739-2787</span>
+        </a>
+        <a href="tel:5527992733774" class="px-8 py-4 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 text-white font-bold text-sm uppercase tracking-wider flex items-center gap-3 border border-blue-400/40 transition-all">
+          <i class="fa-solid fa-phone text-blue-400"></i>
+          <span>Ligar (27) 99273-3774</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       RODAPÉ JANSEN (LOGOTIPO AMPLIADO E MAJESTOSO)
+       ========================================================= -->
+  <footer id="contato" class="bg-[#040814] text-slate-400 py-16 border-t border-blue-900/30 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        
+        <!-- Coluna 1: Logotipo Aumentado e Sobre -->
+        <div class="space-y-4">
+          <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-20 sm:h-24 w-auto object-contain">
+          <p class="leading-relaxed text-slate-300">
+            Jansen Turismo e Locação de Van e Carros (com motorista), Transporte de Cargas e Auto Socorro. Mais de 10 anos oferecendo conforto, segurança e pontualidade no Espírito Santo e em todo o Brasil.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="https://www.instagram.com/jansentransportes/" target="_blank" class="w-9 h-9 rounded-full bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-white hover:text-blue-400 hover:border-blue-400 transition-colors" title="Instagram Oficial">
+              <i class="fa-brands fa-instagram text-sm"></i>
+            </a>
+            <a href="https://www.facebook.com/people/Jansen-Transportes/61566434127089/?locale=pt_BR" target="_blank" class="w-9 h-9 rounded-full bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-white hover:text-blue-400 hover:border-blue-400 transition-colors" title="Facebook Oficial">
+              <i class="fa-brands fa-facebook-f text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Navegação -->
+        <div>
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4 font-heading">Navegação</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#hero-scrolly" class="hover:text-blue-400 transition-colors">Nossa Frota</a></li>
+            <li><a href="#cotacao" class="hover:text-blue-400 transition-colors">Simulador de Viagem e Frete</a></li>
+            <li><a href="#servicos" class="hover:text-blue-400 transition-colors">Serviços Oferecidos</a></li>
+            <li><a href="#experiencia" class="hover:text-blue-400 transition-colors">Galeria Real em Ação</a></li>
+            <li><a href="#guias" class="hover:text-blue-400 transition-colors">Dicas e Rotas no ES</a></li>
+            <li><a href="#diferenciais" class="hover:text-blue-400 transition-colors">Segurança e Certificações</a></li>
+            <li><a href="#depoimentos" class="hover:text-blue-400 transition-colors">Avaliações Google</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Atendimento e Endereço -->
+        <div>
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4 font-heading">Atendimento e Endereço</h4>
+          <ul class="space-y-3 text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-location-dot text-blue-400 mt-0.5"></i>
+              <span>R. Curitiba - Itapuã, Vila Velha - ES, 29101-420</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-brands fa-whatsapp text-[#25D366]"></i>
+              <a href="https://wa.me/5527997392787" target="_blank" class="hover:text-white transition-colors font-semibold">(27) 99739-2787</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-phone text-blue-400"></i>
+              <a href="tel:5527992733774" class="hover:text-white transition-colors font-semibold">(27) 99273-3774</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-envelope text-blue-400"></i>
+              <span>alex.jansen.29@hotmail.com</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-clock text-blue-400"></i>
+              <span>Atendimento 24 Horas / 7 Dias</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Coluna 4: Certificações Oficiais -->
+        <div>
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4 font-heading">Certificações Oficiais</h4>
+          <p class="text-slate-300 mb-3 leading-relaxed">
+            Transporte de passageiros e cargas em conformidade com as normas federais e seguro rodoviário obrigatório.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 text-[11px] text-blue-300 font-bold">ANTT</span>
+            <span class="px-3 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 text-[11px] text-blue-300 font-bold">CADASTUR</span>
+            <span class="px-3 py-1.5 rounded-lg bg-blue-950/60 border border-blue-500/30 text-[11px] text-blue-300 font-bold">SEGURO APP</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-blue-900/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <p>© 2026 Jansen Transportes e Serviços. Todos os direitos reservados.</p>
+        <p class="text-[11px]">Desenvolvido com foco em alta performance e conversão de vendas.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       BARRA FIXA MOBILE DE ALTA CONVERSÃO (STICKY BOTTOM BAR)
+       ========================================================= -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#070d1e]/95 backdrop-blur-lg border-t border-blue-500/30 p-2.5 flex items-center gap-2 shadow-2xl">
+    <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20e%20gostaria%20de%20um%20or%C3%A7amento%20r%C3%A1pido." target="_blank" class="flex-1 py-3 px-4 rounded-xl bg-[#25D366] text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg leading-none">
+      <i class="fa-brands fa-whatsapp text-lg leading-none"></i>
+      <span class="leading-none">Orçamento no WhatsApp</span>
+    </a>
+    <a href="tel:5527992733774" class="py-3 px-4 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0">
+      <i class="fa-solid fa-phone"></i>
+    </a>
+  </div>
+
+  <!-- BOTÃO FLUTUANTE DE WHATSAPP DESKTOP -->
+  <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="hidden md:flex fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-black items-center justify-center text-2xl pulse-glow shadow-2xl hover:scale-110 transition-transform" title="Fale Conosco no WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- GSAP e ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Script Principal -->
+  <script src="js/main.js"></script>
+</body>
+</html>

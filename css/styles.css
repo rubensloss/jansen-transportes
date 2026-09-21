@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Identidade Visual Jansen - Azul Escuro Predominante */
+  --color-bg: #070d1e;
+  --color-bg-darker: #040814;
+  --color-surface: #0d1733;
+  --color-surface-card: rgba(13, 23, 51, 0.88);
+  --color-jansen-blue: #1d4ed8;
+  --color-jansen-blue-light: #3b82f6;
+  --color-jansen-cyan: #00d2ff;
+  --color-jansen-glow: rgba(59, 130, 246, 0.35);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-blue: rgba(59, 130, 246, 0.5);
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: #f8fafc;
+  font-family: var(--font-body);
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism Navbar com alinhamento perfeito */
+.glass-nav {
+  background: rgba(7, 13, 30, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: var(--color-surface-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-border);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--color-border-blue);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 0 0 26px var(--color-jansen-glow);
+}
+
+/* =========================================================
+   HERO SCROLLYTELLING: FOTOS REAIS PEGANDO A TELA TODA (100vh)
+   ========================================================= */
+.hero-fullscreen-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
+  background-color: var(--color-bg-darker);
+}
+
+/* Camadas de Imagem de Fundo em Tela Cheia */
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(1.04);
+  z-index: 1;
+}
+
+.hero-bg-layer.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Imagens em Tela Cheia com Posicionamento Calibrado */
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(1.08) brightness(0.92);
+}
+
+/* Calibração de enquadramento para cada veículo ficar perfeito e sem cortes */
+.hero-bg-img.pos-sedan,
+.hero-bg-img.pos-byd,
+.hero-bg-img.pos-van,
+.hero-bg-img.pos-onibus,
+.hero-bg-img.pos-caminhao,
+.hero-bg-img.pos-guincho {
+  object-position: center center;
+}
+
+@media (max-width: 1024px) {
+  .hero-bg-img.pos-sedan,
+  .hero-bg-img.pos-byd,
+  .hero-bg-img.pos-onibus,
+  .hero-bg-img.pos-caminhao,
+  .hero-bg-img.pos-guincho {
+    object-position: 76% 40%;
+  }
+  .hero-bg-img.pos-van {
+    object-position: 42% 50%;
+  }
+}
+
+/* Scrim Gradiente Direcional para contraste cinematográfico */
+.hero-scrim-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: 
+    linear-gradient(90deg, rgba(7, 13, 30, 0.96) 0%, rgba(7, 13, 30, 0.88) 35%, rgba(7, 13, 30, 0.45) 65%, rgba(7, 13, 30, 0.2) 85%, rgba(7, 13, 30, 0.6) 100%),
+    linear-gradient(180deg, rgba(7, 13, 30, 0.85) 0%, transparent 18%, transparent 70%, rgba(7, 13, 30, 0.98) 100%);
+}
+
+@media (max-width: 1023px) {
+  .hero-scrim-overlay {
+    background: linear-gradient(180deg, rgba(7, 13, 30, 0.9) 0%, rgba(7, 13, 30, 0.65) 45%, rgba(7, 13, 30, 0.92) 80%, rgba(7, 13, 30, 1) 100%);
+  }
+}
+
+/* Conteúdo em Primeiro Plano do Hero */
+.hero-content-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 100px;
+  padding-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+  .hero-content-container {
+    padding-top: 110px;
+    padding-bottom: 32px;
+  }
+}
+
+/* Indicador Vertical Lateral (01 a 05) */
+.vertical-indicator-track {
+  width: 3px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+  margin: 10px auto;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.vertical-indicator-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: #3b82f6;
+  border-radius: 9999px;
+  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  box-shadow: 0 0 14px #3b82f6;
+}
+
+.step-number {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.35);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 3px 0;
+}
+
+.step-number.active {
+  color: #60a5fa;
+  transform: scale(1.3);
+  text-shadow: 0 0 14px rgba(59, 130, 246, 0.7);
+}
+
+/* Cards Inferiores do Showcase da Frota - 5 Colunas com Glassmorphism */
+.vehicle-thumb-card {
+  background: rgba(13, 23, 51, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.vehicle-thumb-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #3b82f6;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.vehicle-thumb-card:hover {
+  border-color: rgba(59, 130, 246, 0.55);
+  background: rgba(20, 35, 75, 0.95);
+  transform: translateY(-2px);
+}
+
+.vehicle-thumb-card.active {
+  border-color: #3b82f6;
+  background: rgba(20, 35, 75, 0.98);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.35);
+}
+
+.vehicle-thumb-card.active::before {
+  transform: scaleX(1);
+}
+
+/* Textos e Animações dos Slides */
+.slide-caption-item {
+  display: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-caption-item.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Efeito Pulsante WhatsApp */
+.pulse-glow {
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070d1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1b294e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-bg-layer {
+    transform: none !important;
+  }
+}
