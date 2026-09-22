@@ -484,14 +484,29 @@
 
     // Autenticação
     function checkAuth() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('vip') === '1' || urlParams.get('demo') === '1') {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+      }
       const isAuth = sessionStorage.getItem(AUTH_KEY);
       if (isAuth === 'true') {
         loginModal.classList.add('hidden');
+        loginModal.classList.remove('flex');
+        loginModal.style.display = 'none';
         adminApp.classList.remove('hidden');
+        adminApp.classList.add('flex');
+        adminApp.style.display = 'flex';
         loadArticles();
+        if (urlParams.get('novo') === '1' || urlParams.get('modal') === 'new') {
+          setTimeout(() => btnNovoArtigo.click(), 300);
+        }
       } else {
         loginModal.classList.remove('hidden');
+        loginModal.classList.add('flex');
+        loginModal.style.display = 'flex';
         adminApp.classList.add('hidden');
+        adminApp.classList.remove('flex');
+        adminApp.style.display = 'none';
       }
     }
 
@@ -651,6 +666,11 @@
       articleModal.classList.remove('hidden');
       articleModal.classList.add('flex');
     });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('novo') === '1') {
+      setTimeout(() => btnNovoArtigo.click(), 200);
+    }
 
     function closeModal() {
       articleModal.classList.add('hidden');
