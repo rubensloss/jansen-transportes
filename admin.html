@@ -268,24 +268,91 @@
             <textarea id="form-summary" rows="2" placeholder="Resumo atraente de até 2 linhas que convida o leitor a clicar..." class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400" required></textarea>
           </div>
 
-          <div class="sm:col-span-2">
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-              Imagem de Capa (URL ou Selecione da Frota Jansen) *
-            </label>
-            <div class="flex items-center gap-2 mb-2">
-              <input type="text" id="form-cover-image" placeholder="Ex: img/guia_china_park_montanhas.jpg" class="flex-1 bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400" required>
+          <div class="sm:col-span-2 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+                Imagem de Capa do Artigo *
+              </label>
+              <span class="text-[11px] text-blue-400 font-medium">Pré-visualização em tempo real</span>
             </div>
-            
-            <!-- Botões de Seleção Rápida de Fotos Oficiais -->
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              <span class="text-[10px] text-slate-400 block w-full mb-1">Fotos Oficiais da Frota Jansen:</span>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/guia_china_park_montanhas.jpg">Van China Park</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/servico_casamento_cerimonial.jpg">Casamento Noiva</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/guia_aeroporto_executivo.jpg">Transfer Aeroporto</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_van_hotel.jpg">Van Master VIP Hotel</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_onibus_real.jpg">Micro-ônibus Volare</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_corolla.jpg">Corolla Executivo</button>
-              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_guincho_plataforma.jpg">Guincho Delivery</button>
+
+            <!-- Card de Pré-visualização com Ação de Upload -->
+            <div class="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden border border-blue-500/30 bg-[#030712] shadow-inner group">
+              <img id="cover-preview-img" src="img/guia_china_park_montanhas.jpg" alt="Pré-visualização da Capa" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-between p-4 pointer-events-none">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[11px] text-white font-semibold self-start pointer-events-auto">
+                  <i class="fa-solid fa-eye text-blue-400"></i> Capa Ativa
+                </span>
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pointer-events-auto">
+                  <span id="cover-filename-badge" class="text-xs text-slate-300 bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 truncate max-w-full sm:max-w-xs font-mono">
+                    img/guia_china_park_montanhas.jpg
+                  </span>
+                  <button type="button" id="btn-trigger-upload" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                    <span>Carregar Foto do Computador</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input invisível de Upload -->
+            <input type="file" id="cover-file-input" accept="image/png, image/jpeg, image/webp" class="hidden">
+
+            <!-- Galeria com Miniaturas Reais da Frota Jansen -->
+            <div class="space-y-2 pt-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  Ou escolha uma foto oficial da frota Jansen:
+                </span>
+                <span class="text-[10px] text-slate-500">Clique na miniatura para aplicar</span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/guia_china_park_montanhas.jpg" data-name="Van China Park">
+                  <img src="img/guia_china_park_montanhas.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Van China Park">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Van Montanha</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/servico_casamento_cerimonial.jpg" data-name="Casamento Noiva">
+                  <img src="img/servico_casamento_cerimonial.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Casamento">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Casamento</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/guia_aeroporto_executivo.jpg" data-name="Transfer Aeroporto">
+                  <img src="img/guia_aeroporto_executivo.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Aeroporto">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Aeroporto VIX</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/frota_van_hotel.jpg" data-name="Van Master Hotel">
+                  <img src="img/frota_van_hotel.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Van Hotel">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Van Hotel</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/frota_onibus_real.jpg" data-name="Micro-ônibus Volare">
+                  <img src="img/frota_onibus_real.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Micro-ônibus">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Micro-ônibus</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/frota_corolla.jpg" data-name="Corolla Executivo">
+                  <img src="img/frota_corolla.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Corolla">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Corolla Sedã</span>
+                </button>
+
+                <button type="button" class="quick-img-card group p-1.5 rounded-xl bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-400/50 text-left transition-all" data-img="img/frota_guincho_plataforma.jpg" data-name="Guincho 24h">
+                  <img src="img/frota_guincho_plataforma.jpg" class="w-full h-12 object-cover rounded-lg mb-1" alt="Guincho">
+                  <span class="block text-[10px] text-slate-300 font-medium truncate group-hover:text-white">Guincho 24h</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Opção de Link / URL Externa -->
+            <div class="pt-1">
+              <label class="block text-[11px] font-semibold text-slate-400 mb-1">
+                Ou cole uma URL / link de imagem da internet:
+              </label>
+              <input type="text" id="form-cover-image" placeholder="Ex: https://meusite.com/foto.jpg ou img/minha_foto.jpg" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400" required>
             </div>
           </div>
 
@@ -550,12 +617,36 @@
       renderArticlesTable(filtered);
     });
 
+    const coverPreviewImg = document.getElementById('cover-preview-img');
+    const coverFilenameBadge = document.getElementById('cover-filename-badge');
+    const btnTriggerUpload = document.getElementById('btn-trigger-upload');
+    const coverFileInput = document.getElementById('cover-file-input');
+    const formCoverImage = document.getElementById('form-cover-image');
+
+    function setCoverImage(src, name) {
+      if (!src) return;
+      formCoverImage.value = src;
+      if (coverPreviewImg) coverPreviewImg.src = src;
+      if (coverFilenameBadge) {
+        coverFilenameBadge.innerText = name || (src.startsWith('data:') ? 'Foto carregada do dispositivo' : src);
+      }
+      document.querySelectorAll('.quick-img-card').forEach(c => {
+        if (c.getAttribute('data-img') === src) {
+          c.classList.add('border-blue-400', 'bg-blue-600/30', 'ring-2', 'ring-blue-500/50');
+          c.classList.remove('border-white/10', 'bg-white/5');
+        } else {
+          c.classList.remove('border-blue-400', 'bg-blue-600/30', 'ring-2', 'ring-blue-500/50');
+          c.classList.add('border-white/10', 'bg-white/5');
+        }
+      });
+    }
+
     // Abrir Modal de Novo Artigo
     btnNovoArtigo.addEventListener('click', () => {
       document.getElementById('modal-title').innerText = 'Criar Novo Artigo';
       document.getElementById('form-article-id').value = '';
       articleForm.reset();
-      document.getElementById('form-cover-image').value = 'img/guia_china_park_montanhas.jpg';
+      setCoverImage('img/guia_china_park_montanhas.jpg', 'Van China Park (Montanhas Capixabas)');
       document.getElementById('form-read-time').value = '3 min';
       articleModal.classList.remove('hidden');
       articleModal.classList.add('flex');
@@ -569,11 +660,56 @@
     closeModalBtn.addEventListener('click', closeModal);
     cancelArticleBtn.addEventListener('click', closeModal);
 
-    // Botões de Seleção Rápida de Imagens
-    document.querySelectorAll('.quick-img-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById('form-cover-image').value = btn.getAttribute('data-img');
+    // Botão de Carregar Foto do Computador / Celular
+    btnTriggerUpload.addEventListener('click', () => {
+      coverFileInput.click();
+    });
+
+    // Leitura e Compressão Inteligente da Imagem Escolhida pelo Usuário
+    coverFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxWidth = 1200;
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          setCoverImage(optimizedDataUrl, `📁 ${file.name}`);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Clique nas Miniaturas da Frota Jansen
+    document.querySelectorAll('.quick-img-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const imgPath = card.getAttribute('data-img');
+        const imgName = card.getAttribute('data-name');
+        setCoverImage(imgPath, imgName);
       });
+    });
+
+    // Sincronização ao Digitar ou Colar URL
+    formCoverImage.addEventListener('input', () => {
+      const val = formCoverImage.value.trim();
+      if (val) {
+        if (coverPreviewImg) coverPreviewImg.src = val;
+        if (coverFilenameBadge) coverFilenameBadge.innerText = val;
+      }
     });
 
     // Submissão do Formulário de Artigo
@@ -644,7 +780,7 @@
       document.getElementById('form-category').value = post.category;
       document.getElementById('form-tag').value = post.categoryTag || '';
       document.getElementById('form-summary').value = post.summary;
-      document.getElementById('form-cover-image').value = post.coverImage;
+      setCoverImage(post.coverImage, post.title);
       document.getElementById('form-read-time').value = post.readTime || '3 min';
       document.getElementById('form-recommended-vehicle').value = post.recommendedVehicle || '';
       document.getElementById('form-whatsapp-text').value = post.whatsappText || '';
