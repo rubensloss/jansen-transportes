@@ -111,8 +111,11 @@
        ========================================================================= -->
   <section id="hero-scrolly" class="hero-fullscreen-section">
     
-    <!-- Camada 01: Toyota Corolla Executivo / BYD Song Plus (Foto 100% Inteira) -->
-    <div class="hero-bg-layer active">
+    <!-- WRAPPER DESKTOP (Apenas telas grandes lg: >= 1024px) -->
+    <div class="hidden lg:block w-full h-full relative">
+      
+      <!-- Camada 01: Toyota Corolla Executivo / BYD Song Plus (Foto 100% Inteira) -->
+      <div class="hero-bg-layer active">
       <img src="img/frota_corolla_hero_perfect.jpg" alt="Toyota Corolla Executivo Jansen" class="hero-bg-img pos-sedan">
       <div class="hero-scrim-overlay"></div>
     </div>
@@ -331,6 +334,165 @@
       <div class="h-1.5"></div>
       <div class="step-number" data-slide="4">05</div>
     </div>
+
+  </div> <!-- /WRAPPER DESKTOP -->
+
+  <!-- =========================================================================
+       HERO MOBILE SPLIT-SCREEN SHOWCASE (Exclusivo Mobile / Tablet < 1024px)
+       Foto 100% Limpa, Rolagem Livre sem Travamento e Navegação Touch Instantânea
+       ========================================================================= -->
+  <div class="block lg:hidden w-full pt-24 pb-8 px-4 bg-gradient-to-b from-[#070d1e] via-[#09132e] to-[#070d1e]">
+    <div class="max-w-lg mx-auto">
+      
+      <!-- Topo: Selo de Autoridade Compacto -->
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/90 border border-blue-500/40 text-[11px] text-blue-200 font-semibold shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
+          <span>10+ Anos no ES</span>
+          <span class="text-slate-500">•</span>
+          <div class="flex items-center gap-1 text-amber-400">
+            <i class="fa-solid fa-star text-[10px]"></i>
+            <span class="font-bold text-white text-[11px]">4.9</span>
+            <span class="text-slate-300 text-[10px]">(+120 avaliações)</span>
+          </div>
+        </div>
+        <span class="text-[10px] uppercase tracking-wider text-blue-400 font-extrabold px-2.5 py-0.5 rounded-full bg-blue-900/40 border border-blue-500/30">Grande Vitória</span>
+      </div>
+
+      <!-- Seletor de Veículos em Abas Touch (Scroll Horizontal Suave) -->
+      <div class="relative mb-3">
+        <div id="mobile-fleet-tabs" class="flex gap-2 overflow-x-auto pb-1.5 scrollbar-none no-scrollbar touch-pan-x">
+          <button type="button" class="mobile-tab-btn active px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 border border-blue-400/50 text-white bg-blue-600 shadow-md shadow-blue-600/30" data-index="0">
+            <i class="fa-solid fa-car"></i> Sedan & SUV
+          </button>
+          <button type="button" class="mobile-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-white/5 text-slate-300 hover:text-white border border-white/10" data-index="1">
+            <i class="fa-solid fa-van-shuttle"></i> Vans VIP
+          </button>
+          <button type="button" class="mobile-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-white/5 text-slate-300 hover:text-white border border-white/10" data-index="2">
+            <i class="fa-solid fa-bus"></i> Ônibus & Micro
+          </button>
+          <button type="button" class="mobile-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-white/5 text-slate-300 hover:text-white border border-white/10" data-index="3">
+            <i class="fa-solid fa-truck"></i> Caminhões Baú
+          </button>
+          <button type="button" class="mobile-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-white/5 text-slate-300 hover:text-white border border-white/10" data-index="4">
+            <i class="fa-solid fa-truck-pickup text-red-400"></i> Guincho 24h
+          </button>
+        </div>
+      </div>
+
+      <!-- Vitrine Visual da Foto (16:10, 100% Limpa, Sem Texto Cobrindo o Veículo) -->
+      <div id="mobile-photo-viewport" class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-white/15 bg-[#030712] shadow-2xl touch-pan-y">
+        
+        <!-- Slide 00: Corolla Executivo e BYD -->
+        <div class="mobile-photo-slide active absolute inset-0 transition-opacity duration-300" data-index="0">
+          <img src="img/frota_corolla.jpg" alt="Toyota Corolla Executivo e BYD Song Plus" class="w-full h-full object-cover object-center">
+          <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
+            1 a 4 Lugares • Sedans e SUV
+          </div>
+        </div>
+
+        <!-- Slide 01: Van Renault Master VIP (Foto Oficial da Área de Trabalho) -->
+        <div class="mobile-photo-slide absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300" data-index="1">
+          <img src="img/frota_van_hotel.jpg" alt="Van Executiva Renault Master VIP Jansen 01" class="w-full h-full object-cover object-center">
+          <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
+            5 a 15 Lugares • Vans VIP com Motorista
+          </div>
+        </div>
+
+        <!-- Slide 02: Micro-ônibus Volare DW9 -->
+        <div class="mobile-photo-slide absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300" data-index="2">
+          <img src="img/frota_onibus_real.jpg" alt="Micro-ônibus Volare DW9 Jansen" class="w-full h-full object-cover object-center">
+          <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
+            16 a 46 Lugares • Fretamento e Excursões
+          </div>
+        </div>
+
+        <!-- Slide 03: Caminhão Mercedes Accelo Baú -->
+        <div class="mobile-photo-slide absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300" data-index="3">
+          <img src="img/servico_caminhao_center.jpg" alt="Caminhão Mercedes Accelo Baú Jansen" class="w-full h-full object-cover object-center">
+          <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
+            Cargas e Logística • Accelo Baú
+          </div>
+        </div>
+
+        <!-- Slide 04: Guincho Plataforma VW Delivery Prime -->
+        <div class="mobile-photo-slide absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300" data-index="4">
+          <img src="img/frota_guincho_plataforma.jpg" alt="Guincho Plataforma Volkswagen Delivery Jansen" class="w-full h-full object-cover object-center">
+          <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-bold text-red-300 uppercase tracking-wider">
+            Socorro 24 Horas • Reboque Plataforma
+          </div>
+        </div>
+
+        <!-- Botões de Navegação Lateral na Foto (< e >) -->
+        <button id="mobile-prev-btn" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/65 border border-white/20 text-white flex items-center justify-center hover:bg-black/85 transition-all backdrop-blur-sm z-10 active:scale-95" aria-label="Veículo Anterior">
+          <i class="fa-solid fa-chevron-left text-xs"></i>
+        </button>
+        <button id="mobile-next-btn" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/65 border border-white/20 text-white flex items-center justify-center hover:bg-black/85 transition-all backdrop-blur-sm z-10 active:scale-95" aria-label="Próximo Veículo">
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+
+        <!-- Indicador de Pontos (Dots) no Rodapé da Foto -->
+        <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/10">
+          <span class="mobile-dot active w-4 h-1.5 rounded-full bg-blue-500 transition-all"></span>
+          <span class="mobile-dot w-1.5 h-1.5 rounded-full bg-white/40 transition-all"></span>
+          <span class="mobile-dot w-1.5 h-1.5 rounded-full bg-white/40 transition-all"></span>
+          <span class="mobile-dot w-1.5 h-1.5 rounded-full bg-white/40 transition-all"></span>
+          <span class="mobile-dot w-1.5 h-1.5 rounded-full bg-white/40 transition-all"></span>
+        </div>
+
+      </div>
+
+      <!-- Detalhes do Veículo Selecionado (Logo Abaixo da Foto, com Leitura 100% Confortável) -->
+      <div id="mobile-vehicle-info" class="mt-3.5 bg-[#0a1128]/95 rounded-2xl p-4 border border-white/10 shadow-xl">
+        
+        <div class="flex items-center justify-between gap-2 mb-1.5">
+          <span id="mobile-vehicle-category" class="text-[10px] font-extrabold uppercase tracking-wider text-blue-400">
+            01 // Sedans Executivos e Casamentos
+          </span>
+          <span id="mobile-vehicle-capacity" class="text-[10px] font-bold text-slate-300 bg-white/5 px-2 py-0.5 rounded border border-white/10">
+            1 a 4 Lugares
+          </span>
+        </div>
+
+        <h2 id="mobile-vehicle-title" class="font-heading text-lg font-extrabold text-white leading-snug">
+          Toyota Corolla Executivo e BYD Song Plus
+        </h2>
+
+        <!-- Tags de Destaque / Itens do Veículo -->
+        <div id="mobile-vehicle-specs" class="flex flex-wrap gap-1.5 my-2.5">
+          <span class="px-2 py-0.5 rounded bg-blue-900/40 border border-blue-500/30 text-[10px] text-blue-200 font-semibold">Motorista a Rigor</span>
+          <span class="px-2 py-0.5 rounded bg-blue-900/40 border border-blue-500/30 text-[10px] text-blue-200 font-semibold">Dia da Noiva</span>
+          <span class="px-2 py-0.5 rounded bg-blue-900/40 border border-blue-500/30 text-[10px] text-blue-200 font-semibold">Traslado Aeroporto</span>
+          <span class="px-2 py-0.5 rounded bg-blue-900/40 border border-blue-500/30 text-[10px] text-blue-200 font-semibold">Wi-Fi & Ar Digital</span>
+        </div>
+
+        <p id="mobile-vehicle-desc" class="text-xs text-slate-300 leading-relaxed font-normal">
+          Transporte executivo com motorista a rigor. Especialistas no dia da noiva, cerimônias, traslados ao Aeroporto de Vitória e viagens corporativas com discrição absoluta.
+        </p>
+
+        <!-- Ações Principais de Conversão -->
+        <div class="mt-4 flex flex-col gap-2">
+          <a id="mobile-cta-whatsapp" href="https://wa.me/5527992733774?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20Sedan%20Executivo%20com%20motorista." target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-green-500/25 transition-all active:scale-98">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span id="mobile-cta-text">Cotar Sedan no WhatsApp</span>
+          </a>
+          <a href="#cotacao" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 border border-white/15 transition-all">
+            <i class="fa-solid fa-calculator text-blue-400"></i>
+            <span>Simulador de Rota e Preço</span>
+          </a>
+        </div>
+
+        <!-- Micro-gatilhos de Confiança -->
+        <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+          <span class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400"></i> Resposta em 5 min</span>
+          <span class="flex items-center gap-1"><i class="fa-solid fa-file-invoice text-emerald-400"></i> Faturamento PJ</span>
+          <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-blue-400"></i> Seguro ANTT</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div> <!-- /HERO MOBILE SPLIT-SCREEN SHOWCASE -->
 
   </section>
 

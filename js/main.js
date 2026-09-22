@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initScrollytelling();
+  initMobileVehicleShowcase();
   initQuoteSimulator();
   initSmoothScroll();
   initMobileMenu();
@@ -143,8 +144,8 @@ function initScrollytelling() {
     });
   }
 
-  // Integração GSAP ScrollTrigger para 5 estágios
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  // Integração GSAP ScrollTrigger para 5 estágios (Exclusivo para Desktop > 1024px)
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && window.innerWidth > 1024) {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.create({
@@ -386,3 +387,192 @@ function initMobileMenu() {
     });
   }
 }
+
+// =========================================================================
+// Showcase Touch de Veículos para Mobile / Tablet (< 1024px)
+// =========================================================================
+const mobileVehicles = [
+  {
+    title: "Toyota Corolla Executivo e BYD Song Plus",
+    category: "01 // Sedans Executivos e Casamentos",
+    capacity: "1 a 4 Lugares",
+    specs: ["Motorista a Rigor", "Dia da Noiva", "Traslado Aeroporto", "Wi-Fi & Ar Digital"],
+    desc: "Transporte executivo com motorista a rigor. Especialistas no dia da noiva, cerimônias, traslados ao Aeroporto de Vitória e viagens corporativas com discrição absoluta.",
+    cta: "Cotar Sedan no WhatsApp",
+    waMsg: "Olá! Gostaria de cotar um Sedan Executivo / SUV com motorista da Jansen."
+  },
+  {
+    title: "Mercedes Sprinter e Renault Master VIP",
+    category: "02 // Vans Executivas com Motorista",
+    capacity: "5 a 15 Lugares",
+    specs: ["15 Passageiros", "Poltronas Reclináveis", "Wi-Fi & Tomadas", "Ar Duplo"],
+    desc: "Vans executivas com poltronas reclináveis personalizadas, ar duplo, tomadas e wi-fi. O máximo de conforto para passeios em Pedra Azul, Domingos Martins e eventos corporativos.",
+    cta: "Cotar Van VIP no WhatsApp",
+    waMsg: "Olá! Gostaria de cotar uma Van Executiva VIP com motorista da Jansen."
+  },
+  {
+    title: "Micro-ônibus Volare DW9 e Ônibus",
+    category: "03 // Fretamento, Turismo e Excursões",
+    capacity: "16 a 46 Lugares",
+    specs: ["31 Lugares", "Ar Central", "Bagageiro Amplo", "ANTT / Cadastur"],
+    desc: "Micro-ônibus Volare DW9 executivo e ônibus rodoviários para congressos, viagens em grupo, excursões escolares e fretamento contínuo com seguro total.",
+    cta: "Cotar Ônibus / Micro no WhatsApp",
+    waMsg: "Olá! Gostaria de cotar um Micro-ônibus / Ônibus com a Jansen."
+  },
+  {
+    title: "Caminhões Mercedes Accelo Baú e Furgões",
+    category: "04 // Logística e Cargas Fechadas",
+    capacity: "Cargas e Fretes",
+    specs: ["Baú Fechado", "Coleta Ágil", "Frota Rastreada", "Faturamento PJ"],
+    desc: "Distribuição urbana de cargas no Espírito Santo, transporte comercial seguro e fretes diretos com pontualidade e integridade garantida da mercadoria.",
+    cta: "Cotar Frete / Cargas no WhatsApp",
+    waMsg: "Olá! Gostaria de cotar transporte de cargas com caminhão baú / furgão da Jansen."
+  },
+  {
+    title: "Guincho Plataforma Volkswagen Delivery",
+    category: "05 // Auto Socorro e Reboque 24h",
+    capacity: "Socorro 24 Horas",
+    specs: ["Plataforma Hidráulica", "Asa Delta", "Atendimento 24h", "Grande Vitória"],
+    desc: "Caminhão Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta para remoção ágil de veículos leves, utilitários e máquinas.",
+    cta: "Solicitar Guincho 24h no WhatsApp",
+    waMsg: "Olá! Preciso de um Guincho Plataforma 24h da Jansen com urgência."
+  }
+];
+
+function initMobileVehicleShowcase() {
+  const tabs = document.querySelectorAll('.mobile-tab-btn');
+  const slides = document.querySelectorAll('.mobile-photo-slide');
+  const dots = document.querySelectorAll('.mobile-dot');
+  const titleEl = document.getElementById('mobile-vehicle-title');
+  const catEl = document.getElementById('mobile-vehicle-category');
+  const capEl = document.getElementById('mobile-vehicle-capacity');
+  const specsEl = document.getElementById('mobile-vehicle-specs');
+  const descEl = document.getElementById('mobile-vehicle-desc');
+  const ctaBtn = document.getElementById('mobile-cta-whatsapp');
+  const ctaText = document.getElementById('mobile-cta-text');
+  const prevBtn = document.getElementById('mobile-prev-btn');
+  const nextBtn = document.getElementById('mobile-next-btn');
+  const photoViewport = document.getElementById('mobile-photo-viewport');
+
+  if (!tabs.length || !slides.length) return;
+
+  let currentMobileIndex = 0;
+
+  function setMobileSlide(index) {
+    if (index < 0) index = mobileVehicles.length - 1;
+    if (index >= mobileVehicles.length) index = 0;
+    currentMobileIndex = index;
+
+    // Atualiza Abas Touch
+    tabs.forEach((tab, i) => {
+      const isActive = i === index;
+      tab.classList.toggle('active', isActive);
+      if (isActive) {
+        tab.classList.remove('bg-white/5', 'text-slate-300', 'border-white/10');
+        tab.classList.add('bg-blue-600', 'text-white', 'border-blue-400/50');
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        tab.classList.remove('bg-blue-600', 'text-white', 'border-blue-400/50');
+        tab.classList.add('bg-white/5', 'text-slate-300', 'border-white/10');
+      }
+    });
+
+    // Atualiza Foto com Transição Suave
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('opacity-0', 'pointer-events-none');
+        slide.classList.add('opacity-100', 'active');
+      } else {
+        slide.classList.add('opacity-0', 'pointer-events-none');
+        slide.classList.remove('opacity-100', 'active');
+      }
+    });
+
+    // Atualiza Pontos (Dots)
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add('active', 'w-4', 'bg-blue-500');
+        dot.classList.remove('w-1.5', 'bg-white/40');
+      } else {
+        dot.classList.remove('active', 'w-4', 'bg-blue-500');
+        dot.classList.add('w-1.5', 'bg-white/40');
+      }
+    });
+
+    // Atualiza Dados do Veículo
+    const data = mobileVehicles[index];
+    if (data) {
+      if (titleEl) titleEl.textContent = data.title;
+      if (catEl) catEl.textContent = data.category;
+      if (capEl) capEl.textContent = data.capacity;
+      if (descEl) descEl.textContent = data.desc;
+      if (ctaText) ctaText.textContent = data.cta;
+      if (ctaBtn) {
+        ctaBtn.href = `https://wa.me/5527992733774?text=${encodeURIComponent(data.waMsg)}`;
+      }
+
+      if (specsEl) {
+        specsEl.innerHTML = data.specs
+          .map(s => `<span class="px-2 py-0.5 rounded bg-blue-900/40 border border-blue-500/30 text-[10px] text-blue-200 font-semibold">${s}</span>`)
+          .join('');
+      }
+    }
+  }
+
+  // Cliques nas Abas
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const idx = parseInt(tab.getAttribute('data-index'), 10);
+      setMobileSlide(idx);
+    });
+  });
+
+  // Botões Prev e Next
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMobileSlide(currentMobileIndex - 1);
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMobileSlide(currentMobileIndex + 1);
+    });
+  }
+
+  // Gestos de Deslizar (Touch Swipe Horizontal)
+  if (photoViewport) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    photoViewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    photoViewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) {
+          // Swipe para esquerda -> próximo
+          setMobileSlide(currentMobileIndex + 1);
+        } else {
+          // Swipe para direita -> anterior
+          setMobileSlide(currentMobileIndex - 1);
+        }
+      }
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTab = urlParams.get('tab');
+  if (initialTab !== null) {
+    setMobileSlide(parseInt(initialTab, 10));
+  }
+}
+
