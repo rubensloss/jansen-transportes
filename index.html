@@ -52,34 +52,35 @@
        NAVBAR GLASS FLUTUANTE (LOGO DESTACADA E BOTÕES ALINHADOS)
        ========================================================= -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6 flex-nowrap">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 lg:h-24 flex items-center justify-between gap-3 xl:gap-6 flex-nowrap">
       
       <!-- Logotipo Oficial da Jansen em Alta Resolução (Aumentada e Destacada) -->
       <a href="#" class="flex items-center shrink-0 group py-1">
-        <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-[60px] sm:h-[68px] md:h-[76px] w-auto object-contain transition-transform group-hover:scale-105">
+        <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-[54px] sm:h-[64px] md:h-[70px] lg:h-[72px] w-auto object-contain transition-transform group-hover:scale-105">
       </a>
 
-      <!-- Menu de Navegação Desktop (Alinhado em 1 linha sem quebra) -->
-      <nav class="hidden lg:flex items-center gap-4 xl:gap-7 text-xs xl:text-sm font-semibold text-slate-300 shrink-0">
-        <a href="#hero-scrolly" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Nossa Frota</a>
-        <a href="#cotacao" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Simular Rota</a>
+      <!-- Menu de Navegação Desktop (Alinhado em 1 linha sem quebra e sem transbordar) -->
+      <nav class="hidden lg:flex items-center gap-1.5 xl:gap-4 2xl:gap-6 text-[11px] xl:text-sm font-semibold text-slate-300 shrink-0">
+        <a href="#hero-scrolly" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Frota</a>
+        <a href="#cotacao" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Simulador</a>
         <a href="#servicos" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Serviços</a>
-        <a href="#experiencia" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Galeria Real</a>
-        <a href="#guias" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Dicas e Rotas ES</a>
+        <a href="#experiencia" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Galeria</a>
+        <a href="#guias" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Dicas & Rotas</a>
         <a href="#diferenciais" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Segurança</a>
-        <a href="#depoimentos" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Avaliações Google</a>
+        <a href="#depoimentos" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Avaliações</a>
         <a href="#contato" class="whitespace-nowrap hover:text-blue-400 transition-colors py-1">Contato</a>
       </nav>
 
       <!-- Ações Diretas: Telefone e Botão de WhatsApp Perfeitamente Alinhados -->
-      <div class="hidden md:flex items-center gap-3 xl:gap-4 shrink-0 flex-nowrap">
-        <a href="tel:5527992733774" class="whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-200 hover:text-white transition-all shrink-0">
+      <div class="hidden md:flex items-center gap-1.5 xl:gap-3.5 shrink-0 flex-nowrap">
+        <a href="tel:5527992733774" class="whitespace-nowrap inline-flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] xl:text-xs font-bold text-slate-200 hover:text-white transition-all shrink-0">
           <i class="fa-solid fa-phone text-blue-400 text-xs"></i>
           <span>(27) 99273-3774</span>
         </a>
-        <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20Transportes%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whitespace-nowrap inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/20 transition-all transform hover:scale-[1.02] shrink-0 leading-none h-[42px]">
-          <i class="fa-brands fa-whatsapp text-base leading-none"></i>
-          <span class="leading-none">Cotar no WhatsApp</span>
+        <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Jansen%20Transportes%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whitespace-nowrap inline-flex items-center justify-center gap-2 px-3 xl:px-5 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/20 transition-all transform hover:scale-[1.02] shrink-0 leading-none h-[38px] xl:h-[42px]">
+          <i class="fa-brands fa-whatsapp text-sm xl:text-base leading-none"></i>
+          <span class="leading-none hidden xl:inline">Cotar no WhatsApp</span>
+          <span class="leading-none inline xl:hidden">WhatsApp</span>
         </a>
       </div>
 
@@ -164,91 +165,91 @@
         </div>
       </div>
 
-      <!-- Meio: Textos Dinâmicos dos 5 Veículos da Frota -->
-      <div class="max-w-2xl py-6 my-auto">
+      <!-- Meio: Textos Dinâmicos dos 5 Veículos da Frota (Alinhamento calibrado para nunca colidir com o veículo) -->
+      <div class="max-w-md lg:max-w-[420px] xl:max-w-[480px] py-3 sm:py-5 my-auto relative z-20">
         
         <!-- Slide 01 Textos: Sedans e Carros Executivos -->
         <div class="slide-caption-item active">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-2.5 backdrop-blur-sm">
             <span>01 // Sedans Executivos e Casamentos</span>
           </div>
-          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
-            Toyota Corolla Executivo e BYD Song Plus
+          <h1 class="font-heading text-2xl sm:text-3xl lg:text-[30px] xl:text-[36px] font-extrabold leading-[1.18] text-white mb-2.5 xl:mb-3 drop-shadow-md">
+            Toyota Corolla Executivo <br class="hidden sm:inline">e BYD Song Plus
           </h1>
-          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+          <p class="text-slate-200 text-xs sm:text-[13px] xl:text-sm leading-relaxed font-normal max-w-sm xl:max-w-md drop-shadow">
             Transporte executivo com motorista a rigor. Especialistas no dia da noiva e cerimônias, atendimento corporativo a diretorias e traslados ao Aeroporto de Vitória com pontualidade britânica e discrição absoluta.
           </p>
         </div>
 
         <!-- Slide 02 Textos: Vans Executivas VIP -->
         <div class="slide-caption-item">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-2.5 backdrop-blur-sm">
             <span>02 // Vans Executivas com Motorista</span>
           </div>
-          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
-            Mercedes Sprinter e Renault Master VIP
+          <h1 class="font-heading text-2xl sm:text-3xl lg:text-[30px] xl:text-[36px] font-extrabold leading-[1.18] text-white mb-2.5 xl:mb-3 drop-shadow-md">
+            Mercedes Sprinter <br class="hidden sm:inline">e Renault Master VIP
           </h1>
-          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+          <p class="text-slate-200 text-xs sm:text-[13px] xl:text-sm leading-relaxed font-normal max-w-sm xl:max-w-md drop-shadow">
             Vans executivas com poltronas reclináveis personalizadas, ar-condicionado duplo, cortinas, tomadas e wi-fi. O máximo de comodidade para viagens turísticas em Pedra Azul, Domingos Martins e eventos corporativos.
           </p>
         </div>
 
         <!-- Slide 03 Textos: Micro-ônibus e Ônibus -->
         <div class="slide-caption-item">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-2.5 backdrop-blur-sm">
             <span>03 // Fretamento, Turismo e Excursões</span>
           </div>
-          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
-            Micro-ônibus Volare DW9 e Ônibus
+          <h1 class="font-heading text-2xl sm:text-3xl lg:text-[30px] xl:text-[36px] font-extrabold leading-[1.18] text-white mb-2.5 xl:mb-3 drop-shadow-md">
+            Micro-ônibus Volare DW9 <br class="hidden sm:inline">e Ônibus
           </h1>
-          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+          <p class="text-slate-200 text-xs sm:text-[13px] xl:text-sm leading-relaxed font-normal max-w-sm xl:max-w-md drop-shadow">
             Micro-ônibus Volare DW9 executivo (31 lugares) e ônibus rodoviários para congressos, excursões turísticas, viagens interestaduais e grupos escolares com seguro total de passageiros e registro ANTT.
           </p>
         </div>
 
         <!-- Slide 04 Textos: Cargas e Logística -->
         <div class="slide-caption-item">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-600/30 border border-blue-400/50 text-blue-300 text-xs tracking-wider font-bold uppercase mb-2.5 backdrop-blur-sm">
             <span>04 // Logística e Cargas Fechadas</span>
           </div>
-          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
-            Caminhões Mercedes Accelo Baú e Furgões
+          <h1 class="font-heading text-2xl sm:text-3xl lg:text-[30px] xl:text-[36px] font-extrabold leading-[1.18] text-white mb-2.5 xl:mb-3 drop-shadow-md">
+            Caminhões Mercedes <br class="hidden sm:inline">Accelo Baú e Furgões
           </h1>
-          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+          <p class="text-slate-200 text-xs sm:text-[13px] xl:text-sm leading-relaxed font-normal max-w-sm xl:max-w-md drop-shadow">
             Frota própria para distribuição urbana, transporte comercial e mercadorias no Espírito Santo. Caminhões Accelo 1016 com baú fechado e furgões para coletas ágeis e fretes com total integridade.
           </p>
         </div>
 
         <!-- Slide 05 Textos: Auto Socorro e Guincho -->
         <div class="slide-caption-item">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-red-600/30 border border-red-400/50 text-red-200 text-xs tracking-wider font-bold uppercase mb-3 backdrop-blur-sm">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-red-600/30 border border-red-400/50 text-red-200 text-xs tracking-wider font-bold uppercase mb-2.5 backdrop-blur-sm">
             <span>05 // Auto Socorro e Reboque 24h</span>
           </div>
-          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-4 drop-shadow-md">
-            Guincho Plataforma Volkswagen Delivery
+          <h1 class="font-heading text-2xl sm:text-3xl lg:text-[30px] xl:text-[36px] font-extrabold leading-[1.18] text-white mb-2.5 xl:mb-3 drop-shadow-md">
+            Guincho Plataforma <br class="hidden sm:inline">Volkswagen Delivery
           </h1>
-          <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal max-w-xl drop-shadow">
+          <p class="text-slate-200 text-xs sm:text-[13px] xl:text-sm leading-relaxed font-normal max-w-sm xl:max-w-md drop-shadow">
             Caminhão Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta. Remoção segura de veículos de passeio, utilitários, furgões e máquinas com atendimento de emergência 24 horas.
           </p>
         </div>
 
         <!-- Botões de Ação do Hero -->
-        <div class="flex flex-wrap items-center gap-4 pt-3">
-          <button id="hero-main-cta" class="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm uppercase tracking-wider transition-all transform hover:scale-105 shadow-xl shadow-blue-600/30 flex items-center gap-3">
+        <div class="flex flex-wrap items-center gap-3 pt-2 sm:pt-3">
+          <button id="hero-main-cta" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all transform hover:scale-105 shadow-xl shadow-blue-600/30 flex items-center gap-2.5">
             <span>Cotar Sedan Executivo</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
-          <a href="#cotacao" class="px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-slate-100 text-sm font-bold uppercase tracking-wider flex items-center gap-2 border border-white/20 backdrop-blur-md transition-all">
+          <a href="#cotacao" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-slate-100 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border border-white/20 backdrop-blur-md transition-all">
             <span>Simulador de Rota</span>
             <i class="fa-solid fa-calculator text-blue-400"></i>
           </a>
         </div>
 
         <!-- Micro-gatilhos de Conversão -->
-        <div class="flex flex-wrap items-center gap-5 text-xs text-slate-300 pt-3 font-medium">
-          <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-400"></i> Resposta em até 5 minutos</span>
-          <span class="flex items-center gap-1.5"><i class="fa-solid fa-certificate text-blue-400"></i> Orçamento sem compromisso</span>
-          <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-invoice text-emerald-400"></i> Faturamento para Empresas</span>
+        <div class="flex flex-wrap items-center gap-4 text-[11px] text-slate-300 pt-2.5 font-medium">
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-400"></i> Resposta em até 5 min</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-certificate text-blue-400"></i> Sem compromisso</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-invoice text-emerald-400"></i> Faturamento PJ</span>
         </div>
 
       </div>

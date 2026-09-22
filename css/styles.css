@@ -101,14 +101,24 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   filter: contrast(1.05) saturate(1.08) brightness(0.92);
 }
 
-/* Calibração de enquadramento para cada veículo ficar perfeito e sem cortes */
-.hero-bg-img.pos-sedan,
-.hero-bg-img.pos-byd,
-.hero-bg-img.pos-van,
-.hero-bg-img.pos-onibus,
-.hero-bg-img.pos-caminhao,
+/* Calibração de enquadramento para cada veículo na versão Desktop (alinhados à direita com espaço nobre para o texto à esquerda) */
+.hero-bg-img.pos-sedan {
+  object-position: 88% center;
+}
+.hero-bg-img.pos-byd {
+  object-position: 88% center;
+}
+.hero-bg-img.pos-van {
+  object-position: 95% center;
+}
+.hero-bg-img.pos-onibus {
+  object-position: 90% center;
+}
+.hero-bg-img.pos-caminhao {
+  object-position: 88% center;
+}
 .hero-bg-img.pos-guincho {
-  object-position: center center;
+  object-position: 86% center;
 }
 
 @media (max-width: 1024px) {
@@ -124,15 +134,15 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   }
 }
 
-/* Scrim Gradiente Direcional para contraste cinematográfico */
+/* Scrim Gradiente Direcional para contraste cinematográfico (texto legível à esquerda, veículo nítido à direita) */
 .hero-scrim-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 3;
   background: 
-    linear-gradient(90deg, rgba(7, 13, 30, 0.96) 0%, rgba(7, 13, 30, 0.88) 35%, rgba(7, 13, 30, 0.45) 65%, rgba(7, 13, 30, 0.2) 85%, rgba(7, 13, 30, 0.6) 100%),
-    linear-gradient(180deg, rgba(7, 13, 30, 0.85) 0%, transparent 18%, transparent 70%, rgba(7, 13, 30, 0.98) 100%);
+    linear-gradient(90deg, rgba(7, 13, 30, 0.98) 0%, rgba(7, 13, 30, 0.92) 28%, rgba(7, 13, 30, 0.55) 45%, rgba(7, 13, 30, 0.08) 65%, rgba(7, 13, 30, 0.35) 100%),
+    linear-gradient(180deg, rgba(7, 13, 30, 0.85) 0%, transparent 18%, transparent 72%, rgba(7, 13, 30, 0.98) 100%);
 }
 
 @media (max-width: 1023px) {
