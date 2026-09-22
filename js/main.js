@@ -194,7 +194,18 @@ function initQuoteSimulator() {
 
   function updateRecommendation() {
     if (!recElem) return;
-    const s = serviceSelect ? serviceSelect.value : 'executivo';
+    const s = serviceSelect ? serviceSelect.value : '';
+    
+    if (!s) {
+      recElem.innerHTML = `
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/5 text-xs text-slate-300 backdrop-blur-md">
+          <i class="fa-solid fa-hand-pointer text-blue-400"></i>
+          <span>Selecione a modalidade e volume nos seletores acima</span>
+        </div>
+      `;
+      return;
+    }
+
     let label = '';
     let badgeClass = 'bg-blue-900/60 border-blue-500/40 text-blue-300';
 
@@ -225,6 +236,9 @@ function initQuoteSimulator() {
     `;
   }
 
+  // Chamar estado inicial
+  updateRecommendation();
+
   if (serviceSelect) {
     serviceSelect.addEventListener('change', () => {
       if (passSelect) {
@@ -239,6 +253,18 @@ function initQuoteSimulator() {
         }
       }
       updateRecommendation();
+    });
+  }
+
+  if (passSelect) {
+    passSelect.addEventListener('change', () => {
+      if (serviceSelect && !serviceSelect.value) {
+        if (passSelect.value === '1-4') serviceSelect.value = 'executivo';
+        else if (passSelect.value === '5-15') serviceSelect.value = 'van';
+        else if (passSelect.value === '16-46') serviceSelect.value = 'onibus';
+        else if (passSelect.value === 'carga') serviceSelect.value = 'carga';
+        updateRecommendation();
+      }
     });
   }
 
@@ -265,12 +291,12 @@ function initQuoteSimulator() {
         'guincho': 'Auto Socorro / Guincho Plataforma 24h'
       };
 
-      const serviceVal = serviceSelect ? serviceSelect.value : 'executivo';
-      const serviceName = serviceMap[serviceVal] || 'Transporte';
-      const origin = originInput && originInput.value.trim() ? originInput.value.trim() : 'Vila Velha / Vitória';
+      const serviceVal = serviceSelect ? serviceSelect.value : '';
+      const serviceName = serviceMap[serviceVal] || 'Transporte (A definir modalidade)';
+      const origin = originInput && originInput.value.trim() ? originInput.value.trim() : 'A combinar';
       const dest = destInput && destInput.value.trim() ? destInput.value.trim() : 'A definir';
       const date = dateInput && dateInput.value ? dateInput.value.split('-').reverse().join('/') : 'A combinar';
-      const pass = passSelect ? passSelect.options[passSelect.selectedIndex].text : 'A combinar';
+      const pass = passSelect && passSelect.value ? passSelect.options[passSelect.selectedIndex].text : 'A combinar';
 
       const whatsappNumber = "5527997392787";
       const message = `Olá! Vim pelo site da Jansen Transportes e gostaria de uma cotação:

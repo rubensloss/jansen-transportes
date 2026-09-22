@@ -522,12 +522,13 @@
           
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             
-            <!-- Campo 1: Tipo de Serviço -->
+            <!-- Campo 1: Tipo de Serviço (Botão Seletor de Modalidade) -->
             <div>
               <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
                 <i class="fa-solid fa-car-side text-blue-400 mr-1.5"></i> Modalidade
               </label>
-              <select id="sim-service" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+              <select id="sim-service" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors cursor-pointer">
+                <option value="" disabled selected>Selecione a Modalidade...</option>
                 <option value="executivo">Transporte Executivo e Transfer Aeroporto</option>
                 <option value="casamento">Carro para Casamento e Noivas (Corolla)</option>
                 <option value="byd">SUV Híbrido VIP (BYD Song Plus)</option>
@@ -538,25 +539,26 @@
               </select>
             </div>
 
-            <!-- Campo 2: Capacidade Pretendida -->
+            <!-- Campo 2: Capacidade Pretendida (Botão Seletor de Volume) -->
             <div>
               <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
                 <i class="fa-solid fa-user-group text-blue-400 mr-1.5"></i> Capacidade / Volume
               </label>
-              <select id="sim-passengers" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+              <select id="sim-passengers" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors cursor-pointer">
+                <option value="" disabled selected>Selecione o Volume / Pessoas...</option>
                 <option value="1-4">1 a 4 pessoas (Sedan Corolla e BYD)</option>
-                <option value="5-15" selected>5 a 15 pessoas (Van Executiva VIP)</option>
+                <option value="5-15">5 a 15 pessoas (Van Executiva VIP)</option>
                 <option value="16-46">16 a 46 pessoas (Micro-ônibus e Ônibus)</option>
                 <option value="carga">Cargas Fracionadas ou Fechadas (Baú)</option>
               </select>
             </div>
 
-            <!-- Campo 3: Ponto de Origem -->
+            <!-- Campo 3: Ponto de Origem (Livre e em Branco) -->
             <div>
               <label class="block text-xs uppercase tracking-wider text-slate-300 font-bold mb-2">
                 <i class="fa-solid fa-location-dot text-blue-400 mr-1.5"></i> Ponto de Coleta ou Origem
               </label>
-              <input type="text" id="sim-origin" value="Vila Velha e Vitória" placeholder="Ex: Itapuã, Vila Velha" class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+              <input type="text" id="sim-origin" value="" placeholder="Ex: Vila Velha, Vitória, Aeroporto..." class="w-full bg-[#070d1e] border border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
             </div>
 
             <!-- Campo 4: Destino -->
