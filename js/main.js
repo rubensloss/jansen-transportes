@@ -398,7 +398,7 @@ const mobileVehicles = [
     capacity: "1 a 4 Lugares",
     specs: ["Motorista a Rigor", "Dia da Noiva", "Traslado Aeroporto", "Wi-Fi & Ar Digital"],
     desc: "Transporte executivo com motorista a rigor. Especialistas no dia da noiva, cerimônias, traslados ao Aeroporto de Vitória e viagens corporativas com discrição absoluta.",
-    cta: "Cotar Sedan no WhatsApp",
+    cta: "Cotar Sedan",
     waMsg: "Olá! Gostaria de cotar um Sedan Executivo / SUV com motorista da Jansen."
   },
   {
@@ -407,7 +407,7 @@ const mobileVehicles = [
     capacity: "5 a 15 Lugares",
     specs: ["15 Passageiros", "Poltronas Reclináveis", "Wi-Fi & Tomadas", "Ar Duplo"],
     desc: "Vans executivas com poltronas reclináveis personalizadas, ar duplo, tomadas e wi-fi. O máximo de conforto para passeios em Pedra Azul, Domingos Martins e eventos corporativos.",
-    cta: "Cotar Van VIP no WhatsApp",
+    cta: "Cotar Van VIP",
     waMsg: "Olá! Gostaria de cotar uma Van Executiva VIP com motorista da Jansen."
   },
   {
@@ -416,7 +416,7 @@ const mobileVehicles = [
     capacity: "16 a 46 Lugares",
     specs: ["31 Lugares", "Ar Central", "Bagageiro Amplo", "ANTT / Cadastur"],
     desc: "Micro-ônibus Volare DW9 executivo e ônibus rodoviários para congressos, viagens em grupo, excursões escolares e fretamento contínuo com seguro total.",
-    cta: "Cotar Ônibus / Micro no WhatsApp",
+    cta: "Cotar Ônibus e Micro",
     waMsg: "Olá! Gostaria de cotar um Micro-ônibus / Ônibus com a Jansen."
   },
   {
@@ -425,7 +425,7 @@ const mobileVehicles = [
     capacity: "Cargas e Fretes",
     specs: ["Baú Fechado", "Coleta Ágil", "Frota Rastreada", "Faturamento PJ"],
     desc: "Distribuição urbana de cargas no Espírito Santo, transporte comercial seguro e fretes diretos com pontualidade e integridade garantida da mercadoria.",
-    cta: "Cotar Frete / Cargas no WhatsApp",
+    cta: "Cotar Frete e Cargas",
     waMsg: "Olá! Gostaria de cotar transporte de cargas com caminhão baú / furgão da Jansen."
   },
   {
@@ -434,7 +434,7 @@ const mobileVehicles = [
     capacity: "Socorro 24 Horas",
     specs: ["Plataforma Hidráulica", "Asa Delta", "Atendimento 24h", "Grande Vitória"],
     desc: "Caminhão Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta para remoção ágil de veículos leves, utilitários e máquinas.",
-    cta: "Solicitar Guincho 24h no WhatsApp",
+    cta: "Cotar Guincho 24 Horas",
     waMsg: "Olá! Preciso de um Guincho Plataforma 24h da Jansen com urgência."
   }
 ];
