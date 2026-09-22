@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dicas e Roteiros • Jansen Transportes e Serviços</title>
+  <meta name="description" content="Guia completo de transporte executivo, turismo, casamentos e transfers no Espírito Santo com a Jansen Transportes.">
+
+  <!-- Favicon Oficial -->
+  <link rel="icon" type="image/png" href="img/logo_jansen_white.png">
+
+  <!-- Tailwind CSS via CDN Oficial -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jansen: {
+              bg: '#070d1e',
+              surface: '#0d1733',
+              card: 'rgba(13, 23, 51, 0.88)',
+              blue: '#1d4ed8',
+              blueLight: '#3b82f6',
+              cyan: '#00d2ff',
+              whatsapp: '#25D366'
+            }
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Outfit + Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Estilos Customizados Jansen -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#070d1e] text-slate-100 selection:bg-blue-600 selection:text-white font-body pb-16 md:pb-0">
+
+  <!-- =========================================================
+       NAVBAR GLASS FLUTUANTE (LOGO DESTACADA E BOTÕES ALINHADOS)
+       ========================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6 flex-nowrap">
+      
+      <!-- Logotipo Oficial da Jansen em Alta Resolução -->
+      <a href="index.html" class="flex items-center shrink-0 group py-1">
+        <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-[60px] sm:h-[68px] md:h-[76px] w-auto object-contain transition-transform group-hover:scale-105">
+      </a>
+
+      <!-- Botão Voltar ao Início -->
+      <nav class="hidden sm:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-300 shrink-0">
+        <a href="index.html" class="inline-flex items-center gap-2 hover:text-blue-400 transition-colors py-1">
+          <i class="fa-solid fa-arrow-left text-xs"></i>
+          <span>Voltar ao Início</span>
+        </a>
+        <a href="index.html#guias" class="hover:text-blue-400 transition-colors py-1">Todos os Guias</a>
+        <a href="index.html#cotacao" class="hover:text-blue-400 transition-colors py-1">Simular Cotação</a>
+      </nav>
+
+      <!-- Ação Direta WhatsApp -->
+      <div class="flex items-center gap-3 shrink-0 flex-nowrap">
+        <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20vim%20pelo%20artigo%20no%20site%20da%20Jansen%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whitespace-nowrap inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/20 transition-all transform hover:scale-[1.02] shrink-0 leading-none h-[42px]">
+          <i class="fa-brands fa-whatsapp text-base leading-none"></i>
+          <span class="leading-none">Cotar no WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Espaçador do Header -->
+  <div class="h-28"></div>
+
+  <!-- CONTEÚDO PRINCIPAL DO ARTIGO -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 flex-wrap">
+      <a href="index.html" class="hover:text-blue-400 transition-colors">Início</a>
+      <span>/</span>
+      <a href="index.html#guias" class="hover:text-blue-400 transition-colors">Dicas e Guias</a>
+      <span>/</span>
+      <span id="article-breadcrumb-title" class="text-slate-200 font-medium truncate max-w-xs sm:max-w-md">Carregando artigo...</span>
+    </nav>
+
+    <!-- Cabeçalho do Artigo -->
+    <header class="mb-8 space-y-4">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span id="article-category" class="bg-blue-600 text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-md shadow-md">
+          Guia Regional
+        </span>
+        <span id="article-tag" class="text-xs font-semibold text-blue-400">
+          Montanhas Capixabas
+        </span>
+      </div>
+
+      <h1 id="article-title" class="font-heading text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+        Carregando título do artigo...
+      </h1>
+
+      <div class="flex items-center gap-4 text-xs text-slate-400 pt-2 border-b border-white/10 pb-4 flex-wrap">
+        <span class="flex items-center gap-1.5">
+          <i class="fa-regular fa-calendar text-blue-400"></i>
+          <span id="article-date">Setembro de 2026</span>
+        </span>
+        <span>•</span>
+        <span class="flex items-center gap-1.5">
+          <i class="fa-regular fa-clock text-blue-400"></i>
+          <span id="article-read-time">3 min de leitura</span>
+        </span>
+        <span>•</span>
+        <span class="flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+          <span>Revisado por Alex Jansen</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- Imagem de Capa em Alta Definição -->
+    <div class="relative w-full aspect-video rounded-3xl overflow-hidden border border-white/15 shadow-2xl mb-12 bg-[#0d1733]">
+      <img id="article-cover" src="img/guia_china_park_montanhas.jpg" alt="Capa do Artigo" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Grid do Conteúdo: Texto + Card de Conversão Lateral -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      
+      <!-- Coluna Principal (Texto do Artigo) -->
+      <div class="lg:col-span-2 space-y-6 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+        <div id="article-content" class="space-y-6">
+          <p>Carregando conteúdo completo do artigo...</p>
+        </div>
+
+        <!-- Box de Destaque / Garantia Jansen -->
+        <div class="p-6 rounded-2xl bg-gradient-to-r from-blue-950/60 to-[#0d1733] border border-blue-500/30 my-8 space-y-3">
+          <h4 class="font-heading text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-certificate text-amber-400"></i>
+            <span>Por Que Fazer Esse Trajeto com a Jansen Transportes?</span>
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Mais de 10 anos de experiência nas rodovias capixabas, motoristas capacitados para trechos de serra, monitoramento em tempo real, seguro total de passageiros e registro ativo na ANTT e Cadastur.
+          </p>
+        </div>
+
+        <!-- Botões de Compartilhamento / Voltar -->
+        <div class="pt-6 border-t border-white/10 flex items-center justify-between gap-4 flex-wrap">
+          <a href="index.html#guias" class="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Voltar para Dicas e Guias</span>
+          </a>
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <span>Compartilhar:</span>
+            <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copiado com sucesso!');" class="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-slate-200 transition-colors" title="Copiar Link">
+              <i class="fa-solid fa-link"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra Lateral Fixa de Cotação (CTA WhatsApp) -->
+      <aside class="lg:col-span-1 space-y-6">
+        
+        <!-- Card de Cotação Rápida -->
+        <div class="sticky top-28 glass-card rounded-3xl p-6 border border-blue-500/30 shadow-2xl space-y-5">
+          <div class="space-y-1">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-400 block">Orçamento sem Compromisso</span>
+            <h3 class="font-heading text-lg font-bold text-white leading-tight">
+              Planejando Essa Viagem?
+            </h3>
+            <p class="text-xs text-slate-300">
+              Solicite uma cotação rápida com o Alex Jansen e receba a melhor rota em até 5 minutos.
+            </p>
+          </div>
+
+          <!-- Veículo Recomendado para o Roteiro -->
+          <div class="p-4 rounded-xl bg-[#070d1e] border border-blue-500/20 space-y-1.5">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Veículo Ideal para este Roteiro:</span>
+            <div class="text-xs font-bold text-blue-300 flex items-center gap-2">
+              <i class="fa-solid fa-van-shuttle text-blue-400"></i>
+              <span id="article-recommended-vehicle">Van Executiva VIP</span>
+            </div>
+          </div>
+
+          <!-- Benefícios Rápidos -->
+          <ul class="text-xs text-slate-300 space-y-2.5">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-[#25D366]"></i>
+              <span>Motorista profissional a rigor</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-[#25D366]"></i>
+              <span>Seguro de passageiros e ANTT</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-[#25D366]"></i>
+              <span>Flexibilidade total de paradas</span>
+            </li>
+          </ul>
+
+          <!-- Botão WhatsApp Direto com a Mensagem do Artigo -->
+          <a id="article-whatsapp-cta" href="#" target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-[#25D366]/25 transform hover:scale-[1.02]">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Cotar no WhatsApp</span>
+          </a>
+
+          <!-- Telefone Direto -->
+          <div class="text-center pt-2">
+            <a href="tel:5527992733774" class="text-xs text-slate-400 hover:text-white transition-colors">
+              Ou ligue: <strong class="text-slate-200">(27) 99273-3774</strong>
+            </a>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Seção de Outros Guias Recomendados -->
+    <section class="mt-20 pt-12 border-t border-white/10">
+      <div class="flex items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="text-blue-400 text-xs font-bold uppercase tracking-wider block">Explore Mais</span>
+          <h2 class="font-heading text-xl sm:text-2xl font-bold text-white">Outros Roteiros e Guias no ES</h2>
+        </div>
+        <a href="index.html#guias" class="text-xs font-bold text-blue-400 hover:text-white transition-colors">
+          Ver Todos <i class="fa-solid fa-angle-right ml-1"></i>
+        </a>
+      </div>
+
+      <div id="related-articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Inserido dinamicamente pelo js/blog.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="mt-20 bg-[#040814] border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-12 w-auto object-contain">
+        <p class="text-xs text-slate-400">
+          © 2026 Jansen Transportes e Serviços. CNPJ: 21.096.533/0001-08.<br>
+          Vila Velha e Vitória / ES • Todos os direitos reservados.
+        </p>
+      </div>
+      <div class="text-xs text-slate-400">
+        Desenvolvido com tecnologia OmniCity GEO Engine.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script do Motor Dinâmico do Blog -->
+  <script src="js/blog.js"></script>
+</body>
+</html>

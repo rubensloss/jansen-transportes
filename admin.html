@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo • Jansen Transportes & OmniCity</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/logo_jansen_white.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jansen: {
+              bg: '#070d1e',
+              surface: '#0d1733',
+              card: 'rgba(13, 23, 51, 0.88)',
+              blue: '#1d4ed8',
+              blueLight: '#3b82f6',
+              cyan: '#00d2ff',
+              whatsapp: '#25D366'
+            }
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#070d1e] text-slate-100 font-body min-h-screen">
+
+  <!-- ==========================================
+       TELA DE LOGIN CORPORATIVO (SENHA / PIN)
+       ========================================== -->
+  <div id="login-modal" class="fixed inset-0 z-50 bg-[#070d1e]/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="max-w-md w-full glass-card rounded-3xl p-8 border border-blue-500/30 shadow-2xl space-y-6 text-center relative overflow-hidden">
+      <div class="absolute -right-12 -top-12 w-40 h-40 bg-blue-600/20 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-16 mx-auto object-contain">
+      
+      <div>
+        <h2 class="font-heading text-xl font-bold text-white">Painel Administrativo</h2>
+        <p class="text-xs text-slate-300 mt-1">Gestão de Conteúdo & Integração OmniCity</p>
+      </div>
+
+      <form id="login-form" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <i class="fa-solid fa-lock text-blue-400 mr-1"></i> Senha de Acesso
+          </label>
+          <input type="password" id="admin-password" placeholder="Digite a senha (padrão: jansen2026)" class="w-full bg-[#030712] border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400">
+          <p id="login-error" class="text-xs text-red-400 mt-1.5 hidden flex items-center gap-1">
+            <i class="fa-solid fa-circle-exclamation"></i> Senha incorreta. Tente novamente.
+          </p>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/30">
+          Entrar no Painel
+        </button>
+
+        <button type="button" id="vip-quick-login" class="w-full py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Acesso Rápido VIP (Demonstração)</span>
+        </button>
+      </form>
+
+      <div class="pt-2 border-t border-white/10 text-center">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-white transition-colors">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Voltar ao site público
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       DASHBOARD ADMINISTRATIVO PRINCIPAL
+       ========================================== -->
+  <div id="admin-app" class="hidden min-h-screen flex flex-col">
+    
+    <!-- Topo Administrativo -->
+    <header class="glass-nav border-b border-white/10 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        
+        <div class="flex items-center gap-4">
+          <a href="index.html">
+            <img src="img/logo_jansen_white.png" alt="Jansen Transportes" class="h-12 w-auto object-contain">
+          </a>
+          <span class="hidden sm:inline-block px-2.5 py-1 rounded-md bg-blue-600/20 border border-blue-400/30 text-blue-300 text-[10px] font-extrabold uppercase tracking-wider">
+            Painel OmniCity v2.0
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="index.html#guias" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-200 transition-colors">
+            <i class="fa-solid fa-eye text-blue-400"></i>
+            <span>Ver Blog no Site</span>
+          </a>
+          <button id="logout-btn" class="px-3.5 py-2 rounded-xl bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 text-xs font-bold text-red-300 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="hidden sm:inline">Sair</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Conteúdo do Painel -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      
+      <!-- Cards de Métricas & Status da Conexão OmniCity -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total de Artigos</span>
+          <div id="stat-total-articles" class="text-3xl font-extrabold font-heading text-white">3</div>
+          <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+            <i class="fa-solid fa-circle-check"></i> Publicados no ar
+          </span>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Categorias Ativas</span>
+          <div id="stat-categories" class="text-3xl font-extrabold font-heading text-blue-300">3</div>
+          <span class="text-[10px] text-slate-400">Turismo, Casamentos, Corporativo</span>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Status OmniCity GEO</span>
+          <div class="text-base font-bold text-emerald-300 flex items-center gap-2 pt-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Pronto para Receber IAs
+          </div>
+          <span class="text-[10px] text-slate-400">ChatGPT, Perplexity, Gemini</span>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Backup dos Dados</span>
+          <button id="download-json-btn" class="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors">
+            <i class="fa-solid fa-download text-blue-400"></i>
+            <span>Baixar posts.json</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Barra de Ações Rápidas -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-950/40 to-[#0d1733] border border-blue-500/20 rounded-2xl p-4">
+        
+        <div class="flex items-center gap-3">
+          <button id="btn-novo-artigo" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30">
+            <i class="fa-solid fa-plus"></i>
+            <span>Novo Artigo</span>
+          </button>
+          <button id="btn-open-import-modal" class="px-4 py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-400/40 text-purple-300 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Importar OmniCity</span>
+          </button>
+        </div>
+
+        <!-- Campo de Busca -->
+        <div class="relative w-full sm:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="search-articles-input" placeholder="Buscar artigo por título ou tag..." class="w-full bg-[#030712] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400">
+        </div>
+
+      </div>
+
+      <!-- Tabela / Lista de Artigos Publicados -->
+      <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+        <div class="p-5 border-b border-white/10 flex items-center justify-between">
+          <h3 class="font-heading text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-newspaper text-blue-400"></i>
+            <span>Artigos Cadastrados no Blog</span>
+          </h3>
+          <span id="articles-count-badge" class="text-xs text-slate-400">3 artigos</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-white/5 border-b border-white/10 text-xs uppercase tracking-wider text-slate-400">
+              <tr>
+                <th class="p-4">Capa</th>
+                <th class="p-4">Título do Artigo</th>
+                <th class="p-4">Categoria</th>
+                <th class="p-4">Data</th>
+                <th class="p-4 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="articles-table-body" class="divide-y divide-white/10 text-xs sm:text-sm">
+              <!-- Gerado via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================
+       MODAL DE CADASTRO / EDIÇÃO DE ARTIGO
+       ========================================== -->
+  <div id="article-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-3xl w-full bg-[#0a1128] border border-blue-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-8">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h3 id="modal-title" class="font-heading text-xl font-bold text-white">Criar Novo Artigo</h3>
+          <p class="text-xs text-slate-300">Preencha os campos para publicar no blog da Jansen Transportes.</p>
+        </div>
+        <button id="close-modal-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="article-form" class="space-y-5">
+        <input type="hidden" id="form-article-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Título do Artigo *
+            </label>
+            <input type="text" id="form-title" placeholder="Ex: Guia Completo para Subir a Serra de Domingos Martins em Grupo" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-400" required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Categoria Principal *
+            </label>
+            <select id="form-category" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-400">
+              <option value="Roteiro Turístico">Roteiro Turístico</option>
+              <option value="Casamentos no ES">Casamentos no ES</option>
+              <option value="Corporativo VIP">Corporativo VIP</option>
+              <option value="Frota & Logística">Frota & Logística</option>
+              <option value="Socorro e Guincho">Socorro e Guincho</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Sub-tag / Região *
+            </label>
+            <input type="text" id="form-tag" placeholder="Ex: Montanhas Capixabas • Pedra Azul" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-400" required>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Resumo / Sinopse (Aparece no Card da Home) *
+            </label>
+            <textarea id="form-summary" rows="2" placeholder="Resumo atraente de até 2 linhas que convida o leitor a clicar..." class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400" required></textarea>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Imagem de Capa (URL ou Selecione da Frota Jansen) *
+            </label>
+            <div class="flex items-center gap-2 mb-2">
+              <input type="text" id="form-cover-image" placeholder="Ex: img/guia_china_park_montanhas.jpg" class="flex-1 bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400" required>
+            </div>
+            
+            <!-- Botões de Seleção Rápida de Fotos Oficiais -->
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="text-[10px] text-slate-400 block w-full mb-1">Fotos Oficiais da Frota Jansen:</span>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/guia_china_park_montanhas.jpg">Van China Park</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/servico_casamento_cerimonial.jpg">Casamento Noiva</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/guia_aeroporto_executivo.jpg">Transfer Aeroporto</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_van_hotel.jpg">Van Master VIP Hotel</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_onibus_real.jpg">Micro-ônibus Volare</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_corolla.jpg">Corolla Executivo</button>
+              <button type="button" class="quick-img-btn text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-600/30 border border-white/10 text-slate-300" data-img="img/frota_guincho_plataforma.jpg">Guincho Delivery</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Tempo de Leitura
+            </label>
+            <input type="text" id="form-read-time" value="3 min" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Veículo Sugerido para Cotação
+            </label>
+            <input type="text" id="form-recommended-vehicle" placeholder="Ex: Van Executiva VIP (15 Lugares)" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400">
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Mensagem Pré-configurada para o WhatsApp
+            </label>
+            <input type="text" id="form-whatsapp-text" placeholder="Ex: Olá! Li o guia de viagem para Pedra Azul e gostaria de um orçamento para van." class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-400">
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Conteúdo Completo do Artigo (HTML / Parágrafos) *
+            </label>
+            <textarea id="form-content" rows="8" placeholder="<p>Escreva os parágrafos do artigo ou use as tags <h3> para subtítulos...</p>" class="w-full bg-[#030712] border border-white/15 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-mono text-white focus:outline-none focus:border-blue-400" required></textarea>
+          </div>
+
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <button type="button" id="cancel-article-btn" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-slate-300 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#25D366]/20">
+            Salvar e Publicar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE IMPORTAÇÃO RÁPIDA OMNICITY
+       ========================================== -->
+  <div id="import-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="max-w-xl w-full bg-[#0a1128] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-white">Importar Pacote OmniCity</h3>
+            <p class="text-[11px] text-slate-300">Cole o JSON gerado pela esteira autônoma GEO Engine.</p>
+          </div>
+        </div>
+        <button id="close-import-btn" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          Código JSON do Artigo OmniCity:
+        </label>
+        <textarea id="omnicity-json-input" rows="8" placeholder='{
+  "title": "Transfer Executivo Aeroporto de Vitória VIX para Empresas",
+  "category": "Corporativo VIP",
+  "categoryTag": "Logística de Negócios",
+  "summary": "...",
+  "content": "...",
+  "coverImage": "img/guia_aeroporto_executivo.jpg"
+}' class="w-full bg-[#030712] border border-purple-500/30 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-purple-400"></textarea>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+        <button type="button" id="cancel-import-btn" class="px-4 py-2 rounded-xl bg-white/5 text-xs text-slate-300">Cancelar</button>
+        <button type="button" id="confirm-import-btn" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold uppercase tracking-wider">
+          Processar e Publicar Artigo
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Script do Painel Administrativo -->
+  <script>
+    const AUTH_KEY = 'jansen_admin_authenticated';
+    const POSTS_KEY = 'jansen_blog_posts';
+    const DEFAULT_JSON = 'data/posts.json';
+
+    let currentPosts = [];
+
+    // Elementos DOM
+    const loginModal = document.getElementById('login-modal');
+    const adminApp = document.getElementById('admin-app');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const passwordInput = document.getElementById('admin-password');
+    const vipLoginBtn = document.getElementById('vip-quick-login');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    const articlesTableBody = document.getElementById('articles-table-body');
+    const totalArticlesEl = document.getElementById('stat-total-articles');
+    const totalCategoriesEl = document.getElementById('stat-categories');
+    const articlesBadgeEl = document.getElementById('articles-count-badge');
+    const searchInput = document.getElementById('search-articles-input');
+
+    const articleModal = document.getElementById('article-modal');
+    const articleForm = document.getElementById('article-form');
+    const btnNovoArtigo = document.getElementById('btn-novo-artigo');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const cancelArticleBtn = document.getElementById('cancel-article-btn');
+
+    const importModal = document.getElementById('import-modal');
+    const btnOpenImportModal = document.getElementById('btn-open-import-modal');
+    const closeImportBtn = document.getElementById('close-import-btn');
+    const cancelImportBtn = document.getElementById('cancel-import-btn');
+    const confirmImportBtn = document.getElementById('confirm-import-btn');
+    const omnicityJsonInput = document.getElementById('omnicity-json-input');
+
+    const downloadJsonBtn = document.getElementById('download-json-btn');
+
+    // Autenticação
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem(AUTH_KEY);
+      if (isAuth === 'true') {
+        loginModal.classList.add('hidden');
+        adminApp.classList.remove('hidden');
+        loadArticles();
+      } else {
+        loginModal.classList.remove('hidden');
+        adminApp.classList.add('hidden');
+      }
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pwd = passwordInput.value.trim();
+      if (pwd === 'jansen2026' || pwd === 'admin' || pwd === 'alexjansen') {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        loginError.classList.add('hidden');
+        checkAuth();
+      } else {
+        loginError.classList.remove('hidden');
+      }
+    });
+
+    vipLoginBtn.addEventListener('click', () => {
+      sessionStorage.setItem(AUTH_KEY, 'true');
+      checkAuth();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem(AUTH_KEY);
+      checkAuth();
+    });
+
+    // Carregamento de Artigos
+    async function loadArticles() {
+      const cached = localStorage.getItem(POSTS_KEY);
+      if (cached) {
+        try {
+          currentPosts = JSON.parse(cached);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      if (!currentPosts || currentPosts.length === 0) {
+        try {
+          const res = await fetch(DEFAULT_JSON);
+          if (res.ok) {
+            currentPosts = await res.json();
+            localStorage.setItem(POSTS_KEY, JSON.stringify(currentPosts));
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      renderArticlesTable(currentPosts);
+      updateDashboardStats();
+    }
+
+    function updateDashboardStats() {
+      totalArticlesEl.innerText = currentPosts.length;
+      articlesBadgeEl.innerText = `${currentPosts.length} artigos`;
+
+      const cats = new Set(currentPosts.map(p => p.category));
+      totalCategoriesEl.innerText = cats.size;
+    }
+
+    function renderArticlesTable(postsToRender) {
+      articlesTableBody.innerHTML = '';
+
+      if (postsToRender.length === 0) {
+        articlesTableBody.innerHTML = `
+          <tr>
+            <td colspan="5" class="p-8 text-center text-slate-400 text-xs">
+              Nenhum artigo encontrado.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      postsToRender.forEach(post => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+
+        tr.innerHTML = `
+          <td class="p-4">
+            <img src="${post.coverImage}" alt="${post.title}" class="w-16 h-10 rounded-lg object-cover border border-white/10">
+          </td>
+          <td class="p-4 font-bold text-white max-w-xs">
+            <a href="artigo.html?id=${post.id}" target="_blank" class="hover:text-blue-400 transition-colors line-clamp-2 leading-tight">
+              ${post.title}
+            </a>
+            <span class="text-[10px] text-slate-400 font-normal block mt-1">${post.categoryTag || ''}</span>
+          </td>
+          <td class="p-4">
+            <span class="px-2.5 py-0.5 rounded-full bg-blue-600/20 text-blue-300 text-[11px] font-bold border border-blue-400/20 whitespace-nowrap">
+              ${post.category}
+            </span>
+          </td>
+          <td class="p-4 text-xs text-slate-400 whitespace-nowrap">
+            ${post.date || 'Recente'}
+          </td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-2">
+              <a href="artigo.html?id=${post.id}" target="_blank" class="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white transition-colors" title="Visualizar Artigo">
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+              <button onclick="editArticle('${post.id}')" class="p-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 hover:text-blue-300 transition-colors" title="Editar Artigo">
+                <i class="fa-solid fa-pen text-xs"></i>
+              </button>
+              <button onclick="deleteArticle('${post.id}')" class="p-2 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-400 hover:text-red-300 transition-colors" title="Excluir Artigo">
+                <i class="fa-solid fa-trash text-xs"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        articlesTableBody.appendChild(tr);
+      });
+    }
+
+    // Busca
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const filtered = currentPosts.filter(p => 
+        p.title.toLowerCase().includes(query) || 
+        p.category.toLowerCase().includes(query) || 
+        (p.categoryTag && p.categoryTag.toLowerCase().includes(query))
+      );
+      renderArticlesTable(filtered);
+    });
+
+    // Abrir Modal de Novo Artigo
+    btnNovoArtigo.addEventListener('click', () => {
+      document.getElementById('modal-title').innerText = 'Criar Novo Artigo';
+      document.getElementById('form-article-id').value = '';
+      articleForm.reset();
+      document.getElementById('form-cover-image').value = 'img/guia_china_park_montanhas.jpg';
+      document.getElementById('form-read-time').value = '3 min';
+      articleModal.classList.remove('hidden');
+      articleModal.classList.add('flex');
+    });
+
+    function closeModal() {
+      articleModal.classList.add('hidden');
+      articleModal.classList.remove('flex');
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelArticleBtn.addEventListener('click', closeModal);
+
+    // Botões de Seleção Rápida de Imagens
+    document.querySelectorAll('.quick-img-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('form-cover-image').value = btn.getAttribute('data-img');
+      });
+    });
+
+    // Submissão do Formulário de Artigo
+    articleForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const existingId = document.getElementById('form-article-id').value;
+      const title = document.getElementById('form-title').value.trim();
+      const category = document.getElementById('form-category').value;
+      const tag = document.getElementById('form-tag').value.trim();
+      const summary = document.getElementById('form-summary').value.trim();
+      const coverImage = document.getElementById('form-cover-image').value.trim();
+      const readTime = document.getElementById('form-read-time').value.trim() || '3 min';
+      const recommendedVehicle = document.getElementById('form-recommended-vehicle').value.trim() || 'Van Executiva VIP';
+      const whatsappText = document.getElementById('form-whatsapp-text').value.trim() || `Olá! Li o artigo "${title}" e gostaria de um orçamento.`;
+      const content = document.getElementById('form-content').value.trim();
+
+      const slug = title.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      if (existingId) {
+        // Atualizar existente
+        const idx = currentPosts.findIndex(p => p.id === existingId);
+        if (idx !== -1) {
+          currentPosts[idx] = {
+            ...currentPosts[idx],
+            title, category, categoryTag: tag, summary, coverImage, readTime, recommendedVehicle, whatsappText, content
+          };
+        }
+      } else {
+        // Novo
+        const newPost = {
+          id: slug || `artigo-${Date.now()}`,
+          slug: slug,
+          title,
+          category,
+          categoryTag: tag,
+          summary,
+          coverImage,
+          readTime,
+          date: new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
+          author: 'Equipe Jansen Transportes',
+          recommendedVehicle,
+          whatsappText,
+          featured: true,
+          content
+        };
+        currentPosts.unshift(newPost);
+      }
+
+      localStorage.setItem(POSTS_KEY, JSON.stringify(currentPosts));
+      closeModal();
+      renderArticlesTable(currentPosts);
+      updateDashboardStats();
+      alert('Artigo publicado com sucesso!');
+    });
+
+    // Editar Artigo
+    window.editArticle = function(id) {
+      const post = currentPosts.find(p => p.id === id);
+      if (!post) return;
+
+      document.getElementById('modal-title').innerText = 'Editar Artigo';
+      document.getElementById('form-article-id').value = post.id;
+      document.getElementById('form-title').value = post.title;
+      document.getElementById('form-category').value = post.category;
+      document.getElementById('form-tag').value = post.categoryTag || '';
+      document.getElementById('form-summary').value = post.summary;
+      document.getElementById('form-cover-image').value = post.coverImage;
+      document.getElementById('form-read-time').value = post.readTime || '3 min';
+      document.getElementById('form-recommended-vehicle').value = post.recommendedVehicle || '';
+      document.getElementById('form-whatsapp-text').value = post.whatsappText || '';
+      document.getElementById('form-content').value = post.content;
+
+      articleModal.classList.remove('hidden');
+      articleModal.classList.add('flex');
+    };
+
+    // Excluir Artigo
+    window.deleteArticle = function(id) {
+      if (confirm('Tem certeza de que deseja excluir este artigo do blog?')) {
+        currentPosts = currentPosts.filter(p => p.id !== id);
+        localStorage.setItem(POSTS_KEY, JSON.stringify(currentPosts));
+        renderArticlesTable(currentPosts);
+        updateDashboardStats();
+      }
+    };
+
+    // Modal Importador OmniCity
+    btnOpenImportModal.addEventListener('click', () => {
+      importModal.classList.remove('hidden');
+      importModal.classList.add('flex');
+    });
+
+    function closeImport() {
+      importModal.classList.add('hidden');
+      importModal.classList.remove('flex');
+      omnicityJsonInput.value = '';
+    }
+
+    closeImportBtn.addEventListener('click', closeImport);
+    cancelImportBtn.addEventListener('click', closeImport);
+
+    confirmImportBtn.addEventListener('click', () => {
+      const raw = omnicityJsonInput.value.trim();
+      if (!raw) return alert('Por favor, cole o código JSON da OmniCity.');
+
+      try {
+        const item = JSON.parse(raw);
+        if (!item.title) throw new Error('O JSON precisa conter pelo menos o campo "title".');
+
+        const slug = item.slug || item.title.toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+
+        const importedPost = {
+          id: slug || `omni-${Date.now()}`,
+          slug: slug,
+          title: item.title,
+          category: item.category || 'Roteiro Turístico',
+          categoryTag: item.categoryTag || 'OmniCity GEO Intelligence',
+          summary: item.summary || item.title,
+          coverImage: item.coverImage || 'img/guia_china_park_montanhas.jpg',
+          readTime: item.readTime || '3 min',
+          date: new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }),
+          author: item.author || 'Equipe Jansen Transportes',
+          recommendedVehicle: item.recommendedVehicle || 'Van Executiva VIP',
+          whatsappText: item.whatsappText || `Olá! Vi o guia "${item.title}" e gostaria de solicitar um orçamento.`,
+          featured: true,
+          content: item.content || `<p>${item.summary || item.title}</p>`
+        };
+
+        currentPosts.unshift(importedPost);
+        localStorage.setItem(POSTS_KEY, JSON.stringify(currentPosts));
+        closeImport();
+        renderArticlesTable(currentPosts);
+        updateDashboardStats();
+        alert('Artigo da OmniCity importado e publicado com sucesso!');
+      } catch (err) {
+        alert('Erro ao processar JSON da OmniCity: ' + err.message);
+      }
+    });
+
+    // Baixar JSON atualizado
+    downloadJsonBtn.addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentPosts, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "posts.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    });
+
+    // Iniciar
+    checkAuth();
+  </script>
+
+</body>
+</html>
