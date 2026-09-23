@@ -264,9 +264,13 @@
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Canais Integrados</span>
             <div class="flex items-center gap-2 pt-1">
               <span class="px-2 py-1 rounded-md bg-blue-600/20 border border-blue-400/30 text-blue-300 text-[10px] font-bold">Web Chat</span>
-              <span class="px-2 py-1 rounded-md bg-emerald-600/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold">WhatsApp Webhook</span>
+              <span class="px-2 py-1 rounded-md bg-emerald-600/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp text-xs"></i> Cloud API Oficial Meta
+              </span>
             </div>
-            <span class="text-[10px] text-slate-400 pt-1">Pronto para Evolution API / Z-API</span>
+            <span class="text-[10px] text-emerald-400 font-semibold pt-1 flex items-center gap-1">
+              <i class="fa-solid fa-shield-check"></i> 100% Oficial • Zero Risco de Ban
+            </span>
           </div>
 
         </div>
@@ -364,13 +368,15 @@
                   <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <div>
-                  <h4 class="text-sm font-bold text-white">Integração WhatsApp</h4>
-                  <span class="text-[11px] text-slate-400">Webhook pronto para gateways</span>
+                  <h4 class="text-sm font-bold text-white">Cloud API Oficial Meta</h4>
+                  <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-shield-halved text-[10px]"></i> Zero Risco de Banimento
+                  </span>
                 </div>
               </div>
 
               <p class="text-xs text-slate-300 leading-relaxed">
-                O agente da Jansen conta com um servidor backend nativo em Node.js pronto para plugar em plataformas como <strong>Evolution API</strong>, <strong>Z-API</strong> ou <strong>Baileys</strong>.
+                O backend do agente está homologado para a <strong>WhatsApp Business Cloud API Oficial da Meta</strong>. Opera diretamente pelos servidores oficiais da Meta, sem emuladores ou scrapers não oficiais, garantindo total segurança para o número do Alex Jansen.
               </p>
 
               <div class="bg-black/50 border border-white/10 rounded-xl p-3 space-y-2 text-xs font-mono">
@@ -380,18 +386,22 @@
               </div>
 
               <div class="space-y-1.5 text-xs">
-                <div class="text-[11px] font-bold text-white">Endpoints Disponíveis:</div>
-                <ul class="space-y-1 text-slate-300 text-[11px]">
-                  <li class="flex items-center gap-2">
-                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
-                    <span class="font-mono text-slate-200">/webhook</span> (Mensagens WhatsApp)
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
-                    <span class="font-mono text-slate-200">/api/chat</span> (API REST externa)
-                  </li>
+                <div class="text-[11px] font-bold text-white">Endpoints do Webhook Oficial Meta:</div>
+                <ul class="space-y-1.5 text-slate-300 text-[11px]">
                   <li class="flex items-center gap-2">
                     <span class="px-1.5 py-0.5 rounded bg-emerald-900/60 text-emerald-300 font-mono text-[10px]">GET</span>
+                    <span class="font-mono text-slate-200">/webhook</span> (Handshake Verificação Meta)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
+                    <span class="font-mono text-slate-200">/webhook</span> (Recebimento Mensagens Meta)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
+                    <span class="font-mono text-slate-200">/api/chat</span> (API REST Simulador Web)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">GET</span>
                     <span class="font-mono text-slate-200">/api/agent/status</span> (Status do Motor)
                   </li>
                 </ul>

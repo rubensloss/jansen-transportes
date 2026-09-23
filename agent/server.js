@@ -86,30 +86,81 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. Webhook WhatsApp (POST)
+  // 3. Webhook WhatsApp - Handshake de Verificação da Meta (GET)
+  if (req.method === 'GET' && url.pathname === '/webhook') {
+    const mode = url.searchParams.get('hub.mode');
+    const token = url.searchParams.get('hub.verify_token');
+    const challenge = url.searchParams.get('hub.challenge');
+    const expectedToken = process.env.META_VERIFY_TOKEN || 'jansen_meta_token_secret';
+
+    if (mode === 'subscribe' && token === expectedToken) {
+      console.log('[META CLOUD API]: Webhook verificado com sucesso pelo Meta Developers!');
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end(challenge || 'OK');
+    } else {
+      console.warn('[META CLOUD API]: Falha de autenticacao no handshake do Webhook. Token incorreto.');
+      res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end('Verification token mismatch');
+    }
+  }
+
+  // 4. Webhook WhatsApp - Mensagens Inbound Oficiais Meta Cloud API (POST)
   if (req.method === 'POST' && url.pathname === '/webhook') {
     let bodyData = '';
     req.on('data', chunk => bodyData += chunk);
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const body = JSON.parse(bodyData || '{}');
         console.log('[WHATSAPP WEBHOOK RECEIVED]:', JSON.stringify(body).substring(0, 150));
 
-        let fromNumber = body.phone || body.from || body.sender || (body.data && body.data.key && body.data.key.remoteJid) || 'unknown';
-        let text = body.message || body.text || (body.data && (body.data.message?.conversation || body.data.message?.extendedTextMessage?.text)) || '';
+        let fromNumber = '';
+        let customerProfileName = '';
+        let text = '';
 
-        if (!text) {
+        // Detecção do formato oficial da WhatsApp Business Cloud API da Meta
+        if (body.object === 'whatsapp_business_account' && body.entry && body.entry.length > 0) {
+          const entry = body.entry[0];
+          const changes = entry.changes && entry.changes[0];
+          const value = changes && changes.value;
+          const contact = value && value.contacts && value.contacts[0];
+          const messageObj = value && value.messages && value.messages[0];
+
+          if (contact) {
+            customerProfileName = contact.profile && contact.profile.name ? contact.profile.name : '';
+          }
+
+          if (messageObj) {
+            fromNumber = messageObj.from || '';
+            if (messageObj.type === 'text') {
+              text = messageObj.text && messageObj.text.body ? messageObj.text.body : '';
+            } else if (messageObj.type === 'button') {
+              text = messageObj.button && messageObj.button.text ? messageObj.button.text : '';
+            } else if (messageObj.type === 'interactive') {
+              text = (messageObj.interactive && messageObj.interactive.button_reply && messageObj.interactive.button_reply.title) ||
+                     (messageObj.interactive && messageObj.interactive.list_reply && messageObj.interactive.list_reply.title) || '';
+            }
+          }
+        } else {
+          // Formato alternativo direto (simulador, testes unitarios ou curl)
+          fromNumber = body.phone || body.from || body.sender || 'unknown';
+          text = body.message || body.text || '';
+        }
+
+        if (!text || !text.trim()) {
           return sendJson(res, 200, { status: 'ignored_empty_message' });
         }
 
         const session = getSession(fromNumber);
+        if (customerProfileName && !session.customerName) {
+          session.customerName = customerProfileName;
+        }
 
         // 1. Verificação: O lead veio transferido do site já qualificado?
         const isFromSite = text.includes('Cotação solicitada no site Jansen') || text.includes('Cotação iniciada no site');
         if (isFromSite) {
           // Extrai o nome do cliente se estiver na mensagem formatada
           const nameMatch = text.match(/\*Cliente:\*\s*([A-Za-zÀ-ÿ]+)/i);
-          const customerName = nameMatch ? nameMatch[1] : '';
+          const customerName = nameMatch ? nameMatch[1] : (session.customerName || '');
 
           session.customerName = customerName;
           session.isQualifiedFromSite = true;
@@ -168,12 +219,14 @@ const server = http.createServer((req, res) => {
   sendJson(res, 404, { error: 'Rota não encontrada' });
 });
 
-server.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(`🚀 Agente Jansen Transportes rodando na porta ${PORT}`);
-  console.log(`💬 Chat API: http://localhost:${PORT}/api/chat`);
-  console.log(`📲 WhatsApp Webhook: http://localhost:${PORT}/webhook`);
-  console.log(`=================================================`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(`🚀 Agente Jansen Transportes rodando na porta ${PORT}`);
+    console.log(`💬 Chat API: http://localhost:${PORT}/api/chat`);
+    console.log(`📲 WhatsApp Webhook: http://localhost:${PORT}/webhook`);
+    console.log(`=================================================`);
+  });
+}
 
 module.exports = server;
