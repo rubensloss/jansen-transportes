@@ -103,7 +103,48 @@ const server = http.createServer((req, res) => {
         }
 
         const session = getSession(fromNumber);
+
+        // 1. Verificação: O lead veio transferido do site já qualificado?
+        const isFromSite = text.includes('Cotação solicitada no site Jansen') || text.includes('Cotação iniciada no site');
+        if (isFromSite) {
+          // Extrai o nome do cliente se estiver na mensagem formatada
+          const nameMatch = text.match(/\*Cliente:\*\s*([A-Za-zÀ-ÿ]+)/i);
+          const customerName = nameMatch ? nameMatch[1] : '';
+
+          session.customerName = customerName;
+          session.isQualifiedFromSite = true;
+          session.botPaused = true; // Pausa o robô para o atendente humano Alex Jansen assumir
+
+          const ackReply = customerName 
+            ? `Olá ${customerName}! Recebemos seus dados do site com sucesso. O Alex Jansen já está analisando sua rota e vai te passar o valor exato aqui em instantes!`
+            : `Olá! Recebemos sua solicitação do site da Jansen com sucesso. O Alex Jansen já está verificando e vai te passar a cotação em instantes!`;
+
+          console.log(`[LEAD DO SITE RECEBIDO NO WHATSAPP]: Cliente ${customerName || fromNumber}. Robô pausado para atendimento humano.`);
+
+          return sendJson(res, 200, {
+            status: 'site_lead_received',
+            recipient: fromNumber,
+            responseMessage: ackReply,
+            handoffTriggered: true,
+            botPaused: true,
+            customerName: customerName,
+            alexJansenAlert: `🚨 NOVO LEAD QUALIFICADO DO SITE: ${customerName} (${fromNumber}). Assuma o atendimento no WhatsApp!`
+          });
+        }
+
+        // 2. Se o atendimento já foi transferido para o Alex anteriormente, o bot permanece em silêncio
+        if (session.botPaused) {
+          console.log(`[BOT PAUSADO]: Mensagem de ${fromNumber} ignorada pelo bot para permitir conversa direta com Alex Jansen.`);
+          return sendJson(res, 200, { status: 'bot_paused_for_human_agent' });
+        }
+
+        // 3. Cliente novo chamando direto no WhatsApp -> Fluxo de Qualificação Ativo
         const result = processLocalIntelligence(text, session);
+
+        // Se o robô finalizou a qualificação ou o cliente pediu humano, pausa o bot
+        if (result.handoff) {
+          session.botPaused = true;
+        }
 
         console.log(`[AGENTE IA -> ${fromNumber}]: "${result.reply}" (Handoff: ${result.handoff})`);
 
@@ -113,7 +154,8 @@ const server = http.createServer((req, res) => {
           responseMessage: result.reply,
           handoffTriggered: result.handoff,
           handoffReason: result.handoffReason,
-          alexJansenAlert: result.handoff ? `ALERTA JANSEN: Cliente ${fromNumber} solicitou transbordo. Resumo: "${text}"` : null
+          botPaused: session.botPaused,
+          alexJansenAlert: result.handoff ? `ALERTA JANSEN: Cliente ${fromNumber} qualificado no WhatsApp. Assuma para fechamento!` : null
         });
       } catch (e) {
         return sendJson(res, 500, { error: e.message });
