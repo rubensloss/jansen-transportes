@@ -7,97 +7,195 @@
   const WHATSAPP_PHONE = '5527997392787';
   const WHATSAPP_FORMATTED = '(27) 99739-2787';
 
-  // Base de Conhecimento e Regras Locais (Garante funcionamento no GitHub Pages)
+  // Base de Conhecimento e Sessão de Qualificação de Lead
   const agentSession = {
-    history: [],
-    intent: null,
-    askedPassengers: false,
-    askedDate: false,
-    askedDestination: false
+    customerName: null,
+    serviceType: null,
+    passengers: null,
+    route: null,
+    tripDate: null,
+    tripType: null,
+    times: null,
+    history: []
   };
 
   function processLocalMessage(userText) {
     const msg = userText.toLowerCase().trim();
+    agentSession.history.push({ role: 'user', content: userText });
+
     let reply = '';
     let handoff = false;
     let handoffReason = '';
 
+    // 1. Extração de Entidades
+    // A. Nome do cliente
+    if (!agentSession.customerName) {
+      const namePatterns = [
+        /(?:me chamo|meu nome [eé]|sou o|sou a|pode me chamar de|aqui [eé] o|aqui [eé] a)\s+([a-zA-ZÀ-ÿ]+)/i,
+        /^([a-zA-ZÀ-ÿ]{2,15})(?:\s+[a-zA-ZÀ-ÿ]{2,15})?$/
+      ];
+
+      for (const pat of namePatterns) {
+        const match = userText.match(pat);
+        if (match && match[1]) {
+          const candidate = match[1].trim();
+          const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'guincho', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
+          if (!nonNames.includes(candidate.toLowerCase())) {
+            agentSession.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
+            break;
+          }
+        }
+      }
+    }
+
+    // B. Tipo de Serviço / Veículo
+    if (!agentSession.serviceType) {
+      if (msg.includes('van') || msg.includes('sprinter') || msg.includes('master') || msg.includes('pedra azul') || msg.includes('domingos martins') || msg.includes('china park')) {
+        agentSession.serviceType = 'Van Executiva VIP';
+      } else if (msg.includes('sedan') || msg.includes('sedã') || msg.includes('corolla') || msg.includes('byd') || msg.includes('casamento') || msg.includes('noiva') || msg.includes('aeroporto') || msg.includes('vix') || msg.includes('traslado')) {
+        agentSession.serviceType = 'Sedan Executivo (Corolla/BYD)';
+      } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
+        agentSession.serviceType = 'Micro / Ônibus Rodoviário';
+      } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
+        agentSession.serviceType = 'Guincho 24h';
+      } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
+        agentSession.serviceType = 'Caminhão Baú (Cargas)';
+      }
+    }
+
+    // C. Passageiros
+    if (!agentSession.passengers) {
+      const pMatch = msg.match(/(\d{1,3})\s*(?:pessoas?|passageiros?|lugares?|pax)?/);
+      if (pMatch && parseInt(pMatch[1], 10) > 0 && parseInt(pMatch[1], 10) <= 100 && (msg.includes('pessoa') || msg.includes('lugar') || msg.includes('passageiro') || agentSession.serviceType)) {
+        agentSession.passengers = `${pMatch[1]} pessoas`;
+      }
+    }
+
+    // D. Trajeto
+    if (!agentSession.route) {
+      const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|guincho|caminhão|caminhao)\b/i.test(msg);
+      if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
+        agentSession.route = userText;
+      }
+    }
+
+    // E. Tipo de Viagem (Ida e Volta vs Só Ida)
+    if (!agentSession.tripType) {
+      if (msg.includes('ida e volta') || msg.includes('ida/volta') || msg.includes('bate e volta') || msg.includes('bate-volta')) {
+        agentSession.tripType = 'Ida e Volta';
+      } else if (msg.includes('só ida') || msg.includes('so ida') || msg.includes('apenas ida') || msg.includes('somente ida')) {
+        agentSession.tripType = 'Só Ida';
+      }
+    }
+
+    // F. Data
+    if (!agentSession.tripDate) {
+      const dateMatch = msg.match(/(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?|\bdia\s+\d{1,2}\b|\bs[aá]bado\b|\bsexta\b|\bamanh[aã]\b|\bferiado\b|\bdomingo\b(?!\s*martins))/i);
+      if (dateMatch) {
+        agentSession.tripDate = dateMatch[0];
+      }
+    }
+
+    // G. Horários
+    if (!agentSession.times) {
+      const timeMatch = msg.match(/(\d{1,2}(?:h|:\d{2}))/g);
+      if (timeMatch && timeMatch.length > 0) {
+        agentSession.times = userText;
+      }
+    }
+
+    // 2. Verificação de Solicitação de Atendente Humano
     const isHumanRequest = msg.includes('humano') || 
                            msg.includes('atendente') || 
                            msg.includes('alex') || 
                            msg.includes('falar com') || 
                            msg.includes('pessoa de verdade') || 
-                           msg.includes('pessoa real') || 
-                           msg.includes('falar com algu');
+                           msg.includes('pessoa real');
 
     if (isHumanRequest) {
-      reply = 'Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade.';
+      reply = agentSession.customerName 
+        ? `Perfeito, ${agentSession.customerName}! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen.`
+        : 'Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade.';
       handoff = true;
       handoffReason = 'Solicitação de atendente humano';
-    } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
-      reply = 'Nosso guincho plataforma 24h atende todo o ES! Qual o modelo do veículo e onde você está localizado agora?';
-      agentSession.intent = 'guincho';
-    } else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
-      reply = 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
+    } 
+    // 3. Fora de Escopo
+    else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
+      reply = agentSession.customerName
+        ? `Não operamos com esse tipo de transporte, ${agentSession.customerName}. Vou te transferir para um especialista humano da Jansen para te orientar.`
+        : 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
       handoff = true;
       handoffReason = 'Transporte fora do escopo';
-    } else if (agentSession.intent === 'van' || msg.includes('van') || msg.includes('pedra azul') || msg.includes('domingos martins') || msg.includes('china park') || msg.includes('montanha') || msg.includes('passeio') || msg.includes('grupo')) {
-      agentSession.intent = 'van';
-      if (!agentSession.askedPassengers && !(/\d+/.test(msg))) {
-        reply = 'Temos vans Mercedes Sprinter e Master VIP (até 15 lugares) com poltronas reclináveis e ar duplo! Quantas pessoas vão viajar?';
-        agentSession.askedPassengers = true;
-      } else if (!agentSession.askedDate) {
-        reply = 'Perfeito! Qual a data prevista para a viagem e a cidade de partida?';
-        agentSession.askedDate = true;
+    }
+    // 4. Fluxo de Guincho 24h
+    else if (agentSession.serviceType === 'Guincho 24h') {
+      if (!agentSession.customerName) {
+        reply = 'É um prazer atender você na Jansen! Nosso guincho 24h atende todo o ES. Como posso te chamar e onde você está agora?';
+      } else if (!agentSession.route) {
+        reply = `Entendido, ${agentSession.customerName}! Qual o modelo do veículo e onde você está localizado agora?`;
+        agentSession.route = 'pendente';
       } else {
-        reply = 'Excelente! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para finalizar o valor da sua viagem.';
+        reply = `Perfeito, ${agentSession.customerName}! Vou acionar nosso especialista Alex Jansen no WhatsApp para enviar o guincho agora mesmo.`;
         handoff = true;
-        handoffReason = 'Cotação de Van Executiva pronta';
+        handoffReason = 'Acionamento de Guincho 24h';
       }
-    } else if (agentSession.intent === 'sedan' || msg.includes('sedan') || msg.includes('sedã') || msg.includes('corolla') || msg.includes('byd') || msg.includes('casamento') || msg.includes('noiva') || msg.includes('aeroporto') || msg.includes('executivo') || msg.includes('vix') || msg.includes('traslado')) {
-      agentSession.intent = 'sedan';
-      if (!agentSession.askedDate) {
-        reply = 'Nosso Toyota Corolla e SUV BYD atendem com motorista a rigor e pontualidade! Qual a data e o trajeto desejado?';
-        agentSession.askedDate = true;
-      } else {
-        reply = 'Combinado! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade à sua reserva.';
+    }
+    // 5. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+    else {
+      // Passo 1: Nome
+      if (!agentSession.customerName) {
+        if (agentSession.serviceType) {
+          reply = `É um prazer para a Jansen Transportes atender você! Nossas opções de ${agentSession.serviceType} são de alto padrão. Como posso te chamar?`;
+        } else {
+          reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?';
+        }
+      }
+      // Passo 2: Tipo de Veículo
+      else if (!agentSession.serviceType) {
+        reply = `Prazer, ${agentSession.customerName}! Você precisa de Van VIP, Carro Executivo, Ônibus, Carga ou Guincho?`;
+      }
+      // Passo 3: Passageiros e Trajeto
+      else if (!agentSession.passengers || !agentSession.route) {
+        reply = `Excelente, ${agentSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`;
+      }
+      // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
+      else if (!agentSession.tripDate || !agentSession.tripType) {
+        reply = `Perfeito, ${agentSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`;
+      }
+      // Passo 5: Horários
+      else if (!agentSession.times) {
+        if (agentSession.tripType === 'Só Ida') {
+          reply = `Combinado, ${agentSession.customerName}! Qual o horário previsto para a saída?`;
+        } else {
+          reply = `Combinado, ${agentSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`;
+        }
+      }
+      // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
+      else {
+        reply = `Tudo anotado, ${agentSession.customerName}! Vou transferir seus dados agora para o Alex Jansen para te enviar a cotação exata.`;
         handoff = true;
-        handoffReason = 'Reserva de Carro Executivo pronta';
+        handoffReason = 'Cotação qualificada pronta para fechamento';
       }
-    } else if (agentSession.intent === 'onibus' || msg.includes('ônibus') || msg.includes('onibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
-      agentSession.intent = 'onibus';
-      if (!agentSession.askedDestination) {
-        reply = 'Dispomos de Micro Volare DW9 (31 lugares) e Ônibus (46 lugares) com registro ANTT. Qual o destino e a quantidade de passageiros?';
-        agentSession.askedDestination = true;
-      } else {
-        reply = 'Ótimo! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para calcular sua rota em grupo.';
-        handoff = true;
-        handoffReason = 'Cotação de Micro/Ônibus pronta';
-      }
-    } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('furgão') || msg.includes('furgao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('mercadoria') || msg.includes('entrega')) {
-      reply = 'Atendemos cargas fechadas e distribuição no ES com caminhões Mercedes Accelo Baú. Qual o tipo de mercadoria e o trajeto?';
-      agentSession.intent = 'carga';
-    } else if (msg.includes('faturamento') || msg.includes('empresa') || msg.includes('pj') || msg.includes('nota fiscal') || msg.includes('boleto')) {
-      reply = 'Sim! Emitimos Nota Fiscal e faturamos para empresas (PJ) com cadastro facilitado. Qual serviço sua empresa precisa?';
-    } else if (msg.includes('atende') || msg.includes('onde') || msg.includes('cidade') || msg.includes('região') || msg.includes('regiao') || msg.includes('estado')) {
-      reply = 'Atendemos todo o estado do Espírito Santo e fazemos viagens e excursões para todo o Brasil com registro ANTT!';
-    } else if (msg.includes('olá') || msg.includes('ola') || msg.includes('bom dia') || msg.includes('boa tarde') || msg.includes('boa noite') || msg === 'oi') {
-      reply = 'Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?';
-    } else {
-      reply = 'Entendido! Para te passar as informações exatas, vou transferir seu atendimento agora para um de nossos especialistas da Jansen.';
-      handoff = true;
-      handoffReason = 'Atendimento personalizado';
     }
 
-    if (reply.length > 250) {
+    if (reply.length > 200) {
       const sentences = reply.split(/(?<=[.!?])\s+/);
       reply = sentences.slice(0, 2).join(' ');
     }
 
+    // Formatação do resumo estruturado para o WhatsApp do Alex Jansen
+    let waSummary = `Olá Alex! Cotação solicitada no site Jansen:`;
+    if (agentSession.customerName) waSummary += `\n👤 *Cliente:* ${agentSession.customerName}`;
+    if (agentSession.serviceType) waSummary += `\n🚐 *Veículo:* ${agentSession.serviceType}`;
+    if (agentSession.passengers) waSummary += `\n👥 *Passageiros:* ${agentSession.passengers}`;
+    if (agentSession.route && agentSession.route !== 'pendente') waSummary += `\n📍 *Trajeto:* ${agentSession.route}`;
+    if (agentSession.tripDate) waSummary += `\n📅 *Data:* ${agentSession.tripDate}`;
+    if (agentSession.tripType) waSummary += ` (${agentSession.tripType})`;
+    if (agentSession.times) waSummary += `\n⏰ *Horários:* ${agentSession.times}`;
+    waSummary += `\n\nPoderia me enviar o valor da cotação?`;
+
     const cleanNumber = WHATSAPP_PHONE.replace(/\D/g, '');
-    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(
-      `Olá! Estava no chat do site da Jansen conversando sobre: "${userText}". Poderia me atender?`
-    )}`;
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(waSummary)}`;
 
     return { reply, handoff, handoffReason, whatsappUrl };
   }
@@ -155,7 +253,7 @@
             <i class="fa-solid fa-robot"></i>
           </div>
           <div class="bg-white/5 border border-white/10 text-slate-100 p-3 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed shadow-sm">
-            Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?
+            Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
           </div>
         </div>
 

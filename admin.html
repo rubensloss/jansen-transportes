@@ -301,14 +301,20 @@
               <span class="text-[11px] font-bold text-slate-400 flex items-center gap-1 self-center pr-1">
                 <i class="fa-solid fa-bolt text-amber-400"></i> Testes:
               </span>
-              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Quanto custa van para Domingos Martins para 10 pessoas?">
-                🚐 Van Pedra Azul (10 pessoas)
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Olá, me chamo Carlos!">
+                👤 1. Nome (Carlos)
               </button>
-              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Preciso de um Corolla executivo para casamento no sábado">
-                💍 Sedã Casamento
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Preciso de uma Van VIP">
+                🚐 2. Veículo (Van VIP)
               </button>
-              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Vocês têm ônibus para excursão de 40 pessoas para Porto Seguro?">
-                🚌 Ônibus 40 Lugares
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Somos 12 pessoas, de Vitória para Domingos Martins">
+                👥 3. Pessoas & Rota
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Dia 15/10, ida e volta">
+                📅 4. Data & Ida/Volta
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Saída às 08h e retorno às 18h">
+                ⏰ 5. Horários (Saída/Retorno)
               </button>
               <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 text-red-200 text-[11px] transition-all" data-prompt="Meu carro deu pane na Terceira Ponte, preciso de guincho urgente!">
                 🚨 Guincho Urgente
@@ -329,10 +335,10 @@
                 </div>
                 <div class="space-y-1 max-w-[85%]">
                   <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
-                    Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?
+                    Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
                   </div>
                   <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
-                    <span class="text-blue-300 font-mono font-bold">118 caracteres</span> • <span class="text-emerald-400">Resposta curta & objetiva</span>
+                    <span class="text-blue-300 font-mono font-bold">95 caracteres</span> • <span class="text-emerald-400">Saudação calorosa e coleta do nome</span>
                   </div>
                 </div>
               </div>
@@ -1141,20 +1147,26 @@
     const simQuickBtns = document.querySelectorAll('.sim-quick-btn');
 
     let simSession = {
-      history: [],
-      intent: null,
-      askedPassengers: false,
-      askedDate: false,
-      askedDestination: false
+      customerName: null,
+      serviceType: null,
+      passengers: null,
+      route: null,
+      tripDate: null,
+      tripType: null,
+      times: null,
+      history: []
     };
 
     function resetSimSession() {
       simSession = {
-        history: [],
-        intent: null,
-        askedPassengers: false,
-        askedDate: false,
-        askedDestination: false
+        customerName: null,
+        serviceType: null,
+        passengers: null,
+        route: null,
+        tripDate: null,
+        tripType: null,
+        times: null,
+        history: []
       };
       simMessages.innerHTML = `
         <div class="flex gap-3 items-start">
@@ -1163,10 +1175,10 @@
           </div>
           <div class="space-y-1 max-w-[85%]">
             <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
-              Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?
+              Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
             </div>
             <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
-              <span class="text-blue-300 font-mono font-bold">118 caracteres</span> • <span class="text-emerald-400">Resposta curta & objetiva</span>
+              <span class="text-blue-300 font-mono font-bold">95 caracteres</span> • <span class="text-emerald-400">Saudação calorosa e coleta do nome</span>
             </div>
           </div>
         </div>
@@ -1179,86 +1191,181 @@
 
     function processSimMessage(userText) {
       const msg = userText.toLowerCase().trim();
+      simSession.history.push({ role: 'user', content: userText });
+
       let reply = '';
       let handoff = false;
       let handoffReason = '';
 
+      // 1. Extração de Entidades
+      // A. Nome do cliente
+      if (!simSession.customerName) {
+        const namePatterns = [
+          /(?:me chamo|meu nome [eé]|sou o|sou a|pode me chamar de|aqui [eé] o|aqui [eé] a)\s+([a-zA-ZÀ-ÿ]+)/i,
+          /^([a-zA-ZÀ-ÿ]{2,15})(?:\s+[a-zA-ZÀ-ÿ]{2,15})?$/
+        ];
+
+        for (const pat of namePatterns) {
+          const match = userText.match(pat);
+          if (match && match[1]) {
+            const candidate = match[1].trim();
+            const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'guincho', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
+            if (!nonNames.includes(candidate.toLowerCase())) {
+              simSession.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
+              break;
+            }
+          }
+        }
+      }
+
+      // B. Tipo de Serviço / Veículo
+      if (!simSession.serviceType) {
+        if (msg.includes('van') || msg.includes('sprinter') || msg.includes('master') || msg.includes('pedra azul') || msg.includes('domingos martins') || msg.includes('china park')) {
+          simSession.serviceType = 'Van Executiva VIP';
+        } else if (msg.includes('sedan') || msg.includes('sedã') || msg.includes('corolla') || msg.includes('byd') || msg.includes('casamento') || msg.includes('noiva') || msg.includes('aeroporto') || msg.includes('vix') || msg.includes('traslado')) {
+          simSession.serviceType = 'Sedan Executivo (Corolla/BYD)';
+        } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
+          simSession.serviceType = 'Micro / Ônibus Rodoviário';
+        } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
+          simSession.serviceType = 'Guincho 24h';
+        } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
+          simSession.serviceType = 'Caminhão Baú (Cargas)';
+        }
+      }
+
+      // C. Passageiros
+      if (!simSession.passengers) {
+        const pMatch = msg.match(/(\d{1,3})\s*(?:pessoas?|passageiros?|lugares?|pax)?/);
+        if (pMatch && parseInt(pMatch[1], 10) > 0 && parseInt(pMatch[1], 10) <= 100 && (msg.includes('pessoa') || msg.includes('lugar') || msg.includes('passageiro') || simSession.serviceType)) {
+          simSession.passengers = `${pMatch[1]} pessoas`;
+        }
+      }
+
+      // D. Trajeto
+      if (!simSession.route) {
+        const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|guincho|caminhão|caminhao)\b/i.test(msg);
+        if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
+          simSession.route = userText;
+        }
+      }
+
+      // E. Tipo de Viagem (Ida e Volta vs Só Ida)
+      if (!simSession.tripType) {
+        if (msg.includes('ida e volta') || msg.includes('ida/volta') || msg.includes('bate e volta') || msg.includes('bate-volta')) {
+          simSession.tripType = 'Ida e Volta';
+        } else if (msg.includes('só ida') || msg.includes('so ida') || msg.includes('apenas ida') || msg.includes('somente ida')) {
+          simSession.tripType = 'Só Ida';
+        }
+      }
+
+      // F. Data
+      if (!simSession.tripDate) {
+        const dateMatch = msg.match(/(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?|\bdia\s+\d{1,2}\b|\bs[aá]bado\b|\bsexta\b|\bamanh[aã]\b|\bferiado\b|\bdomingo\b(?!\s*martins))/i);
+        if (dateMatch) {
+          simSession.tripDate = dateMatch[0];
+        }
+      }
+
+      // G. Horários
+      if (!simSession.times) {
+        const timeMatch = msg.match(/(\d{1,2}(?:h|:\d{2}))/g);
+        if (timeMatch && timeMatch.length > 0) {
+          simSession.times = userText;
+        }
+      }
+
+      // 2. Verificação de Solicitação de Atendente Humano
       const isHumanRequest = msg.includes('humano') || 
                              msg.includes('atendente') || 
                              msg.includes('alex') || 
                              msg.includes('falar com') || 
                              msg.includes('pessoa de verdade') || 
-                             msg.includes('pessoa real') || 
-                             msg.includes('falar com algu');
+                             msg.includes('pessoa real');
 
       if (isHumanRequest) {
-        reply = 'Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade.';
+        reply = simSession.customerName 
+          ? `Perfeito, ${simSession.customerName}! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen.`
+          : 'Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade.';
         handoff = true;
         handoffReason = 'Solicitação de atendente humano';
-      } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
-        reply = 'Nosso guincho plataforma 24h atende todo o ES! Qual o modelo do veículo e o local onde você está agora?';
-        simSession.intent = 'guincho';
-      } else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
-        reply = 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
+      } 
+      // 3. Fora de Escopo
+      else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
+        reply = simSession.customerName
+          ? `Não operamos com esse tipo de transporte, ${simSession.customerName}. Vou te transferir para um especialista humano da Jansen para te orientar.`
+          : 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
         handoff = true;
         handoffReason = 'Transporte fora do escopo';
-      } else if (simSession.intent === 'van' || msg.includes('van') || msg.includes('pedra azul') || msg.includes('domingos martins') || msg.includes('china park') || msg.includes('montanha') || msg.includes('passeio') || msg.includes('grupo')) {
-        simSession.intent = 'van';
-        if (!simSession.askedPassengers && !(/\d+/.test(msg))) {
-          reply = 'Temos vans Mercedes Sprinter e Master VIP (até 15 lugares) com poltronas reclináveis e ar duplo! Quantas pessoas vão viajar?';
-          simSession.askedPassengers = true;
-        } else if (!simSession.askedDate) {
-          reply = 'Perfeito! Qual a data prevista para a viagem e a cidade de partida?';
-          simSession.askedDate = true;
+      }
+      // 4. Fluxo de Guincho 24h
+      else if (simSession.serviceType === 'Guincho 24h') {
+        if (!simSession.customerName) {
+          reply = 'É um prazer atender você na Jansen! Nosso guincho 24h atende todo o ES. Como posso te chamar e onde você está agora?';
+        } else if (!simSession.route) {
+          reply = `Entendido, ${simSession.customerName}! Qual o modelo do veículo e onde você está localizado agora?`;
+          simSession.route = 'pendente';
         } else {
-          reply = 'Excelente! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para finalizar o valor da sua viagem.';
+          reply = `Perfeito, ${simSession.customerName}! Vou acionar nosso especialista Alex Jansen no WhatsApp para enviar o guincho agora mesmo.`;
           handoff = true;
-          handoffReason = 'Cotação de Van Executiva pronta';
+          handoffReason = 'Acionamento de Guincho 24h';
         }
-      } else if (simSession.intent === 'sedan' || msg.includes('sedan') || msg.includes('sedã') || msg.includes('corolla') || msg.includes('byd') || msg.includes('casamento') || msg.includes('noiva') || msg.includes('aeroporto') || msg.includes('executivo') || msg.includes('vix') || msg.includes('traslado')) {
-        simSession.intent = 'sedan';
-        if (!simSession.askedDate) {
-          reply = 'Nosso Toyota Corolla e SUV BYD atendem com motorista a rigor e pontualidade! Qual a data e o trajeto desejado?';
-          simSession.askedDate = true;
-        } else {
-          reply = 'Combinado! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade à sua reserva.';
+      }
+      // 5. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+      else {
+        // Passo 1: Nome
+        if (!simSession.customerName) {
+          if (simSession.serviceType) {
+            reply = `É um prazer para a Jansen Transportes atender você! Nossas opções de ${simSession.serviceType} são de alto padrão. Como posso te chamar?`;
+          } else {
+            reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?';
+          }
+        }
+        // Passo 2: Tipo de Veículo
+        else if (!simSession.serviceType) {
+          reply = `Prazer, ${simSession.customerName}! Você precisa de Van VIP, Carro Executivo, Ônibus, Carga ou Guincho?`;
+        }
+        // Passo 3: Passageiros e Trajeto
+        else if (!simSession.passengers || !simSession.route) {
+          reply = `Excelente, ${simSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`;
+        }
+        // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
+        else if (!simSession.tripDate || !simSession.tripType) {
+          reply = `Perfeito, ${simSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`;
+        }
+        // Passo 5: Horários
+        else if (!simSession.times) {
+          if (simSession.tripType === 'Só Ida') {
+            reply = `Combinado, ${simSession.customerName}! Qual o horário previsto para a saída?`;
+          } else {
+            reply = `Combinado, ${simSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`;
+          }
+        }
+        // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
+        else {
+          reply = `Tudo anotado, ${simSession.customerName}! Vou transferir seus dados agora para o Alex Jansen para te enviar a cotação exata.`;
           handoff = true;
-          handoffReason = 'Reserva de Carro Executivo';
+          handoffReason = 'Cotação qualificada pronta para fechamento';
         }
-      } else if (simSession.intent === 'onibus' || msg.includes('ônibus') || msg.includes('onibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
-        simSession.intent = 'onibus';
-        if (!simSession.askedDestination) {
-          reply = 'Dispomos de Micro Volare DW9 (31 lugares) e Ônibus (46 lugares) com registro ANTT. Qual o destino e a quantidade de passageiros?';
-          simSession.askedDestination = true;
-        } else {
-          reply = 'Ótimo! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para calcular sua rota em grupo.';
-          handoff = true;
-          handoffReason = 'Cotação de Micro/Ônibus';
-        }
-      } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('furgão') || msg.includes('furgao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('mercadoria') || msg.includes('entrega')) {
-        reply = 'Atendemos cargas fechadas e distribuição no ES com caminhões Mercedes Accelo Baú. Qual o tipo de mercadoria e o trajeto?';
-        simSession.intent = 'carga';
-      } else if (msg.includes('faturamento') || msg.includes('empresa') || msg.includes('pj') || msg.includes('nota fiscal') || msg.includes('boleto')) {
-        reply = 'Sim! Emitimos Nota Fiscal e faturamos para empresas (PJ) com cadastro facilitado. Qual serviço sua empresa precisa?';
-      } else if (msg.includes('atende') || msg.includes('onde') || msg.includes('cidade') || msg.includes('região') || msg.includes('regiao') || msg.includes('estado')) {
-        reply = 'Atendemos todo o estado do Espírito Santo e fazemos viagens e excursões para todo o Brasil com registro ANTT!';
-      } else if (msg.includes('olá') || msg.includes('ola') || msg.includes('bom dia') || msg.includes('boa tarde') || msg.includes('boa noite') || msg === 'oi') {
-        reply = 'Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?';
-      } else {
-        reply = 'Entendido! Para te passar as informações exatas, vou transferir seu atendimento agora para um de nossos especialistas da Jansen.';
-        handoff = true;
-        handoffReason = 'Atendimento personalizado';
       }
 
-      if (reply.length > 250) {
+      if (reply.length > 200) {
         const sentences = reply.split(/(?<=[.!?])\s+/);
         reply = sentences.slice(0, 2).join(' ');
       }
 
+      // Formatação do resumo estruturado para o WhatsApp do Alex Jansen
+      let waSummary = `Olá Alex! Cotação solicitada no site Jansen:`;
+      if (simSession.customerName) waSummary += `\n👤 *Cliente:* ${simSession.customerName}`;
+      if (simSession.serviceType) waSummary += `\n🚐 *Veículo:* ${simSession.serviceType}`;
+      if (simSession.passengers) waSummary += `\n👥 *Passageiros:* ${simSession.passengers}`;
+      if (simSession.route && simSession.route !== 'pendente') waSummary += `\n📍 *Trajeto:* ${simSession.route}`;
+      if (simSession.tripDate) waSummary += `\n📅 *Data:* ${simSession.tripDate}`;
+      if (simSession.tripType) waSummary += ` (${simSession.tripType})`;
+      if (simSession.times) waSummary += `\n⏰ *Horários:* ${simSession.times}`;
+      waSummary += `\n\nPoderia me enviar o valor da cotação?`;
+
       const cleanPhone = '5527997392787';
-      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-        `Olá Alex! Estava testando o agente no painel Jansen e solicitei atendimento sobre: "${userText}".`
-      )}`;
+      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waSummary)}`;
 
       return { reply, handoff, handoffReason, whatsappUrl };
     }
