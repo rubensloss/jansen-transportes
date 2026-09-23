@@ -123,91 +123,313 @@
     <!-- Conteúdo do Painel -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       
-      <!-- Cards de Métricas & Status da Conexão OmniCity -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        
-        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total de Artigos</span>
-          <div id="stat-total-articles" class="text-3xl font-extrabold font-heading text-white">3</div>
-          <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-            <i class="fa-solid fa-circle-check"></i> Publicados no ar
-          </span>
-        </div>
+      <!-- Abas de Navegação do Painel -->
+      <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+        <button id="nav-tab-blog" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30">
+          <i class="fa-solid fa-newspaper"></i>
+          <span>Gestão do Blog</span>
+        </button>
+        <button id="nav-tab-agent" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10">
+          <i class="fa-solid fa-robot text-cyan-400"></i>
+          <span>Agente de IA (Atendimento)</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-extrabold animate-pulse">ONLINE</span>
+        </button>
+      </div>
 
-        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Categorias Ativas</span>
-          <div id="stat-categories" class="text-3xl font-extrabold font-heading text-blue-300">3</div>
-          <span class="text-[10px] text-slate-400">Turismo, Casamentos, Corporativo</span>
-        </div>
-
-        <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Status OmniCity GEO</span>
-          <div class="text-base font-bold text-emerald-300 flex items-center gap-2 pt-1">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Pronto para Receber IAs
+      <!-- SEÇÃO 1: GESTÃO DO BLOG -->
+      <div id="section-blog" class="space-y-8">
+        <!-- Cards de Métricas & Status da Conexão OmniCity -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total de Artigos</span>
+            <div id="stat-total-articles" class="text-3xl font-extrabold font-heading text-white">3</div>
+            <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-circle-check"></i> Publicados no ar
+            </span>
           </div>
-          <span class="text-[10px] text-slate-400">ChatGPT, Perplexity, Gemini</span>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Categorias Ativas</span>
+            <div id="stat-categories" class="text-3xl font-extrabold font-heading text-blue-300">3</div>
+            <span class="text-[10px] text-slate-400">Turismo, Casamentos, Corporativo</span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Status OmniCity GEO</span>
+            <div class="text-base font-bold text-emerald-300 flex items-center gap-2 pt-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Pronto para Receber IAs
+            </div>
+            <span class="text-[10px] text-slate-400">ChatGPT, Perplexity, Gemini</span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Backup dos Dados</span>
+            <button id="download-json-btn" class="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors">
+              <i class="fa-solid fa-download text-blue-400"></i>
+              <span>Baixar posts.json</span>
+            </button>
+          </div>
+
         </div>
 
-        <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Backup dos Dados</span>
-          <button id="download-json-btn" class="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors">
-            <i class="fa-solid fa-download text-blue-400"></i>
-            <span>Baixar posts.json</span>
-          </button>
+        <!-- Barra de Ações Rápidas -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-950/40 to-[#0d1733] border border-blue-500/20 rounded-2xl p-4">
+          
+          <div class="flex items-center gap-3">
+            <button id="btn-novo-artigo" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30">
+              <i class="fa-solid fa-plus"></i>
+              <span>Novo Artigo</span>
+            </button>
+            <button id="btn-open-import-modal" class="px-4 py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-400/40 text-purple-300 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Importar OmniCity</span>
+            </button>
+          </div>
+
+          <!-- Campo de Busca -->
+          <div class="relative w-full sm:w-72">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" id="search-articles-input" placeholder="Buscar artigo por título ou tag..." class="w-full bg-[#030712] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400">
+          </div>
+
         </div>
 
-      </div>
+        <!-- Tabela / Lista de Artigos Publicados -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+          <div class="p-5 border-b border-white/10 flex items-center justify-between">
+            <h3 class="font-heading text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-newspaper text-blue-400"></i>
+              <span>Artigos Cadastrados no Blog</span>
+            </h3>
+            <span id="articles-count-badge" class="text-xs text-slate-400">3 artigos</span>
+          </div>
 
-      <!-- Barra de Ações Rápidas -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-950/40 to-[#0d1733] border border-blue-500/20 rounded-2xl p-4">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-white/5 border-b border-white/10 text-xs uppercase tracking-wider text-slate-400">
+                <tr>
+                  <th class="p-4">Capa</th>
+                  <th class="p-4">Título do Artigo</th>
+                  <th class="p-4">Categoria</th>
+                  <th class="p-4">Data</th>
+                  <th class="p-4 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="articles-table-body" class="divide-y divide-white/10 text-xs sm:text-sm">
+                <!-- Gerado via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /section-blog -->
+
+      <!-- SEÇÃO 2: AGENTE DE IA & SIMULADOR -->
+      <div id="section-agent" class="hidden space-y-8">
         
-        <div class="flex items-center gap-3">
-          <button id="btn-novo-artigo" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30">
-            <i class="fa-solid fa-plus"></i>
-            <span>Novo Artigo</span>
-          </button>
-          <button id="btn-open-import-modal" class="px-4 py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-400/40 text-purple-300 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            <span>Importar OmniCity</span>
-          </button>
+        <!-- Cards de Métricas & Status do Agente de IA -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Status Operacional</span>
+            <div class="text-2xl font-extrabold font-heading text-emerald-400 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+              Ativo & Online
+            </div>
+            <span class="text-[10px] text-slate-400">Triagem Ágil + Transbordo Humano</span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Diretriz de Mensagens</span>
+            <div class="text-2xl font-extrabold font-heading text-blue-300 flex items-center gap-1.5">
+              <span>&lt; 150</span>
+              <span class="text-xs text-slate-400 font-normal">caracteres/msg</span>
+            </div>
+            <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-check"></i> Mensagens curtas e objetivas
+            </span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Transbordo Humano</span>
+            <div class="text-xl font-bold font-heading text-white flex items-center gap-1.5 pt-1">
+              <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+              (27) 99739-2787
+            </div>
+            <span class="text-[10px] text-slate-400">Alex Jansen (Especialista)</span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Canais Integrados</span>
+            <div class="flex items-center gap-2 pt-1">
+              <span class="px-2 py-1 rounded-md bg-blue-600/20 border border-blue-400/30 text-blue-300 text-[10px] font-bold">Web Chat</span>
+              <span class="px-2 py-1 rounded-md bg-emerald-600/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold">WhatsApp Webhook</span>
+            </div>
+            <span class="text-[10px] text-slate-400 pt-1">Pronto para Evolution API / Z-API</span>
+          </div>
+
         </div>
 
-        <!-- Campo de Busca -->
-        <div class="relative w-full sm:w-72">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-          <input type="text" id="search-articles-input" placeholder="Buscar artigo por título ou tag..." class="w-full bg-[#030712] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-blue-400">
+        <!-- Painel do Simulador de Atendimento -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Coluna 1 & 2: O Chat Interativo do Simulador -->
+          <div class="lg:col-span-2 glass-card rounded-3xl border border-white/10 overflow-hidden shadow-2xl flex flex-col h-[600px]">
+            
+            <div class="p-4 bg-gradient-to-r from-blue-950 via-[#0d1733] to-[#070d1e] border-b border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 text-lg">
+                  <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span>Simulador de Atendimento com IA</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  </h3>
+                  <p class="text-[11px] text-slate-300">Teste respostas ultracurtas e regras de transbordo em tempo real</p>
+                </div>
+              </div>
+              <button id="sim-clear-btn" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-white/10">
+                <i class="fa-solid fa-rotate-right text-xs"></i>
+                <span>Reiniciar</span>
+              </button>
+            </div>
+
+            <!-- Botões de Teste Rápido (Chips) -->
+            <div class="p-3 bg-black/30 border-b border-white/5 flex flex-wrap gap-2 text-xs">
+              <span class="text-[11px] font-bold text-slate-400 flex items-center gap-1 self-center pr-1">
+                <i class="fa-solid fa-bolt text-amber-400"></i> Testes:
+              </span>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Quanto custa van para Domingos Martins para 10 pessoas?">
+                🚐 Van Pedra Azul (10 pessoas)
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Preciso de um Corolla executivo para casamento no sábado">
+                💍 Sedã Casamento
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-blue-200 text-[11px] transition-all" data-prompt="Vocês têm ônibus para excursão de 40 pessoas para Porto Seguro?">
+                🚌 Ônibus 40 Lugares
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 text-red-200 text-[11px] transition-all" data-prompt="Meu carro deu pane na Terceira Ponte, preciso de guincho urgente!">
+                🚨 Guincho Urgente
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[11px] transition-all" data-prompt="Quero falar com uma pessoa de verdade da empresa">
+                👤 Solicitar Humano
+              </button>
+              <button class="sim-quick-btn px-2.5 py-1 rounded-lg bg-amber-950/40 hover:bg-amber-900/50 border border-amber-500/30 text-amber-200 text-[11px] transition-all" data-prompt="Vocês alugam lancha ou helicóptero?">
+                ❓ Fora do Escopo
+              </button>
+            </div>
+
+            <!-- Corpo de Mensagens do Simulador -->
+            <div id="sim-messages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs">
+              <div class="flex gap-3 items-start">
+                <div class="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 text-xs shrink-0 mt-0.5">
+                  <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="space-y-1 max-w-[85%]">
+                  <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
+                    Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?
+                  </div>
+                  <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
+                    <span class="text-blue-300 font-mono font-bold">118 caracteres</span> • <span class="text-emerald-400">Resposta curta & objetiva</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Barra de Envio do Simulador -->
+            <form id="sim-form" class="p-3 bg-black/40 border-t border-white/10 flex items-center gap-2">
+              <input type="text" id="sim-input" placeholder="Digite uma mensagem para simular o cliente..." class="flex-1 bg-[#030712] border border-white/15 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors" autocomplete="off">
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-blue-600/30">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span>Enviar</span>
+              </button>
+            </form>
+
+          </div>
+
+          <!-- Coluna 3: Guia de Integração WhatsApp Webhook & Comandos -->
+          <div class="space-y-6">
+            
+            <div class="glass-card rounded-3xl p-6 border border-white/10 space-y-4 shadow-xl">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-600/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-base">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Integração WhatsApp</h4>
+                  <span class="text-[11px] text-slate-400">Webhook pronto para gateways</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                O agente da Jansen conta com um servidor backend nativo em Node.js pronto para plugar em plataformas como <strong>Evolution API</strong>, <strong>Z-API</strong> ou <strong>Baileys</strong>.
+              </p>
+
+              <div class="bg-black/50 border border-white/10 rounded-xl p-3 space-y-2 text-xs font-mono">
+                <div class="text-slate-400 text-[10px] font-sans font-bold uppercase tracking-wider">Como iniciar o servidor:</div>
+                <div class="text-emerald-400 select-all">node agent/server.js</div>
+                <div class="text-slate-400 text-[10px] font-sans pt-1">Porta padrão: <span class="text-white font-mono">3001</span></div>
+              </div>
+
+              <div class="space-y-1.5 text-xs">
+                <div class="text-[11px] font-bold text-white">Endpoints Disponíveis:</div>
+                <ul class="space-y-1 text-slate-300 text-[11px]">
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
+                    <span class="font-mono text-slate-200">/webhook</span> (Mensagens WhatsApp)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-mono text-[10px]">POST</span>
+                    <span class="font-mono text-slate-200">/api/chat</span> (API REST externa)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded bg-emerald-900/60 text-emerald-300 font-mono text-[10px]">GET</span>
+                    <span class="font-mono text-slate-200">/api/agent/status</span> (Status do Motor)
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-white/10">
+                <div class="text-[11px] font-bold text-white mb-1">Destinatário do Transbordo:</div>
+                <div class="flex items-center justify-between bg-white/5 p-2.5 rounded-xl border border-white/10">
+                  <div class="flex items-center gap-2 text-xs">
+                    <i class="fa-solid fa-user-tie text-blue-400"></i>
+                    <span class="font-semibold text-white">Alex Jansen</span>
+                  </div>
+                  <span class="font-mono text-xs text-emerald-400 font-bold">(27) 99739-2787</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card de Regras Estritas do Agente -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 space-y-3 shadow-xl">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                <span>Garantias Atendidas</span>
+              </h4>
+              <ul class="space-y-2 text-xs text-slate-300">
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Mensagens Curtas:</strong> Respostas sempre menores que 150-200 caracteres, sem enrolação.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Uma Pergunta por Vez:</strong> Entendimento progressivo sem sobrecarregar o cliente.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Transbordo Seguro:</strong> Dúvidas fora de escopo ou cotações finais transferem direto para Alex Jansen.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
-
-      <!-- Tabela / Lista de Artigos Publicados -->
-      <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
-        <div class="p-5 border-b border-white/10 flex items-center justify-between">
-          <h3 class="font-heading text-base font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-newspaper text-blue-400"></i>
-            <span>Artigos Cadastrados no Blog</span>
-          </h3>
-          <span id="articles-count-badge" class="text-xs text-slate-400">3 artigos</span>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-white/5 border-b border-white/10 text-xs uppercase tracking-wider text-slate-400">
-              <tr>
-                <th class="p-4">Capa</th>
-                <th class="p-4">Título do Artigo</th>
-                <th class="p-4">Categoria</th>
-                <th class="p-4">Data</th>
-                <th class="p-4 text-right">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="articles-table-body" class="divide-y divide-white/10 text-xs sm:text-sm">
-              <!-- Gerado via JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+      </div><!-- /section-agent -->
 
     </main>
 
@@ -882,11 +1104,250 @@
       downloadAnchor.remove();
     });
 
+    // ==========================================
+    // ABAS DO PAINEL: BLOG VS AGENTE DE IA
+    // ==========================================
+    const navTabBlog = document.getElementById('nav-tab-blog');
+    const navTabAgent = document.getElementById('nav-tab-agent');
+    const sectionBlog = document.getElementById('section-blog');
+    const sectionAgent = document.getElementById('section-agent');
+
+    function switchAdminTab(targetTab) {
+      if (targetTab === 'agent') {
+        sectionBlog.classList.add('hidden');
+        sectionAgent.classList.remove('hidden');
+        navTabBlog.className = 'px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10';
+        navTabAgent.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30';
+      } else {
+        sectionAgent.classList.add('hidden');
+        sectionBlog.classList.remove('hidden');
+        navTabBlog.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30';
+        navTabAgent.className = 'px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10';
+      }
+    }
+
+    if (navTabBlog && navTabAgent) {
+      navTabBlog.addEventListener('click', () => switchAdminTab('blog'));
+      navTabAgent.addEventListener('click', () => switchAdminTab('agent'));
+    }
+
+    // ==========================================
+    // SIMULADOR DO AGENTE DE IA (PAINEL ADMIN)
+    // ==========================================
+    const simMessages = document.getElementById('sim-messages');
+    const simForm = document.getElementById('sim-form');
+    const simInput = document.getElementById('sim-input');
+    const simClearBtn = document.getElementById('sim-clear-btn');
+    const simQuickBtns = document.querySelectorAll('.sim-quick-btn');
+
+    let simSession = {
+      history: [],
+      intent: null,
+      askedPassengers: false,
+      askedDate: false,
+      askedDestination: false
+    };
+
+    function resetSimSession() {
+      simSession = {
+        history: [],
+        intent: null,
+        askedPassengers: false,
+        askedDate: false,
+        askedDestination: false
+      };
+      simMessages.innerHTML = `
+        <div class="flex gap-3 items-start">
+          <div class="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 text-xs shrink-0 mt-0.5">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="space-y-1 max-w-[85%]">
+            <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
+              Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?
+            </div>
+            <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
+              <span class="text-blue-300 font-mono font-bold">118 caracteres</span> • <span class="text-emerald-400">Resposta curta & objetiva</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (simClearBtn) {
+      simClearBtn.addEventListener('click', resetSimSession);
+    }
+
+    function processSimMessage(userText) {
+      const msg = userText.toLowerCase().trim();
+      let reply = '';
+      let handoff = false;
+      let handoffReason = '';
+
+      const isHumanRequest = msg.includes('humano') || 
+                             msg.includes('atendente') || 
+                             msg.includes('alex') || 
+                             msg.includes('falar com') || 
+                             msg.includes('pessoa de verdade') || 
+                             msg.includes('pessoa real') || 
+                             msg.includes('falar com algu');
+
+      if (isHumanRequest) {
+        reply = 'Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade.';
+        handoff = true;
+        handoffReason = 'Solicitação de atendente humano';
+      } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
+        reply = 'Nosso guincho plataforma 24h atende todo o ES! Qual o modelo do veículo e o local onde você está agora?';
+        simSession.intent = 'guincho';
+      } else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
+        reply = 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
+        handoff = true;
+        handoffReason = 'Transporte fora do escopo';
+      } else if (simSession.intent === 'van' || msg.includes('van') || msg.includes('pedra azul') || msg.includes('domingos martins') || msg.includes('china park') || msg.includes('montanha') || msg.includes('passeio') || msg.includes('grupo')) {
+        simSession.intent = 'van';
+        if (!simSession.askedPassengers && !(/\d+/.test(msg))) {
+          reply = 'Temos vans Mercedes Sprinter e Master VIP (até 15 lugares) com poltronas reclináveis e ar duplo! Quantas pessoas vão viajar?';
+          simSession.askedPassengers = true;
+        } else if (!simSession.askedDate) {
+          reply = 'Perfeito! Qual a data prevista para a viagem e a cidade de partida?';
+          simSession.askedDate = true;
+        } else {
+          reply = 'Excelente! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para finalizar o valor da sua viagem.';
+          handoff = true;
+          handoffReason = 'Cotação de Van Executiva pronta';
+        }
+      } else if (simSession.intent === 'sedan' || msg.includes('sedan') || msg.includes('sedã') || msg.includes('corolla') || msg.includes('byd') || msg.includes('casamento') || msg.includes('noiva') || msg.includes('aeroporto') || msg.includes('executivo') || msg.includes('vix') || msg.includes('traslado')) {
+        simSession.intent = 'sedan';
+        if (!simSession.askedDate) {
+          reply = 'Nosso Toyota Corolla e SUV BYD atendem com motorista a rigor e pontualidade! Qual a data e o trajeto desejado?';
+          simSession.askedDate = true;
+        } else {
+          reply = 'Combinado! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para dar continuidade à sua reserva.';
+          handoff = true;
+          handoffReason = 'Reserva de Carro Executivo';
+        }
+      } else if (simSession.intent === 'onibus' || msg.includes('ônibus') || msg.includes('onibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
+        simSession.intent = 'onibus';
+        if (!simSession.askedDestination) {
+          reply = 'Dispomos de Micro Volare DW9 (31 lugares) e Ônibus (46 lugares) com registro ANTT. Qual o destino e a quantidade de passageiros?';
+          simSession.askedDestination = true;
+        } else {
+          reply = 'Ótimo! Vou transferir seu atendimento agora para um de nossos especialistas da Jansen para calcular sua rota em grupo.';
+          handoff = true;
+          handoffReason = 'Cotação de Micro/Ônibus';
+        }
+      } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('furgão') || msg.includes('furgao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('mercadoria') || msg.includes('entrega')) {
+        reply = 'Atendemos cargas fechadas e distribuição no ES com caminhões Mercedes Accelo Baú. Qual o tipo de mercadoria e o trajeto?';
+        simSession.intent = 'carga';
+      } else if (msg.includes('faturamento') || msg.includes('empresa') || msg.includes('pj') || msg.includes('nota fiscal') || msg.includes('boleto')) {
+        reply = 'Sim! Emitimos Nota Fiscal e faturamos para empresas (PJ) com cadastro facilitado. Qual serviço sua empresa precisa?';
+      } else if (msg.includes('atende') || msg.includes('onde') || msg.includes('cidade') || msg.includes('região') || msg.includes('regiao') || msg.includes('estado')) {
+        reply = 'Atendemos todo o estado do Espírito Santo e fazemos viagens e excursões para todo o Brasil com registro ANTT!';
+      } else if (msg.includes('olá') || msg.includes('ola') || msg.includes('bom dia') || msg.includes('boa tarde') || msg.includes('boa noite') || msg === 'oi') {
+        reply = 'Olá! Sou o assistente virtual da Jansen Transportes. Você precisa de Van, Carro Executivo, Ônibus, Carga ou Guincho?';
+      } else {
+        reply = 'Entendido! Para te passar as informações exatas, vou transferir seu atendimento agora para um de nossos especialistas da Jansen.';
+        handoff = true;
+        handoffReason = 'Atendimento personalizado';
+      }
+
+      if (reply.length > 250) {
+        const sentences = reply.split(/(?<=[.!?])\s+/);
+        reply = sentences.slice(0, 2).join(' ');
+      }
+
+      const cleanPhone = '5527997392787';
+      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+        `Olá Alex! Estava testando o agente no painel Jansen e solicitei atendimento sobre: "${userText}".`
+      )}`;
+
+      return { reply, handoff, handoffReason, whatsappUrl };
+    }
+
+    function appendSimMessage(sender, text, handoff = false, whatsappUrl = '') {
+      const row = document.createElement('div');
+      if (sender === 'user') {
+        row.className = 'flex justify-end';
+        row.innerHTML = `
+          <div class="bg-blue-600 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] leading-relaxed shadow-sm">
+            ${escapeHtml(text)}
+          </div>
+        `;
+      } else {
+        row.className = 'flex gap-3 items-start';
+        const charCount = text.length;
+        const handoffHtml = handoff ? `
+          <div class="mt-2.5 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 space-y-2">
+            <div class="text-[11px] text-emerald-300 font-bold flex items-center gap-1.5">
+              <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+              Transbordo Humano Acionado
+            </div>
+            <a href="${whatsappUrl}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-black font-extrabold text-[11px] transition-all">
+              <span>Continuar com Alex Jansen no WhatsApp</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        ` : '';
+
+        row.innerHTML = `
+          <div class="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 text-xs shrink-0 mt-0.5">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="space-y-1 max-w-[85%]">
+            <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
+              ${escapeHtml(text)}
+              ${handoffHtml}
+            </div>
+            <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
+              <span class="text-blue-300 font-mono font-bold">${charCount} caracteres</span> • <span class="text-emerald-400">Objetivo & Rápido</span>
+            </div>
+          </div>
+        `;
+      }
+      simMessages.appendChild(row);
+      simMessages.scrollTop = simMessages.scrollHeight;
+    }
+
+    function handleSimSubmit(text) {
+      if (!text || !text.trim()) return;
+      appendSimMessage('user', text);
+      if (simInput) simInput.value = '';
+
+      setTimeout(() => {
+        const res = processSimMessage(text);
+        appendSimMessage('agent', res.reply, res.handoff, res.whatsappUrl);
+      }, 300);
+    }
+
+    if (simForm) {
+      simForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleSimSubmit(simInput.value);
+      });
+    }
+
+    if (simQuickBtns) {
+      simQuickBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const prompt = btn.getAttribute('data-prompt');
+          if (prompt) handleSimSubmit(prompt);
+        });
+      });
+    }
+
+    function escapeHtml(string) {
+      const div = document.createElement('div');
+      div.innerText = string;
+      return div.innerHTML;
+    }
+
     // Iniciar
     if (urlParams.get('vip') === '1' || urlParams.get('demo') === '1') {
       sessionStorage.setItem(AUTH_KEY, 'true');
     }
     checkAuth();
+    if (urlParams.get('tab') === 'agent') {
+      switchAdminTab('agent');
+    }
     if (urlParams.get('modal') === 'new') {
       setTimeout(() => {
         btnNovoArtigo.click();

@@ -1,0 +1,111 @@
+{
+  "empresa": {
+    "nome": "Jansen Transportes e Serviços",
+    "tradicao": "Mais de 10 anos de experiência no Espírito Santo",
+    "avaliacao_google": "4.9 estrelas (+120 avaliações verificadas)",
+    "telefones": {
+      "whatsapp": "+5527997392787",
+      "whatsapp_formatado": "(27) 99739-2787",
+      "telefone_fixo_celular": "(27) 99273-3774"
+    },
+    "contato_responsavel": "Alex Jansen",
+    "atuacao": "Atendimento em todo o estado do Espírito Santo e viagens/excursões interestaduais em todo o Brasil.",
+    "diferenciais": [
+      "Motoristas profissionais a rigor com pontualidade britânica",
+      "Registro ativo na ANTT e seguro total de passageiros",
+      "Faturamento e emissão de NF para empresas (Pessoa Jurídica)",
+      "Frota própria revisada e higienizada a cada viagem"
+    ]
+  },
+  "frota": [
+    {
+      "categoria": "Sedan & SUV Executivo",
+      "modelos": [
+        "Toyota Corolla Executivo",
+        "BYD Song Plus"
+      ],
+      "capacidade": "1 a 4 passageiros",
+      "usos_recomendados": [
+        "Traslados para o Aeroporto de Vitória (VIX)",
+        "Casamentos, dia da noiva e cerimônias",
+        "Recepção de diretorias e executivos corporativos",
+        "Viagens executivas particulares"
+      ],
+      "diferenciais_veiculo": "Ar-condicionado digital, bancos em couro, motorista a rigor, discrição total e água cortesia."
+    },
+    {
+      "categoria": "Vans Executivas VIP",
+      "modelos": [
+        "Mercedes-Benz Sprinter",
+        "Renault Master VIP"
+      ],
+      "capacidade": "5 a 15 passageiros",
+      "usos_recomendados": [
+        "Passeios turísticos em Pedra Azul e Domingos Martins",
+        "Passeio no China Park e Rota do Lagarto",
+        "Translado de convidados de festas e formaturas",
+        "Eventos corporativos e transporte de equipes"
+      ],
+      "diferenciais_veiculo": "Poltronas reclináveis soft confort, ar-condicionado duplo com saídas individuais, cortinas, tomadas USB e Wi-Fi."
+    },
+    {
+      "categoria": "Micro-ônibus & Ônibus Rodoviário",
+      "modelos": [
+        "Volare DW9 Executivo (31 lugares)",
+        "Ônibus Rodoviário (46 lugares)"
+      ],
+      "capacidade": "16 a 46 passageiros",
+      "usos_recomendados": [
+        "Congressos, simpósios e feiras empresariais",
+        "Excursões turísticas escolares, religiosas e familiares",
+        "Viagens interestaduais em grupo",
+        "Fretamento contínuo de colaboradores"
+      ],
+      "diferenciais_veiculo": "Banheiro a bordo (nos ônibus), som ambiente, TV/DVD, geladeira térmica, seguro APP ANTT e poltronas executivas."
+    },
+    {
+      "categoria": "Caminhões de Carga & Logística",
+      "modelos": [
+        "Mercedes-Benz Accelo 1016 Baú",
+        "Furgões para coletas ágeis"
+      ],
+      "capacidade": "Cargas fracionadas ou fechadas de até 6 toneladas",
+      "usos_recomendados": [
+        "Distribuição urbana de mercadorias no ES",
+        "Fretes comerciais para empresas e indústrias",
+        "Transporte de eventos e equipamentos"
+      ],
+      "diferenciais_veiculo": "Baú fechado seguro, rastreamento 24h, agilidade de carga/descarga e nota fiscal."
+    },
+    {
+      "categoria": "Auto Socorro & Guincho 24h",
+      "modelos": [
+        "Volkswagen Delivery 9.170 Prime"
+      ],
+      "capacidade": "Veículos de passeio, SUVs, utilitários e máquinas",
+      "usos_recomendados": [
+        "Reboque de emergência 24 horas no ES",
+        "Socorro mecânico e pane elétrica",
+        "Transporte de veículos novos e colecionáveis"
+      ],
+      "diferenciais_veiculo": "Plataforma hidráulica moderna e asa delta para reboque sem danificar o assoalho."
+    }
+  ],
+  "destinos_populares": [
+    {
+      "nome": "Pedra Azul / Domingos Martins",
+      "tempo_medio": "1h20 a partir de Vitória/Vila Velha",
+      "veiculos_ideais": "Vans VIP ou Sedans Executivos"
+    },
+    {
+      "nome": "Aeroporto de Vitória (Eurico de Aguiar Salles - VIX)",
+      "servico": "Traslado com acompanhamento de voo em tempo real e recepção no desembarque",
+      "veiculos_ideais": "Toyota Corolla ou BYD Song Plus"
+    },
+    {
+      "nome": "China Park Resort / Montanhas Capixabas",
+      "servico": "Bate-e-volta ou viagens de fim de semana para grupos e famílias",
+      "veiculos_ideais": "Vans Sprinter VIP ou Micro-ônibus Volare DW9"
+    }
+  ]
+}
