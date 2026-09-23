@@ -449,6 +449,7 @@
     const AUTH_KEY = 'jansen_admin_authenticated';
     const POSTS_KEY = 'jansen_blog_posts';
     const DEFAULT_JSON = 'data/posts.json';
+    const urlParams = new URLSearchParams(window.location.search);
 
     let currentPosts = [];
 
@@ -484,7 +485,6 @@
 
     // Autenticação
     function checkAuth() {
-      const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('vip') === '1' || urlParams.get('demo') === '1') {
         sessionStorage.setItem(AUTH_KEY, 'true');
       }
@@ -666,11 +666,6 @@
       articleModal.classList.remove('hidden');
       articleModal.classList.add('flex');
     });
-
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('novo') === '1') {
-      setTimeout(() => btnNovoArtigo.click(), 200);
-    }
 
     function closeModal() {
       articleModal.classList.add('hidden');
@@ -888,7 +883,6 @@
     });
 
     // Iniciar
-    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('vip') === '1' || urlParams.get('demo') === '1') {
       sessionStorage.setItem(AUTH_KEY, 'true');
     }
