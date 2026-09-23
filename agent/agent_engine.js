@@ -211,7 +211,75 @@ function processLocalIntelligence(userMessage, session = {}) {
   };
 }
 
+/**
+ * Chamada à API Oficial do Google Gemini (LLM)
+ * Se GEMINI_API_KEY estiver configurado, usa a inteligência generativa do Gemini 2.5 Flash / 1.5 Flash.
+ * Se não estiver configurado, usa o motor local calibrado sem quebrar o sistema.
+ */
+async function callGeminiAI(userMessage, session = {}) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey === 'sua_chave_gemini_aqui') {
+    return processLocalIntelligence(userMessage, session);
+  }
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    
+    // Constrói histórico das últimas mensagens
+    const history = (session.history || []).slice(-6).map(h => ({
+      role: h.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: h.content }]
+    }));
+
+    history.push({ role: 'user', parts: [{ text: userMessage }] });
+
+    const payload = {
+      system_instruction: {
+        parts: [{ text: SYSTEM_PROMPT }]
+      },
+      contents: history,
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 100
+      }
+    };
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!resp.ok) {
+      console.warn('[GEMINI API]: Erro na resposta da API Gemini (' + resp.status + '). Utilizando motor de contingencia local.');
+      return processLocalIntelligence(userMessage, session);
+    }
+
+    const data = await resp.json();
+    let text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    text = text.trim();
+
+    // Roda a extração de dados locais para manter o resumo do Alex Jansen preenchido
+    const localAnalysis = processLocalIntelligence(userMessage, session);
+
+    // Se o Gemini gerou resposta válida e curta (< 200 chars), usa ela
+    if (text && text.length > 5 && text.length <= 200) {
+      localAnalysis.reply = text;
+      // Atualiza no histórico da sessão
+      if (session.history && session.history.length > 0) {
+        session.history[session.history.length - 1].content = text;
+      }
+    }
+
+    return localAnalysis;
+  } catch (err) {
+    console.warn('[GEMINI API]: Falha de rede ou timeout. Utilizando motor local:', err.message);
+    return processLocalIntelligence(userMessage, session);
+  }
+}
+
 module.exports = {
   processLocalIntelligence,
+  callGeminiAI,
   SYSTEM_PROMPT
 };

@@ -4,9 +4,64 @@
  * Porta padrão: 3001
  */
 
+const fs = require('fs');
+const path = require('path');
+
+// Carrega variáveis do arquivo .env automaticamente se existir (Zero Dependencies)
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const lines = fs.readFileSync(envPath, 'utf-8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const idx = trimmed.indexOf('=');
+    if (idx > 0) {
+      const k = trimmed.substring(0, idx).trim();
+      const v = trimmed.substring(idx + 1).trim().replace(/^["']|["']$/g, '');
+      if (!process.env[k]) process.env[k] = v;
+    }
+  }
+}
+
 const http = require('http');
-const { processLocalIntelligence } = require('./agent_engine');
+const { processLocalIntelligence, callGeminiAI } = require('./agent_engine');
 const followupEngine = require('./followup_engine');
+
+/**
+ * Envia mensagem ativa/resposta através da WhatsApp Business Cloud API Oficial da Meta
+ */
+async function sendMetaOutboundMessage(to, text) {
+  const token = process.env.META_ACCESS_TOKEN;
+  const phoneId = process.env.META_PHONE_NUMBER_ID;
+
+  if (!token || !phoneId || token === 'seu_token_permanente_da_meta_aqui') {
+    return false; // Modo simulacao local
+  }
+
+  try {
+    const cleanTo = to.replace(/\D/g, '');
+    const url = `https://graph.facebook.com/v21.0/${phoneId}/messages`;
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: cleanTo,
+        type: 'text',
+        text: { body: text }
+      })
+    });
+    const data = await resp.json();
+    console.log(`[META CLOUD API DISPATCH -> ${cleanTo}]: Status ${resp.status}`);
+    return data;
+  } catch (err) {
+    console.error('[META CLOUD API ERROR]: Falha ao despachar mensagem:', err.message);
+    return false;
+  }
+}
 
 const PORT = process.env.PORT || 3001;
 
@@ -59,7 +114,7 @@ const server = http.createServer((req, res) => {
   if (req.method === 'POST' && url.pathname === '/api/chat') {
     let bodyData = '';
     req.on('data', chunk => bodyData += chunk);
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const parsed = JSON.parse(bodyData || '{}');
         const { message, sessionId = 'web_' + Date.now() } = parsed;
@@ -69,7 +124,7 @@ const server = http.createServer((req, res) => {
         }
 
         const session = getSession(sessionId);
-        const result = processLocalIntelligence(message, session);
+        const result = await callGeminiAI(message, session);
 
         // Registra na régua de recuperação para monitorar paradas
         if (session.customerName) {
@@ -232,10 +287,13 @@ const server = http.createServer((req, res) => {
           const satResult = followupEngine.evaluateSatisfactionResponse(text, {
             nome: session.customerName,
             phone: fromNumber,
-            googleReviewLink: session.googleReviewLink
+            googleReviewLink: session.googleReviewLink || process.env.GOOGLE_REVIEW_LINK
           });
 
           console.log(`[PESQUISA DE SATISFAÇÃO]: Cliente ${session.customerName} respondeu "${text}". Nota: ${satResult.score} (Positiva: ${satResult.isPositive})`);
+
+          // Envia resposta automaticamente via WhatsApp Cloud API Oficial
+          await sendMetaOutboundMessage(fromNumber, satResult.replyMessage);
 
           return sendJson(res, 200, {
             status: 'satisfaction_survey_processed',
@@ -265,6 +323,9 @@ const server = http.createServer((req, res) => {
 
           console.log(`[LEAD DO SITE RECEBIDO NO WHATSAPP]: Cliente ${customerName || fromNumber}. Robô pausado para atendimento humano.`);
 
+          // Envia confirmação ao cliente no WhatsApp
+          await sendMetaOutboundMessage(fromNumber, ackReply);
+
           return sendJson(res, 200, {
             status: 'site_lead_received',
             recipient: fromNumber,
@@ -282,8 +343,8 @@ const server = http.createServer((req, res) => {
           return sendJson(res, 200, { status: 'bot_paused_for_human_agent' });
         }
 
-        // 3. Cliente novo chamando direto no WhatsApp -> Fluxo de Qualificação Ativo
-        const result = processLocalIntelligence(text, session);
+        // 3. Cliente novo chamando direto no WhatsApp -> Fluxo de Qualificação Ativo via Gemini / Motor Local
+        const result = await callGeminiAI(text, session);
 
         // Se o robô finalizou a qualificação ou o cliente pediu humano, pausa o bot
         if (result.handoff) {
@@ -291,6 +352,17 @@ const server = http.createServer((req, res) => {
         }
 
         console.log(`[AGENTE IA -> ${fromNumber}]: "${result.reply}" (Handoff: ${result.handoff})`);
+
+        // Despacha mensagem de resposta via WhatsApp Cloud API Oficial
+        await sendMetaOutboundMessage(fromNumber, result.reply);
+
+        // Registra na régua de recuperação para monitorar paradas caso o cliente suma antes de fechar
+        if (session.customerName) {
+          followupEngine.registerLeadRecovery({
+            phone: fromNumber,
+            nome: session.customerName
+          });
+        }
 
         return sendJson(res, 200, {
           status: 'success',
