@@ -117,20 +117,28 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .hero-bg-img.pos-caminhao {
   object-position: 88% center;
 }
-.hero-bg-img.pos-guincho {
-  object-position: 86% center;
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 85% center;
+  filter: contrast(1.05) saturate(1.08) brightness(0.92);
 }
 
 @media (max-width: 1024px) {
   .hero-bg-img.pos-sedan,
   .hero-bg-img.pos-byd,
   .hero-bg-img.pos-onibus,
-  .hero-bg-img.pos-caminhao,
-  .hero-bg-img.pos-guincho {
+  .hero-bg-img.pos-caminhao {
     object-position: 76% 40%;
   }
   .hero-bg-img.pos-van {
     object-position: 42% 50%;
+  }
+  .hero-bg-video {
+    object-position: center center;
   }
 }
 

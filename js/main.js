@@ -22,38 +22,31 @@ const heroMainCta = document.getElementById('hero-main-cta');
 
 const slideData = [
   {
-    title: "Toyota Corolla Executivo e BYD Song Plus",
-    subtitle: "Sedans Executivos e Carros de Luxo",
-    ctaText: "Cotar Sedan Executivo",
-    serviceType: "casamento",
-    passengers: "1-4"
-  },
-  {
-    title: "Vans VIP para Viagens e Grupos",
-    subtitle: "Mercedes Sprinter e Renault Master",
-    ctaText: "Reservar Van Executiva",
+    title: "Mercedes Sprinter e Renault Master VIP",
+    subtitle: "Vans Executivas com Motorista",
+    ctaText: "Reservar Van Executiva VIP",
     serviceType: "van",
     passengers: "5-15"
   },
   {
-    title: "Micro-ônibus Volare DW9 e Ônibus",
+    title: "Micro-ônibus Volare DW9 e Ônibus de Turismo",
     subtitle: "Fretamento, Turismo e Excursões",
     ctaText: "Cotar Micro-ônibus / Ônibus",
     serviceType: "onibus",
     passengers: "16-46"
   },
   {
-    title: "Caminhões Baú e Furgões de Carga",
-    subtitle: "Mercedes Accelo 1016 Baú e Furgões",
-    ctaText: "Cotar Transporte de Carga",
-    serviceType: "carga",
-    passengers: "carga"
+    title: "Toyota Corolla Executivo e SUV BYD Song Plus",
+    subtitle: "Sedans Executivos e Casamentos",
+    ctaText: "Cotar Sedan Executivo",
+    serviceType: "casamento",
+    passengers: "1-4"
   },
   {
-    title: "Auto Socorro e Guincho Plataforma",
-    subtitle: "Volkswagen Delivery 9.170 com Asa Delta",
-    ctaText: "Solicitar Guincho 24h",
-    serviceType: "guincho",
+    title: "Caminhões Mercedes Accelo 1016 Baú e Furgões",
+    subtitle: "Logística e Cargas Fechadas",
+    ctaText: "Cotar Transporte de Carga",
+    serviceType: "carga",
     passengers: "carga"
   }
 ];
@@ -144,26 +137,24 @@ function initScrollytelling() {
     });
   }
 
-  // Integração GSAP ScrollTrigger para 5 estágios (Exclusivo para Desktop > 1024px)
+  // Integração GSAP ScrollTrigger para 4 estágios da Frota (Exclusivo para Desktop > 1024px)
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && window.innerWidth > 1024) {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.create({
       trigger: "#hero-scrolly",
       start: "top top",
-      end: "+=3000",
+      end: "+=2600",
       pin: true,
       scrub: 0.5,
       onUpdate: (self) => {
         const progress = self.progress;
         let targetIndex = 0;
-        if (progress >= 0.80) {
-          targetIndex = 4;
-        } else if (progress >= 0.60) {
+        if (progress >= 0.75) {
           targetIndex = 3;
-        } else if (progress >= 0.40) {
+        } else if (progress >= 0.50) {
           targetIndex = 2;
-        } else if (progress >= 0.20) {
+        } else if (progress >= 0.25) {
           targetIndex = 1;
         } else {
           targetIndex = 0;
@@ -223,9 +214,6 @@ function initQuoteSimulator() {
     } else if (s === 'carga') {
       label = 'Veículo Sugerido: Caminhão Mercedes Accelo Baú / Furgão';
       badgeClass = 'bg-amber-900/60 border-amber-500/40 text-amber-300';
-    } else if (s === 'guincho') {
-      label = 'Veículo Sugerido: Guincho Plataforma VW Delivery (Asa Delta 24h)';
-      badgeClass = 'bg-red-900/60 border-red-500/40 text-red-300';
     }
 
     recElem.innerHTML = `
@@ -242,7 +230,7 @@ function initQuoteSimulator() {
   if (serviceSelect) {
     serviceSelect.addEventListener('change', () => {
       if (passSelect) {
-        if (serviceSelect.value === 'carga' || serviceSelect.value === 'guincho') {
+        if (serviceSelect.value === 'carga') {
           passSelect.value = 'carga';
         } else if (serviceSelect.value === 'van') {
           passSelect.value = '5-15';
@@ -287,8 +275,7 @@ function initQuoteSimulator() {
         'executivo': 'Transporte Executivo / Transfer Aeroporto (Corolla / BYD)',
         'van': 'Van Executiva VIP (Mercedes Sprinter / Master)',
         'onibus': 'Micro-ônibus Volare DW9 / Ônibus de Turismo',
-        'carga': 'Transporte de Cargas (Caminhão Mercedes Accelo Baú)',
-        'guincho': 'Auto Socorro / Guincho Plataforma 24h'
+        'carga': 'Transporte de Cargas (Caminhão Mercedes Accelo Baú)'
       };
 
       const serviceVal = serviceSelect ? serviceSelect.value : '';
@@ -453,15 +440,6 @@ const mobileVehicles = [
     desc: "Distribuição urbana de cargas no Espírito Santo, transporte comercial seguro e fretes diretos com pontualidade e integridade garantida da mercadoria.",
     cta: "Cotar Frete e Cargas",
     waMsg: "Olá! Gostaria de cotar transporte de cargas com caminhão baú / furgão da Jansen."
-  },
-  {
-    title: "Guincho Plataforma Volkswagen Delivery",
-    category: "05 // Auto Socorro e Reboque 24h",
-    capacity: "Socorro 24 Horas",
-    specs: ["Plataforma Hidráulica", "Asa Delta", "Atendimento 24h", "Grande Vitória"],
-    desc: "Caminhão Volkswagen Delivery 9.170 Prime equipado com plataforma hidráulica e asa delta para remoção ágil de veículos leves, utilitários e máquinas.",
-    cta: "Cotar Guincho 24 Horas",
-    waMsg: "Olá! Preciso de um Guincho Plataforma 24h da Jansen com urgência."
   }
 ];
 

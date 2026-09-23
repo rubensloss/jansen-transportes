@@ -39,7 +39,7 @@
         const match = userText.match(pat);
         if (match && match[1]) {
           const candidate = match[1].trim();
-          const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'guincho', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
+          const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
           if (!nonNames.includes(candidate.toLowerCase())) {
             agentSession.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
             break;
@@ -56,8 +56,6 @@
         agentSession.serviceType = 'Sedan Executivo (Corolla/BYD)';
       } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
         agentSession.serviceType = 'Micro / Ônibus Rodoviário';
-      } else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
-        agentSession.serviceType = 'Guincho 24h';
       } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
         agentSession.serviceType = 'Caminhão Baú (Cargas)';
       }
@@ -73,7 +71,7 @@
 
     // D. Trajeto
     if (!agentSession.route) {
-      const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|guincho|caminhão|caminhao)\b/i.test(msg);
+      const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)\b/i.test(msg);
       if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
         agentSession.route = userText;
       }
@@ -119,28 +117,22 @@
       handoff = true;
       handoffReason = 'Solicitação de atendente humano';
     } 
-    // 3. Fora de Escopo
-    else if (msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
-      reply = agentSession.customerName
-        ? `Não operamos com esse tipo de transporte, ${agentSession.customerName}. Vou te transferir para um especialista humano da Jansen para te orientar.`
-        : 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
-      handoff = true;
-      handoffReason = 'Transporte fora do escopo';
-    }
-    // 4. Fluxo de Guincho 24h
-    else if (agentSession.serviceType === 'Guincho 24h') {
-      if (!agentSession.customerName) {
-        reply = 'É um prazer atender você na Jansen! Nosso guincho 24h atende todo o ES. Como posso te chamar e onde você está agora?';
-      } else if (!agentSession.route) {
-        reply = `Entendido, ${agentSession.customerName}! Qual o modelo do veículo e onde você está localizado agora?`;
-        agentSession.route = 'pendente';
+    // 3. Fora de Escopo / Guincho
+    else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma') || msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
+      if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
+        reply = agentSession.customerName
+          ? `Olá, ${agentSession.customerName}! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Micro-ônibus, Sedans) e logística de cargas em caminhões baú. Não operamos com serviço de guincho.`
+          : 'Olá! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Micro-ônibus, Sedans) e logística de cargas em caminhões baú. Não operamos com serviço de guincho.';
+        handoff = false;
       } else {
-        reply = `Perfeito, ${agentSession.customerName}! Vou acionar nosso especialista Alex Jansen no WhatsApp para enviar o guincho agora mesmo.`;
+        reply = agentSession.customerName
+          ? `Não operamos com esse tipo de transporte, ${agentSession.customerName}. Vou te transferir para um especialista humano da Jansen para te orientar.`
+          : 'Não operamos com esse tipo de transporte. Vou te transferir para um especialista humano da Jansen para te orientar.';
         handoff = true;
-        handoffReason = 'Acionamento de Guincho 24h';
+        handoffReason = 'Transporte fora do escopo';
       }
     }
-    // 5. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+    // 4. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
     else {
       // Passo 1: Nome
       if (!agentSession.customerName) {
@@ -152,7 +144,7 @@
       }
       // Passo 2: Tipo de Veículo
       else if (!agentSession.serviceType) {
-        reply = `Prazer, ${agentSession.customerName}! Você precisa de Van VIP, Carro Executivo, Ônibus, Carga ou Guincho?`;
+        reply = `Prazer, ${agentSession.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`;
       }
       // Passo 3: Passageiros e Trajeto
       else if (!agentSession.passengers || !agentSession.route) {
@@ -268,8 +260,8 @@
           <button class="ai-chip px-2.5 py-1 rounded-full bg-blue-600/20 hover:bg-blue-600/40 border border-blue-400/30 text-blue-200 text-[11px] font-semibold transition-all">
             🚌 Ônibus / Excursão
           </button>
-          <button class="ai-chip px-2.5 py-1 rounded-full bg-red-600/20 hover:bg-red-600/40 border border-red-400/30 text-red-200 text-[11px] font-semibold transition-all">
-            🚨 Guincho 24h
+          <button class="ai-chip px-2.5 py-1 rounded-full bg-blue-600/20 hover:bg-blue-600/40 border border-blue-400/30 text-blue-200 text-[11px] font-semibold transition-all">
+            📦 Cargas / Accelo Baú
           </button>
           <button class="ai-chip px-2.5 py-1 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 border border-emerald-400/30 text-emerald-200 text-[11px] font-semibold transition-all">
             👤 Falar com Humano
