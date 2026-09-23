@@ -445,6 +445,266 @@
 
         </div>
 
+        <!-- ==========================================
+             SEÇÃO DA RÉGUA DE FOLLOW-UP ESCALONADO
+             ========================================== -->
+        <div class="mt-10 pt-10 border-t border-white/10 space-y-8">
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-2">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Régua de Follow-up Escalonado Ativa</span>
+              </div>
+              <h3 class="text-xl font-bold font-heading text-white">Cadência Estratégica de Follow-up com IA</h3>
+              <p class="text-xs text-slate-300">Recuperação de orçamentos e pós-venda 5 estrelas via WhatsApp Business Cloud API Oficial da Meta</p>
+            </div>
+
+            <!-- Configuração do Link Google Meu Negócio -->
+            <div class="glass-card rounded-2xl p-3 border border-white/10 flex items-center gap-3 bg-black/40">
+              <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-sm shrink-0">
+                <i class="fa-brands fa-google"></i>
+              </div>
+              <div class="space-y-1">
+                <label for="google-review-input" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Link Google Avaliações:</label>
+                <div class="flex items-center gap-2">
+                  <input type="text" id="google-review-input" value="https://g.page/r/jansen-transportes/review" class="bg-black/60 border border-white/15 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-400 font-mono w-56">
+                  <button id="save-google-link-btn" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors">
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid das Duas Trilhas -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Trilha 1: Recuperação de Vendas (Cliente Não Fechou) -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 space-y-6 shadow-xl">
+              <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 text-lg">
+                    <i class="fa-solid fa-arrows-spin"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                      <span>Trilha 1: Recuperação de Vendas</span>
+                      <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold">Não Fechou</span>
+                    </h4>
+                    <p class="text-[11px] text-slate-300">Cliente parou no meio do caminho ou não fechou a cotação</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapas Escalonadas (4h, 24h, 48h, 7 dias) -->
+              <div class="space-y-4">
+                
+                <!-- Etapa 1: 4 horas -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-amber-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-regular fa-clock"></i> 4 Horas depois
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Check-in Gentil</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Carlos! Passando para saber se ficou alguma dúvida sobre o veículo ou rota da sua viagem. Posso te ajudar em algo mais?"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">115 caracteres • Pergunta única</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="recovery" data-stage="t1_4h" data-name="Carlos">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-amber-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Etapa 2: 24 horas -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-amber-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-regular fa-clock"></i> 24 Horas depois
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Disponibilidade & Frota</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Carlos! Nossas vans para a data solicitada estão com bastante procura. Deseja que eu segure sua data com o Alex Jansen?"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">117 caracteres • Escassez respeitosa</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="recovery" data-stage="t2_24h" data-name="Carlos">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-amber-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Etapa 3: 48 horas -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-amber-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-regular fa-clock"></i> 48 Horas depois
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Ajuste de Roteiro / Condição</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Carlos! Se precisar de algum ajuste no trajeto ou horários para adequar ao seu orçamento, nós adaptamos para você. Vamos conversar?"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">133 caracteres • Acolhimento flexível</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="recovery" data-stage="t3_48h" data-name="Carlos">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-amber-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Etapa 4: 1 Semana (7 dias) -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-amber-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-regular fa-clock"></i> 1 Semana depois
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Encerramento Elegante</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Carlos! Vou deixar sua cotação arquivada por aqui, tudo bem? Sempre que precisar de transporte executivo ou van, conte com a Jansen!"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">138 caracteres • Porta sempre aberta</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="recovery" data-stage="t4_7d" data-name="Carlos">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-amber-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Trilha 2: Negócio Fechado (Pós-Venda, Satisfação & Google Review) -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 space-y-6 shadow-xl">
+              <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-lg">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                      <span>Trilha 2: Negócio Fechado</span>
+                      <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold">Cliente Fechado</span>
+                    </h4>
+                    <p class="text-[11px] text-slate-300">Confirmação pré-viagem e pesquisa pós-viagem com Google 5★</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapas Escalonadas (-24h, -2h, +24h + bifurcação) -->
+              <div class="space-y-4">
+                
+                <!-- Etapa 1: 24 horas antes -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-emerald-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-regular fa-calendar-check"></i> 24 Horas antes da viagem
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Confirmação & Segurança</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Juliana! Sua van para amanhã já está revisada e nossa equipe pronta. Tudo confirmado com o horário de saída marcado para as 08h?"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">134 caracteres • Confirmação pontual</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="closed" data-stage="t1_prev_24h" data-name="Juliana">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-emerald-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Etapa 2: 2 horas antes -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-emerald-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-solid fa-van-shuttle"></i> 2 Horas antes da viagem
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Embarque Iminente</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Juliana! Nosso motorista já está a postos para o seu embarque. Desejamos uma excelente e confortável viagem com a Jansen Transportes!"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">130 caracteres • Boa viagem calorosa</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="closed" data-stage="t2_prev_2h" data-name="Juliana">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-emerald-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Etapa 3: 1 dia (24h) pós-viagem -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 hover:border-emerald-400/40 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <i class="fa-solid fa-star-half-stroke"></i> 1 Dia pós-viagem
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-medium">Pesquisa de Satisfação (1 a 5)</span>
+                  </div>
+                  <p class="text-xs text-slate-200 leading-relaxed italic">
+                    "Olá, Juliana! Esperamos que sua viagem tenha sido excelente. De 1 a 5, que nota você daria para o nosso atendimento e conforto?"
+                  </p>
+                  <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[10px]">
+                    <span class="text-blue-300 font-mono">126 caracteres • Uma pergunta simples</span>
+                    <button class="followup-sim-btn px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-all flex items-center gap-1" data-track="closed" data-stage="t3_pos_24h" data-name="Juliana">
+                      <i class="fa-solid fa-paper-plane text-[9px] text-emerald-400"></i> Simular Disparo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Simulador de Resposta da Pesquisa (Bifurcação Inteligente) -->
+                <div class="p-4 rounded-2xl bg-blue-950/30 border border-blue-500/30 space-y-3">
+                  <div class="text-[11px] font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-blue-400"></i>
+                    <span>Simular Resposta do Cliente à Pesquisa:</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <button id="sim-survey-pos-btn" class="p-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-200 text-[11px] font-bold flex flex-col items-center gap-1 transition-all">
+                      <span class="flex items-center gap-1"><i class="fa-solid fa-star text-amber-400"></i> Nota 5 (Positiva)</span>
+                      <span class="text-[9px] text-emerald-400/80 font-normal">Gera Link Google 5★</span>
+                    </button>
+                    <button id="sim-survey-neg-btn" class="p-2.5 rounded-xl bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 text-red-200 text-[11px] font-bold flex flex-col items-center gap-1 transition-all">
+                      <span class="flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation text-red-400"></i> Nota 2 (Negativa)</span>
+                      <span class="text-[9px] text-red-400/80 font-normal">Alerta Imediato Alex</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Console de Prévia e Visualização dos Disparos Simulados -->
+          <div id="followup-preview-card" class="glass-card rounded-3xl p-6 border border-white/10 space-y-3 hidden bg-gradient-to-r from-blue-950/60 to-[#070d1e]">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2 text-xs font-bold text-white">
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
+                <span id="followup-preview-title">Disparo Simulado com Sucesso</span>
+              </div>
+              <span id="followup-preview-badge" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">100% WhatsApp Cloud API</span>
+            </div>
+
+            <div class="space-y-2">
+              <div class="text-[11px] text-slate-300 flex items-center justify-between">
+                <span>Destinatário: <strong id="followup-preview-to" class="text-white">Carlos (WhatsApp)</strong></span>
+                <span id="followup-preview-chars" class="font-mono text-blue-300 font-bold">115 caracteres</span>
+              </div>
+              <div id="followup-preview-message" class="bg-black/50 border border-white/15 p-3.5 rounded-2xl text-xs text-white leading-relaxed font-sans">
+                <!-- Conteúdo dinâmico da mensagem -->
+              </div>
+              <div id="followup-preview-alert" class="hidden p-3 rounded-xl bg-red-950/80 border border-red-500/40 text-xs text-red-200 space-y-1">
+                <!-- Alerta para o Alex Jansen se houver -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div><!-- /section-agent -->
 
     </main>
@@ -1451,7 +1711,145 @@
       });
     }
 
+    // ==========================================
+    // LÓGICA DA RÉGUA DE FOLLOW-UP ESCALONADO
+    // ==========================================
+    const googleReviewInput = document.getElementById('google-review-input');
+    const saveGoogleLinkBtn = document.getElementById('save-google-link-btn');
+    const followupPreviewCard = document.getElementById('followup-preview-card');
+    const followupPreviewTitle = document.getElementById('followup-preview-title');
+    const followupPreviewBadge = document.getElementById('followup-preview-badge');
+    const followupPreviewTo = document.getElementById('followup-preview-to');
+    const followupPreviewChars = document.getElementById('followup-preview-chars');
+    const followupPreviewMessage = document.getElementById('followup-preview-message');
+    const followupPreviewAlert = document.getElementById('followup-preview-alert');
+
+    // Carregar link do Google salvo
+    const savedGoogleLink = localStorage.getItem('jansen_google_review_link');
+    if (savedGoogleLink && googleReviewInput) {
+      googleReviewInput.value = savedGoogleLink;
+    }
+
+    if (saveGoogleLinkBtn && googleReviewInput) {
+      saveGoogleLinkBtn.addEventListener('click', () => {
+        localStorage.setItem('jansen_google_review_link', googleReviewInput.value.trim());
+        alert('Link do Google Avaliações salvo com sucesso!');
+      });
+    }
+
+    const followupSimBtns = document.querySelectorAll('.followup-sim-btn');
+    const FOLLOWUP_COPY = {
+      recovery: {
+        t1_4h: {
+          title: 'Follow-up 4h: Check-in Gentil',
+          badge: '4h Inatividade',
+          text: (name) => `Olá, ${name}! Passando para saber se ficou alguma dúvida sobre o veículo ou rota da sua viagem. Posso te ajudar em algo mais?`
+        },
+        t2_24h: {
+          title: 'Follow-up 24h: Disponibilidade & Frota',
+          badge: '24h pós-1ª msg',
+          text: (name) => `Olá, ${name}! Nossas vans para a data solicitada estão com bastante procura. Deseja que eu segure sua data com o Alex Jansen?`
+        },
+        t3_48h: {
+          title: 'Follow-up 48h: Ajuste de Roteiro / Orçamento',
+          badge: '48h depois',
+          text: (name) => `Olá, ${name}! Se precisar de algum ajuste no trajeto ou horários para adequar ao seu orçamento, nós adaptamos para você. Vamos conversar?`
+        },
+        t4_7d: {
+          title: 'Follow-up 7 dias: Encerramento Elegante',
+          badge: '1 semana depois',
+          text: (name) => `Olá, ${name}! Vou deixar sua cotação arquivada por aqui, tudo bem? Sempre que precisar de transporte executivo ou van, conte com a Jansen!`
+        }
+      },
+      closed: {
+        t1_prev_24h: {
+          title: 'Pré-Viagem 24h: Confirmação & Segurança',
+          badge: '24h antes do embarque',
+          text: (name) => `Olá, ${name}! Sua van para amanhã já está revisada e nossa equipe pronta. Tudo confirmado com o horário de saída marcado para as 08h?`
+        },
+        t2_prev_2h: {
+          title: 'Pré-Viagem 2h: Embarque Iminente',
+          badge: '2h antes do embarque',
+          text: (name) => `Olá, ${name}! Nosso motorista já está a postos para o seu embarque. Desejamos uma excelente e confortável viagem com a Jansen Transportes!`
+        },
+        t3_pos_24h: {
+          title: 'Pós-Viagem: Pesquisa de Satisfação',
+          badge: '1 dia pós-viagem',
+          text: (name) => `Olá, ${name}! Esperamos que sua viagem tenha sido excelente. De 1 a 5, que nota você daria para o nosso atendimento e conforto?`
+        }
+      }
+    };
+
+    function showFollowupPreview(title, badge, to, message, alertText = null) {
+      if (!followupPreviewCard) return;
+      followupPreviewTitle.textContent = title;
+      followupPreviewBadge.textContent = badge;
+      followupPreviewTo.textContent = to;
+      followupPreviewChars.textContent = `${message.length} caracteres`;
+      followupPreviewMessage.textContent = message;
+
+      if (alertText) {
+        followupPreviewAlert.innerHTML = `
+          <div class="font-bold flex items-center gap-1.5 text-amber-300">
+            <i class="fa-solid fa-triangle-exclamation"></i> Alerta para Alex Jansen (27 99739-2787):
+          </div>
+          <div>${escapeHtml(alertText)}</div>
+        `;
+        followupPreviewAlert.classList.remove('hidden');
+      } else {
+        followupPreviewAlert.classList.add('hidden');
+      }
+
+      followupPreviewCard.classList.remove('hidden');
+      followupPreviewCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    followupSimBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = btn.getAttribute('data-track');
+        const stage = btn.getAttribute('data-stage');
+        const name = btn.getAttribute('data-name') || 'Carlos';
+
+        const config = FOLLOWUP_COPY[track] && FOLLOWUP_COPY[track][stage];
+        if (config) {
+          const msg = config.text(name);
+          showFollowupPreview(config.title, config.badge, `${name} (WhatsApp Oficial)`, msg);
+        }
+      });
+    });
+
+    const simSurveyPosBtn = document.getElementById('sim-survey-pos-btn');
+    const simSurveyNegBtn = document.getElementById('sim-survey-neg-btn');
+
+    if (simSurveyPosBtn) {
+      simSurveyPosBtn.addEventListener('click', () => {
+        const link = (googleReviewInput ? googleReviewInput.value.trim() : '') || 'https://g.page/r/jansen-transportes/review';
+        const msg = `Ficamos muito felizes, Juliana! Sua opinião faz toda diferença. Poderia nos avaliar com 5 estrelas no Google? Leva só 1 minuto: ${link}`;
+        showFollowupPreview(
+          'Resposta Positiva (Nota 5): Encaminhamento Google 5★',
+          'Google Review Oficial',
+          'Juliana (WhatsApp Oficial)',
+          msg
+        );
+      });
+    }
+
+    if (simSurveyNegBtn) {
+      simSurveyNegBtn.addEventListener('click', () => {
+        const msg = `Agradecemos o retorno sincero, Juliana. O Alex Jansen já foi informado pessoalmente e vai entrar em contato com você para entender e resolver isso.`;
+        const alertMsg = `🚨 ALERTA SATISFAÇÃO JANSEN: Cliente Juliana avaliou com nota 2: "O motorista atrasou 20 minutos". Assuma contato urgente no WhatsApp!`;
+        showFollowupPreview(
+          'Resposta Negativa (Nota 2): Alerta e Transbordo Imediato',
+          'Alerta Alex Jansen',
+          'Juliana (WhatsApp Oficial)',
+          msg,
+          alertMsg
+        );
+      });
+    }
+
     function escapeHtml(string) {
+      if (!string) return '';
       const div = document.createElement('div');
       div.innerText = string;
       return div.innerHTML;

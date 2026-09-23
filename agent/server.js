@@ -6,6 +6,7 @@
 
 const http = require('http');
 const { processLocalIntelligence } = require('./agent_engine');
+const followupEngine = require('./followup_engine');
 
 const PORT = process.env.PORT || 3001;
 
@@ -70,6 +71,14 @@ const server = http.createServer((req, res) => {
         const session = getSession(sessionId);
         const result = processLocalIntelligence(message, session);
 
+        // Registra na régua de recuperação para monitorar paradas
+        if (session.customerName) {
+          followupEngine.registerLeadRecovery({
+            phone: sessionId,
+            nome: session.customerName
+          });
+        }
+
         return sendJson(res, 200, {
           success: true,
           sessionId,
@@ -86,7 +95,69 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. Webhook WhatsApp - Handshake de Verificação da Meta (GET)
+  // 3. Follow-up API - Fila de Follow-up (GET)
+  if (req.method === 'GET' && url.pathname === '/api/followup/queue') {
+    return sendJson(res, 200, {
+      success: true,
+      followups: followupEngine.getAllFollowups(),
+      templates: followupEngine.FOLLOWUP_TEMPLATES
+    });
+  }
+
+  // 4. Follow-up API - Agendamento (POST)
+  if (req.method === 'POST' && url.pathname === '/api/followup/schedule') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const body = JSON.parse(bodyData || '{}');
+        let record;
+        if (body.type === 'closed') {
+          record = followupEngine.registerClosedDeal(body.data || body);
+        } else {
+          record = followupEngine.registerLeadRecovery(body.data || body);
+        }
+        return sendJson(res, 200, { success: true, record });
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 5. Follow-up API - Simulação de Disparo (POST)
+  if (req.method === 'POST' && url.pathname === '/api/followup/simulate') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const { phone = '5527999112233', track = 'recovery', stageKey = 't1_4h', params = {} } = JSON.parse(bodyData || '{}');
+        const simResult = followupEngine.testSimulateTrigger(phone, track, stageKey, params);
+        return sendJson(res, 200, simResult);
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 6. Follow-up API - Teste de Pesquisa de Satisfação (POST)
+  if (req.method === 'POST' && url.pathname === '/api/followup/survey-test') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const { text, leadParams = {} } = JSON.parse(bodyData || '{}');
+        const evalResult = followupEngine.evaluateSatisfactionResponse(text, leadParams);
+        return sendJson(res, 200, { success: true, ...evalResult });
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 7. Webhook WhatsApp - Handshake de Verificação da Meta (GET)
   if (req.method === 'GET' && url.pathname === '/webhook') {
     const mode = url.searchParams.get('hub.mode');
     const token = url.searchParams.get('hub.verify_token');
@@ -153,6 +224,28 @@ const server = http.createServer((req, res) => {
         const session = getSession(fromNumber);
         if (customerProfileName && !session.customerName) {
           session.customerName = customerProfileName;
+        }
+
+        // 0. Verificação: O cliente está respondendo à pesquisa de satisfação pós-viagem?
+        if (session.awaitingSatisfactionSurvey) {
+          session.awaitingSatisfactionSurvey = false;
+          const satResult = followupEngine.evaluateSatisfactionResponse(text, {
+            nome: session.customerName,
+            phone: fromNumber,
+            googleReviewLink: session.googleReviewLink
+          });
+
+          console.log(`[PESQUISA DE SATISFAÇÃO]: Cliente ${session.customerName} respondeu "${text}". Nota: ${satResult.score} (Positiva: ${satResult.isPositive})`);
+
+          return sendJson(res, 200, {
+            status: 'satisfaction_survey_processed',
+            recipient: fromNumber,
+            responseMessage: satResult.replyMessage,
+            isPositive: satResult.isPositive,
+            score: satResult.score,
+            action: satResult.action,
+            alexJansenAlert: satResult.alexAlert
+          });
         }
 
         // 1. Verificação: O lead veio transferido do site já qualificado?
