@@ -84,6 +84,16 @@ function setSlide(index) {
   if (heroMainCta && slideData[index]) {
     heroMainCta.innerHTML = `<span>${slideData[index].ctaText}</span> <i class="fa-solid fa-arrow-right ml-2"></i>`;
   }
+
+  // Gerenciar reprodução do vídeo desktop conforme o slide
+  const desktopVideo = document.getElementById('desktop-hero-video');
+  if (desktopVideo) {
+    if (index === 0) {
+      desktopVideo.play().catch(() => {});
+    } else {
+      desktopVideo.pause();
+    }
+  }
 }
 
 function initScrollytelling() {
@@ -578,5 +588,44 @@ function initMobileVehicleShowcase() {
   if (initialTab !== null) {
     setMobileSlide(parseInt(initialTab, 10));
   }
+}
+
+// =========================================================================
+// CONTROLE DE ÁUDIO DOS VÍDEOS OFICIAIS DO HERO (DESKTOP E MOBILE)
+// =========================================================================
+function initHeroVideoAudioControls() {
+  function setupToggle(videoId, btnId, iconId, textId) {
+    const video = document.getElementById(videoId);
+    const btn = document.getElementById(btnId);
+    const icon = document.getElementById(iconId);
+    const text = document.getElementById(textId);
+    if (!video || !btn) return;
+
+    function toggleAudio(e) {
+      if (e) e.stopPropagation();
+      if (video.muted) {
+        video.muted = false;
+        video.volume = 1.0;
+        if (icon) icon.className = 'fa-solid fa-volume-high text-emerald-400 text-xs sm:text-sm';
+        if (text) text.textContent = 'Som Ligado';
+      } else {
+        video.muted = true;
+        if (icon) icon.className = 'fa-solid fa-volume-xmark text-slate-400 text-xs sm:text-sm';
+        if (text) text.textContent = 'Ativar Som';
+      }
+    }
+
+    btn.addEventListener('click', toggleAudio);
+    video.addEventListener('click', toggleAudio);
+  }
+
+  setupToggle('desktop-hero-video', 'desktop-video-sound-btn', 'desktop-sound-icon', 'desktop-sound-text');
+  setupToggle('mobile-hero-video', 'mobile-video-sound-btn', 'mobile-sound-icon', 'mobile-sound-text');
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroVideoAudioControls);
+} else {
+  initHeroVideoAudioControls();
 }
 

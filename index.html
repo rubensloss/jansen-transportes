@@ -115,12 +115,31 @@
     <!-- WRAPPER DESKTOP (Apenas telas grandes lg: >= 1024px) -->
     <div class="hidden lg:block w-full h-full relative">
       
-      <!-- Camada 01: Vans Executivas VIP Mercedes-Benz Sprinter (VÍDEO 01 REAL EM TELA CHEIA) -->
+      <!-- Camada 01: Vans Executivas VIP Mercedes-Benz Sprinter (VÍDEO 01 OFICIAL DA FROTA) -->
       <div class="hero-bg-layer active">
-        <video autoplay loop muted playsinline class="hero-bg-video" poster="img/frota_van_hotel.jpg">
-          <source src="videos/video_hero_vans_desktop.mp4" type="video/mp4">
-        </video>
+        <img src="img/frota_van_hotel.jpg" alt="Vans VIP Jansen" class="hero-bg-img pos-van opacity-30 blur-sm scale-105">
         <div class="hero-scrim-overlay"></div>
+        
+        <!-- Showcase do Vídeo Oficial em Alta Definição no Desktop (Proporção 4:5 Completa e Sem Cortes) -->
+        <div class="hero-desktop-video-showcase">
+          <div class="hero-desktop-video-card">
+            <video id="desktop-hero-video" autoplay loop muted playsinline class="w-full h-full object-cover object-center" poster="img/frota_van_hotel.jpg">
+              <source src="videos/video_hero_vans_mobile.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Badge Oficial Superior -->
+            <div class="absolute top-3.5 left-3.5 px-3 py-1.5 rounded-lg bg-black/85 backdrop-blur-md border border-white/20 text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2 pointer-events-none shadow-lg">
+              <i class="fa-solid fa-circle-play text-emerald-400"></i>
+              <span>Vídeo Oficial da Frota</span>
+            </div>
+
+            <!-- Botão de Ativar Som -->
+            <button id="desktop-video-sound-btn" class="absolute bottom-3.5 right-3.5 px-3.5 py-1.5 rounded-full bg-black/85 hover:bg-black text-white text-xs font-bold border border-white/25 shadow-2xl backdrop-blur-md flex items-center gap-2 transition-all active:scale-95 z-20 cursor-pointer" title="Ativar/Desativar Som">
+              <i class="fa-solid fa-volume-xmark text-emerald-400 text-sm" id="desktop-sound-icon"></i>
+              <span id="desktop-sound-text" class="text-[11px] uppercase tracking-wider">Ativar Som</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Camada 02: Micro-ônibus Volare DW9 (Foto Oficial Real com Letreiro Turismo) -->
@@ -337,14 +356,19 @@
       </p>
 
       <!-- Vídeo 01 Real da Frota Jansen em Destaque Mobile -->
-      <div class="relative w-full max-w-[340px] sm:max-w-sm mx-auto aspect-[4/5] rounded-2xl overflow-hidden border border-blue-500/30 bg-[#030712] shadow-2xl mb-4">
-        <video class="w-full h-full object-cover object-center" autoplay loop muted playsinline poster="img/frota_van_hotel.jpg">
+      <div class="relative w-full max-w-[340px] sm:max-w-sm mx-auto aspect-[4/5] rounded-2xl overflow-hidden border border-blue-500/30 bg-[#030712] shadow-2xl mb-4 group cursor-pointer" id="mobile-video-container">
+        <video id="mobile-hero-video" class="w-full h-full object-cover object-center" autoplay loop muted playsinline poster="img/frota_van_hotel.jpg">
           <source src="videos/video_hero_vans_mobile.mp4" type="video/mp4">
         </video>
-        <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+        <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
           <i class="fa-solid fa-circle-play text-emerald-400"></i>
           <span>Vídeo Oficial da Frota</span>
         </div>
+        <!-- Botão Ativar Som Mobile -->
+        <button id="mobile-video-sound-btn" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-black/85 hover:bg-black text-white text-xs font-bold border border-white/25 shadow-xl backdrop-blur-md flex items-center gap-1.5 transition-all active:scale-95 z-20" title="Ativar/Desativar Som">
+          <i class="fa-solid fa-volume-xmark text-emerald-400 text-xs" id="mobile-sound-icon"></i>
+          <span id="mobile-sound-text" class="text-[10px] uppercase tracking-wider">Ativar Som</span>
+        </button>
       </div>
 
       <!-- Ações Principais de Conversão Mobile -->
@@ -619,11 +643,11 @@
           </div>
         </div>
 
-        <!-- Serviço 4: Fretamento de Micro-ônibus e Ônibus (Foto 100% Preenchida - Ok) -->
+        <!-- Serviço 4: Fretamento de Micro-ônibus e Ônibus (Nova Foto Oficial Real) -->
         <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
           <div>
             <div class="h-56 overflow-hidden relative bg-black/40">
-              <img src="img/servico_onibus_card.jpg" alt="Micro-ônibus Volare DW9 Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <img src="img/servico_onibus_volare_real.jpg" alt="Micro-ônibus Volare DW9 Jansen Frota Oficial" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
               <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
                 31 Lugares
@@ -644,11 +668,11 @@
           </div>
         </div>
 
-        <!-- Serviço 5: Transporte de Cargas e Baús (Foto Centralizada - Ok) -->
+        <!-- Serviço 5: Transporte de Cargas e Baús (Nova Foto Oficial Real Accelo 1016) -->
         <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
           <div>
             <div class="h-56 overflow-hidden relative bg-black/40">
-              <img src="img/servico_caminhao_center.jpg" alt="Caminhão Mercedes Accelo Baú Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+              <img src="img/servico_caminhao_accelo_real.jpg" alt="Caminhão Mercedes Accelo 1016 Baú Jansen" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-[#0d1733] via-transparent to-transparent"></div>
               <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
                 Logística Dedicada
@@ -711,11 +735,11 @@
         </div>
         <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">Veja Nossos Veículos em Operação</h2>
         <p class="text-slate-300 text-sm sm:text-base">
-          Assista aos vídeos reais da Van Executiva VIP e do Micro-ônibus Volare DW9 em viagens e roteiros pelo Espírito Santo.
+          Assista aos vídeos reais da Van Executiva VIP, do Micro-ônibus Volare DW9 e do Embarque com Conforto Interno em viagens e roteiros pelo Espírito Santo.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Vídeo 1: Van Executiva VIP nas Montanhas Capixabas -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/30 flex flex-col justify-between group hover:border-blue-400/60 transition-all shadow-2xl">
           <div class="relative w-full aspect-video bg-black/60 overflow-hidden">
@@ -768,6 +792,34 @@
             <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20assisti%20ao%20v%C3%ADdeo%20do%20Micro-%C3%B4nibus%20e%20gostaria%20de%20uma%20cota%C3%A7%C3%A3o." target="_blank" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all">
               <i class="fa-brands fa-whatsapp text-sm"></i>
               <span>Cotar Micro-ônibus Volare DW9</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Vídeo 3: Embarque e Conforto Interno da Van VIP (Vídeo Novo) -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/30 flex flex-col justify-between group hover:border-blue-400/60 transition-all shadow-2xl">
+          <div class="relative w-full aspect-video bg-black/60 overflow-hidden">
+            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/poster_video_embarque_van.jpg">
+              <source src="videos/video_embarque_van_vip.mp4" type="video/mp4">
+              Seu navegador não suporta reprodução de vídeo.
+            </video>
+            <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
+              <i class="fa-solid fa-circle-play text-amber-400"></i>
+              <span>Embarque VIP • Interior Real</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-xs uppercase tracking-wider text-amber-400 font-bold">Experiência a Bordo</span>
+              <span class="text-xs text-slate-400"><i class="fa-solid fa-couch mr-1 text-blue-400"></i> Poltronas Soft</span>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-2">Embarque Suave e Conforto Executivo Jansen</h3>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+              Porta de acesso ampla com estribo ergonômico, carpete azul com iluminação suave, poltronas aveludadas reclináveis, Smart TV e ar-condicionado digital para traslados impecáveis.
+            </p>
+            <a href="https://wa.me/5527997392787?text=Ol%C3%A1%2C%20assisti%20ao%20v%C3%ADdeo%20do%20Embarque%20VIP%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span>Reservar com Este Padrão VIP</span>
             </a>
           </div>
         </div>
@@ -844,19 +896,19 @@
           </div>
         </div>
 
-        <!-- Card 4: Interior VIP das Vans -->
+        <!-- Card 4: Interior VIP das Vans (Novo Estofamento Real e Conforto) -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
           <div class="h-64 overflow-hidden relative">
-            <img src="img/frota_van_interior.jpg" alt="Interior da Van Executiva Jansen" class="w-full h-full object-cover">
+            <img src="img/frota_van_estofado_real.jpg" alt="Poltronas Soft e Estofamento Real Jansen" class="w-full h-full object-cover object-[center_40%]">
             <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
             <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
-              <i class="fa-solid fa-couch mr-1"></i> Conforto Premium
+              <i class="fa-solid fa-couch mr-1"></i> Estofamento Soft VIP
             </span>
           </div>
           <div class="p-6">
-            <h4 class="font-heading text-lg font-bold text-white mb-2">Poltronas Ergonômicas e Ar Duplo</h4>
+            <h4 class="font-heading text-lg font-bold text-white mb-2">Poltronas Aveludadas e Piso Iluminado</h4>
             <p class="text-slate-300 text-xs leading-relaxed">
-              Capas personalizadas azuis Jansen, cortinas térmicas, iluminação individual e espaço amplo para você e seu grupo viajarem com comodidade.
+              Poltronas soft reclináveis com cinto de segurança, acabamento aveludado, carpete azul com iluminação suave, ar-condicionado digital e Smart TV para máxima comodidade.
             </p>
           </div>
         </div>

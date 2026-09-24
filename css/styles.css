@@ -127,6 +127,47 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   filter: contrast(1.05) saturate(1.08) brightness(0.92);
 }
 
+/* Showcase de Vídeo Oficial Desktop (Proporção 4:5 Completa e Sem Cortes) */
+.hero-desktop-video-showcase {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: 68vh;
+  max-height: 530px;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+@media (min-width: 1440px) {
+  .hero-desktop-video-showcase {
+    right: 7%;
+    max-height: 560px;
+  }
+}
+
+.hero-desktop-video-card {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(59, 130, 246, 0.25);
+  background-color: #030712;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-desktop-video-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9), 0 0 50px rgba(59, 130, 246, 0.35);
+}
+
 @media (max-width: 1024px) {
   .hero-bg-img.pos-sedan,
   .hero-bg-img.pos-byd,
