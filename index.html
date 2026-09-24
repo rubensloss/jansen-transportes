@@ -115,31 +115,18 @@
     <!-- WRAPPER DESKTOP (Apenas telas grandes lg: >= 1024px) -->
     <div class="hidden lg:block w-full h-full relative">
       
-      <!-- Camada 01: Vans Executivas VIP Mercedes-Benz Sprinter (VÍDEO 01 OFICIAL DA FROTA) -->
+      <!-- Camada 01: Vans Executivas VIP Mercedes-Benz Sprinter (VÍDEO 01 OFICIAL DA FROTA EM TELA CHEIA) -->
       <div class="hero-bg-layer active">
-        <img src="img/frota_van_hotel.jpg" alt="Vans VIP Jansen" class="hero-bg-img pos-van opacity-30 blur-sm scale-105">
+        <video id="desktop-hero-video" autoplay loop muted playsinline class="hero-bg-video" poster="img/poster_hero_vans_desktop.jpg">
+          <source src="videos/video_hero_vans_desktop.mp4" type="video/mp4">
+        </video>
         <div class="hero-scrim-overlay"></div>
         
-        <!-- Showcase do Vídeo Oficial em Alta Definição no Desktop (Proporção 4:5 Completa e Sem Cortes) -->
-        <div class="hero-desktop-video-showcase">
-          <div class="hero-desktop-video-card">
-            <video id="desktop-hero-video" autoplay loop muted playsinline class="w-full h-full object-cover object-center" poster="img/frota_van_hotel.jpg">
-              <source src="videos/video_hero_vans_mobile.mp4" type="video/mp4">
-            </video>
-            
-            <!-- Badge Oficial Superior -->
-            <div class="absolute top-3.5 left-3.5 px-3 py-1.5 rounded-lg bg-black/85 backdrop-blur-md border border-white/20 text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2 pointer-events-none shadow-lg">
-              <i class="fa-solid fa-circle-play text-emerald-400"></i>
-              <span>Vídeo Oficial da Frota</span>
-            </div>
-
-            <!-- Botão de Ativar Som -->
-            <button id="desktop-video-sound-btn" class="absolute bottom-3.5 right-3.5 px-3.5 py-1.5 rounded-full bg-black/85 hover:bg-black text-white text-xs font-bold border border-white/25 shadow-2xl backdrop-blur-md flex items-center gap-2 transition-all active:scale-95 z-20 cursor-pointer" title="Ativar/Desativar Som">
-              <i class="fa-solid fa-volume-xmark text-emerald-400 text-sm" id="desktop-sound-icon"></i>
-              <span id="desktop-sound-text" class="text-[11px] uppercase tracking-wider">Ativar Som</span>
-            </button>
-          </div>
-        </div>
+        <!-- Botão Discreto de Ativar Som da Frota -->
+        <button id="desktop-video-sound-btn" class="absolute bottom-8 right-8 px-4 py-2 rounded-full bg-black/80 hover:bg-black text-white text-xs font-bold border border-white/25 shadow-2xl backdrop-blur-md flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 z-30 cursor-pointer" title="Ativar/Desativar Som da Frota">
+          <i class="fa-solid fa-volume-xmark text-emerald-400 text-sm" id="desktop-sound-icon"></i>
+          <span id="desktop-sound-text" class="text-[11px] uppercase tracking-wider">Ativar Som da Frota</span>
+        </button>
       </div>
 
       <!-- Camada 02: Micro-ônibus Volare DW9 (Foto Oficial Real com Letreiro Turismo) -->
@@ -357,7 +344,7 @@
 
       <!-- Vídeo 01 Real da Frota Jansen em Destaque Mobile -->
       <div class="relative w-full max-w-[340px] sm:max-w-sm mx-auto aspect-[4/5] rounded-2xl overflow-hidden border border-blue-500/30 bg-[#030712] shadow-2xl mb-4 group cursor-pointer" id="mobile-video-container">
-        <video id="mobile-hero-video" class="w-full h-full object-cover object-center" autoplay loop muted playsinline poster="img/frota_van_hotel.jpg">
+        <video id="mobile-hero-video" class="w-full h-full object-cover object-center" autoplay loop muted playsinline poster="img/poster_hero_vans_mobile.jpg">
           <source src="videos/video_hero_vans_mobile.mp4" type="video/mp4">
         </video>
         <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
@@ -743,8 +730,8 @@
         <!-- Vídeo 1: Van Executiva VIP nas Montanhas Capixabas -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/30 flex flex-col justify-between group hover:border-blue-400/60 transition-all shadow-2xl">
           <div class="relative w-full aspect-video bg-black/60 overflow-hidden">
-            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/frota_van_hotel.jpg">
-              <source src="videos/video_van_montanhas.mp4" type="video/mp4">
+            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/poster_video1_montanhas.jpg">
+              <source src="videos/video_van_montanhas_16_9.mp4" type="video/mp4">
               Seu navegador não suporta reprodução de vídeo.
             </video>
             <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
@@ -771,8 +758,8 @@
         <!-- Vídeo 2: Micro-ônibus Volare DW9 em Viagem/Tour -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/30 flex flex-col justify-between group hover:border-blue-400/60 transition-all shadow-2xl">
           <div class="relative w-full aspect-video bg-black/60 overflow-hidden">
-            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/frota_onibus_volare_real.jpg">
-              <source src="videos/video_onibus_tour.mp4" type="video/mp4">
+            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/poster_video2_onibus.jpg">
+              <source src="videos/video_onibus_tour_16_9.mp4" type="video/mp4">
               Seu navegador não suporta reprodução de vídeo.
             </video>
             <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[11px] font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
@@ -799,8 +786,8 @@
         <!-- Vídeo 3: Embarque e Conforto Interno da Van VIP (Vídeo Novo) -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/30 flex flex-col justify-between group hover:border-blue-400/60 transition-all shadow-2xl">
           <div class="relative w-full aspect-video bg-black/60 overflow-hidden">
-            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/poster_video_embarque_van.jpg">
-              <source src="videos/video_embarque_van_vip.mp4" type="video/mp4">
+            <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="img/poster_video3_embarque.jpg">
+              <source src="videos/video_embarque_van_vip_16_9.mp4" type="video/mp4">
               Seu navegador não suporta reprodução de vídeo.
             </video>
             <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 pointer-events-none">
@@ -899,7 +886,7 @@
         <!-- Card 4: Interior VIP das Vans (Novo Estofamento Real e Conforto) -->
         <div class="glass-card rounded-2xl overflow-hidden border border-blue-500/20 flex flex-col justify-between">
           <div class="h-64 overflow-hidden relative">
-            <img src="img/frota_van_estofado_real.jpg" alt="Poltronas Soft e Estofamento Real Jansen" class="w-full h-full object-cover object-[center_40%]">
+            <img src="img/frota_van_estofado_real.jpg" alt="Poltronas Soft e Estofamento Real Jansen" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent"></div>
             <span class="absolute top-3 left-3 bg-[#070d1e]/85 backdrop-blur-md text-blue-300 text-[11px] font-bold px-3 py-1 rounded-full border border-blue-500/30">
               <i class="fa-solid fa-couch mr-1"></i> Estofamento Soft VIP
