@@ -124,15 +124,20 @@
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       
       <!-- Abas de Navegação do Painel -->
-      <div class="flex items-center gap-3 border-b border-white/10 pb-4">
-        <button id="nav-tab-blog" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30">
+      <div class="flex items-center gap-3 border-b border-white/10 pb-4 overflow-x-auto">
+        <button id="nav-tab-blog" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30 shrink-0">
           <i class="fa-solid fa-newspaper"></i>
           <span>Gestão do Blog</span>
         </button>
-        <button id="nav-tab-agent" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10">
+        <button id="nav-tab-agent" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10 shrink-0">
           <i class="fa-solid fa-robot text-cyan-400"></i>
           <span>Agente de IA (Atendimento)</span>
           <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-extrabold animate-pulse">ONLINE</span>
+        </button>
+        <button id="nav-tab-crm" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10 shrink-0">
+          <i class="fa-solid fa-table-columns text-amber-400"></i>
+          <span>CRM & Frota (Kanban)</span>
+          <span id="crm-total-badge" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-extrabold">7 LEADS</span>
         </button>
       </div>
 
@@ -339,10 +344,10 @@
                 </div>
                 <div class="space-y-1 max-w-[85%]">
                   <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
-                    Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
+                    Olá! É um prazer para a Jansen Transportes atender você. Para começarmos sua cotação, como posso te chamar ou qual veículo você precisa?
                   </div>
                   <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
-                    <span class="text-blue-300 font-mono font-bold">95 caracteres</span> • <span class="text-emerald-400">Saudação calorosa e coleta do nome</span>
+                    <span class="text-blue-300 font-mono font-bold">137 caracteres</span> • <span class="text-emerald-400">Saudação executiva e qualificação ágil</span>
                   </div>
                 </div>
               </div>
@@ -707,6 +712,71 @@
 
       </div><!-- /section-agent -->
 
+      <!-- SEÇÃO 3: CRM DE TRANSPORTE & GESTÃO DE FROTA (KANBAN) -->
+      <div id="section-crm" class="hidden space-y-8">
+        
+        <!-- Header & Métricas do CRM -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="glass-card rounded-2xl p-5 border border-amber-500/20 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total em Pipeline</span>
+            <div id="crm-stat-pipeline" class="text-3xl font-extrabold font-heading text-amber-400">R$ 0,00</div>
+            <span class="text-[10px] text-slate-400 flex items-center gap-1">
+              <i class="fa-solid fa-arrow-trend-up text-amber-400"></i> Cotações ativas
+            </span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-emerald-500/20 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Viagens Confirmadas</span>
+            <div id="crm-stat-confirmed" class="text-3xl font-extrabold font-heading text-emerald-400">0 Viagens</div>
+            <span class="text-[10px] text-emerald-300 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-circle-check"></i> Sinal Pix recebido
+            </span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-blue-500/20 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Frota Ativa</span>
+            <div id="crm-stat-fleet" class="text-3xl font-extrabold font-heading text-blue-300">5 Veículos</div>
+            <span class="text-[10px] text-slate-400">Vans VIP, Micro, Sedans, Baú</span>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border border-purple-500/20 space-y-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Motoristas Conectados</span>
+            <div id="crm-stat-drivers" class="text-3xl font-extrabold font-heading text-purple-300">4 Condutores</div>
+            <span class="text-[10px] text-slate-400">Disponíveis p/ escala WhatsApp</span>
+          </div>
+        </div>
+
+        <!-- Barra de Ações do CRM -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-950/40 via-[#0d1733] to-[#0a1128] border border-amber-500/30 rounded-2xl p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
+              <i class="fa-solid fa-route"></i>
+            </div>
+            <div>
+              <h3 class="font-heading text-base font-bold text-white">Funil de Atendimento & Despacho Jansen</h3>
+              <p class="text-xs text-slate-300">Controle completo do primeiro contato até o retorno da viagem</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="crm-sync-btn" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-xs font-bold flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-arrows-rotate"></i>
+              <span>Atualizar</span>
+            </button>
+            <button id="crm-new-lead-btn" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-amber-500/20 active:scale-95">
+              <i class="fa-solid fa-plus"></i>
+              <span>Nova Cotação / Viagem</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KANBAN BOARD CONTAINER -->
+        <div id="crm-kanban-board" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4 overflow-x-auto pb-6">
+          <!-- Colunas preenchidas dinamicamente via JS -->
+        </div>
+
+      </div><!-- /section-crm -->
+
     </main>
 
   </div>
@@ -894,6 +964,171 @@
         </div>
       </form>
 
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 1: ORDEM DE SERVIÇO DO MOTORISTA (WHATSAPP)
+       ========================================== -->
+  <div id="crm-os-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-xl w-full bg-[#0a1128] border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-6">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
+            <i class="fa-solid fa-file-invoice"></i>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-white">Despachar Ordem de Serviço</h3>
+            <p class="text-xs text-slate-300">Escalar motorista e enviar dados da viagem via WhatsApp</p>
+          </div>
+        </div>
+        <button id="close-os-modal-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">
+              👨‍✈️ Motorista Responsável
+            </label>
+            <select id="os-driver-select" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+              <!-- Preenchido via JS -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">
+              🚐 Veículo Escalado
+            </label>
+            <select id="os-vehicle-select" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+              <!-- Preenchido via JS -->
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">
+            📱 Mensagem Formatada para o WhatsApp do Motorista
+          </label>
+          <textarea id="os-text-preview" rows="9" class="w-full bg-[#030712] border border-white/20 rounded-xl p-3 text-xs font-mono text-emerald-300 focus:outline-none focus:border-amber-400 leading-relaxed"></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/10">
+        <button type="button" id="copy-os-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+          <i class="fa-solid fa-copy"></i>
+          <span>Copiar Mensagem</span>
+        </button>
+
+        <a id="send-os-whatsapp-btn" href="#" target="_blank" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30 transition-all transform hover:scale-[1.02] active:scale-95">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Enviar p/ Motorista no WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 2: NOVA COTAÇÃO / EDITAR LEAD CRM
+       ========================================== -->
+  <div id="crm-lead-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-2xl w-full bg-[#0a1128] border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-6">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h3 id="crm-lead-modal-title" class="font-heading text-lg font-bold text-white">Nova Cotação / Viagem</h3>
+          <p class="text-xs text-slate-300">Cadastre os detalhes do transporte no funil de atendimento</p>
+        </div>
+        <button id="close-lead-modal-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="crm-lead-form" class="space-y-4 text-xs">
+        <input type="hidden" id="lead-form-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Nome do Cliente *</label>
+            <input type="text" id="lead-form-cliente" placeholder="Ex: Carlos Eduardo" required class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">WhatsApp (com DDD) *</label>
+            <input type="text" id="lead-form-whatsapp" placeholder="Ex: 27999887766" required class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Local de Saída / Embarque *</label>
+            <input type="text" id="lead-form-origem" placeholder="Ex: Praia da Costa, Vila Velha" required class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Destino *</label>
+            <input type="text" id="lead-form-destino" placeholder="Ex: Hotel Fazenda China Park" required class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Data & Hora de Ida</label>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="date" id="lead-form-data-ida" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+              <input type="time" id="lead-form-hora-ida" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Data & Hora de Retorno</label>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="date" id="lead-form-data-retorno" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+              <input type="time" id="lead-form-hora-retorno" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Passageiros & Veículo Desejado</label>
+            <div class="grid grid-cols-3 gap-2">
+              <input type="number" id="lead-form-pax" min="1" max="100" placeholder="Pax" value="1" class="col-span-1 w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+              <select id="lead-form-veiculo" class="col-span-2 w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+                <option value="Van Executiva VIP">Van VIP (15L)</option>
+                <option value="Van Executiva Plus">Van Plus (18L)</option>
+                <option value="Micro-ônibus Turismo">Micro Volare (31L)</option>
+                <option value="Sedan Executivo VIP">Sedan Corolla</option>
+                <option value="Caminhão Baú Logística">Caminhão Baú</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Valor da Cotação (R$) & Status</label>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="number" id="lead-form-valor" step="0.01" placeholder="0,00" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+              <select id="lead-form-status" class="w-full bg-[#030712] border border-white/20 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+                <option value="novo">📥 Novo Lead</option>
+                <option value="orcamento_enviado">📝 Cotação Enviada</option>
+                <option value="negociacao">💬 Negociação</option>
+                <option value="confirmado">🟢 Confirmado</option>
+                <option value="em_execucao">🚐 Na Estrada</option>
+                <option value="concluido">✅ Concluído</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block font-bold uppercase tracking-wider text-slate-300 mb-1">Observações da Viagem</label>
+            <textarea id="lead-form-obs" rows="2" placeholder="Ex: Parada na Casa do Queijo em Domingos Martins, cortesia de água..." class="w-full bg-[#030712] border border-white/20 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <button type="button" id="cancel-lead-btn" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all">
+            Salvar no Funil
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1385,27 +1620,37 @@
     // ==========================================
     const navTabBlog = document.getElementById('nav-tab-blog');
     const navTabAgent = document.getElementById('nav-tab-agent');
+    const navTabCrm = document.getElementById('nav-tab-crm');
     const sectionBlog = document.getElementById('section-blog');
     const sectionAgent = document.getElementById('section-agent');
+    const sectionCrm = document.getElementById('section-crm');
 
     function switchAdminTab(targetTab) {
+      sectionBlog.classList.add('hidden');
+      sectionAgent.classList.add('hidden');
+      if (sectionCrm) sectionCrm.classList.add('hidden');
+
+      const inactiveClass = 'px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10 shrink-0';
+      navTabBlog.className = inactiveClass;
+      navTabAgent.className = inactiveClass;
+      if (navTabCrm) navTabCrm.className = inactiveClass;
+
       if (targetTab === 'agent') {
-        sectionBlog.classList.add('hidden');
         sectionAgent.classList.remove('hidden');
-        navTabBlog.className = 'px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10';
-        navTabAgent.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30';
+        navTabAgent.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30 shrink-0';
+      } else if (targetTab === 'crm') {
+        if (sectionCrm) sectionCrm.classList.remove('hidden');
+        if (navTabCrm) navTabCrm.className = 'px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-amber-500/20 shrink-0';
+        if (typeof renderCrmKanban === 'function') renderCrmKanban();
       } else {
-        sectionAgent.classList.add('hidden');
         sectionBlog.classList.remove('hidden');
-        navTabBlog.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30';
-        navTabAgent.className = 'px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all border border-white/10';
+        navTabBlog.className = 'px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-blue-600/30 shrink-0';
       }
     }
 
-    if (navTabBlog && navTabAgent) {
-      navTabBlog.addEventListener('click', () => switchAdminTab('blog'));
-      navTabAgent.addEventListener('click', () => switchAdminTab('agent'));
-    }
+    if (navTabBlog) navTabBlog.addEventListener('click', () => switchAdminTab('blog'));
+    if (navTabAgent) navTabAgent.addEventListener('click', () => switchAdminTab('agent'));
+    if (navTabCrm) navTabCrm.addEventListener('click', () => switchAdminTab('crm'));
 
     // ==========================================
     // SIMULADOR DO AGENTE DE IA (PAINEL ADMIN)
@@ -1416,6 +1661,69 @@
     const simClearBtn = document.getElementById('sim-clear-btn');
     const simQuickBtns = document.querySelectorAll('.sim-quick-btn');
 
+    const NON_NAMES_ADMIN = new Set([
+      'oi', 'ola', 'olá', 'bom', 'dia', 'boa', 'tarde', 'noite', 'opa', 'e ai', 'e aí',
+      'quero', 'preciso', 'cotar', 'orcamento', 'orçamento', 'cotacao', 'cotação', 'valor', 'preco', 'preço',
+      'quanto', 'custa', 'informacao', 'informação', 'alugar', 'locacao', 'locação', 'contratar', 'gostaria',
+      'van', 'vans', 'sprinter', 'master', 'sedan', 'sedã', 'seda', 'carro', 'corolla', 'byd', 'onibus', 'ônibus',
+      'micro', 'micro-onibus', 'micro-ônibus', 'volare', 'caminhao', 'caminhão', 'bau', 'baú', 'accelo', 'carga', 'cargas', 'frete', 'fretes',
+      'vitoria', 'vitória', 'vila', 'velha', 'serra', 'cariacica', 'guarapari', 'pedra', 'azul', 'domingos', 'martins', 'china', 'park', 'aeroporto', 'vix',
+      'sim', 'nao', 'não', 'ok', 'obrigado', 'obrigada', 'valeu', 'humano', 'atendente', 'alex', 'pessoa', 'pessoas', 'viagem', 'ida', 'volta',
+      'casamento', 'excursao', 'excursão', 'traslado', 'transfer', 'hotel', 'fazenda', 'praia', 'costa', 'evento', 'para', 'de', 'com', 'sem', 'ate', 'até'
+    ]);
+
+    function formatAdminName(str) {
+      return str.split(/\s+/)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ');
+    }
+
+    function extractSimCustomerName(text) {
+      if (simSession.customerName) return simSession.customerName;
+      if (!text || typeof text !== 'string') return null;
+
+      let clean = text.trim().replace(/^[\s,.;:!?\"'()\[\]{}]+|[\s,.;:!?\"'()\[\]{}]+$/g, '');
+      clean = clean.replace(/^[^\w\sÀ-ÿ]+/, '').trim();
+
+      const explicitPatterns = [
+        /(?:me chamo|meu nome [eé]|chamo-me|sou\s+(?:o|a\s+)?|pode\s+(?:me\s+)?chamar\s+de|me\s+chame\s+de|aqui [eé]\s+(?:o|a\s+)?|falando com\s+(?:o|a\s+)?|[eé]\s+o\s+|[eé]\s+a\s+)\s*([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)/i,
+        /^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s+aqui\b/i
+      ];
+
+      for (const pat of explicitPatterns) {
+        const match = clean.match(pat);
+        if (match && match[1]) {
+          const cand = match[1].trim();
+          const firstWord = cand.split(/\s+/)[0].toLowerCase();
+          if (!NON_NAMES_ADMIN.has(firstWord)) {
+            return formatAdminName(cand);
+          }
+        }
+      }
+
+      const greetingStripped = clean.replace(/^(?:ol[aá]|oi|bom dia|boa tarde|boa noite)[\s,!-]+/i, '').trim();
+      const words = greetingStripped.split(/\s+/);
+      if (words.length >= 1 && words.length <= 3) {
+        const isAllLetters = words.every(w => /^[a-zA-ZÀ-ÿ]{2,20}$/.test(w));
+        if (isAllLetters) {
+          const anyNonName = words.some(w => NON_NAMES_ADMIN.has(w.toLowerCase()));
+          if (!anyNonName) {
+            return formatAdminName(greetingStripped);
+          }
+        }
+      }
+
+      const commaMatch = clean.match(/^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s*[,]\s*/i);
+      if (commaMatch && commaMatch[1]) {
+        const cand = commaMatch[1].trim();
+        if (!NON_NAMES_ADMIN.has(cand.split(/\s+/)[0].toLowerCase())) {
+          return formatAdminName(cand);
+        }
+      }
+
+      return null;
+    }
+
     let simSession = {
       customerName: null,
       serviceType: null,
@@ -1424,6 +1732,7 @@
       tripDate: null,
       tripType: null,
       times: null,
+      askedName: false,
       history: []
     };
 
@@ -1436,6 +1745,7 @@
         tripDate: null,
         tripType: null,
         times: null,
+        askedName: false,
         history: []
       };
       simMessages.innerHTML = `
@@ -1445,10 +1755,10 @@
           </div>
           <div class="space-y-1 max-w-[85%]">
             <div class="bg-white/5 border border-white/10 text-slate-100 p-3.5 rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
-              Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
+              Olá! É um prazer para a Jansen Transportes atender você. Para começarmos sua cotação, como posso te chamar ou qual veículo você precisa?
             </div>
             <div class="text-[10px] text-slate-400 px-1 flex items-center gap-2">
-              <span class="text-blue-300 font-mono font-bold">95 caracteres</span> • <span class="text-emerald-400">Saudação calorosa e coleta do nome</span>
+              <span class="text-blue-300 font-mono font-bold">137 caracteres</span> • <span class="text-emerald-400">Saudação executiva e qualificação ágil</span>
             </div>
           </div>
         </div>
@@ -1470,21 +1780,9 @@
       // 1. Extração de Entidades
       // A. Nome do cliente
       if (!simSession.customerName) {
-        const namePatterns = [
-          /(?:me chamo|meu nome [eé]|sou o|sou a|pode me chamar de|aqui [eé] o|aqui [eé] a)\s+([a-zA-ZÀ-ÿ]+)/i,
-          /^([a-zA-ZÀ-ÿ]{2,15})(?:\s+[a-zA-ZÀ-ÿ]{2,15})?$/
-        ];
-
-        for (const pat of namePatterns) {
-          const match = userText.match(pat);
-          if (match && match[1]) {
-            const candidate = match[1].trim();
-            const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
-            if (!nonNames.includes(candidate.toLowerCase())) {
-              simSession.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
-              break;
-            }
-          }
+        const identified = extractSimCustomerName(userText);
+        if (identified) {
+          simSession.customerName = identified;
         }
       }
 
@@ -1496,7 +1794,7 @@
           simSession.serviceType = 'Sedan Executivo (Corolla/BYD)';
         } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
           simSession.serviceType = 'Micro / Ônibus Rodoviário';
-        } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
+        } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('fretes')) {
           simSession.serviceType = 'Caminhão Baú (Cargas)';
         }
       }
@@ -1511,7 +1809,7 @@
 
       // D. Trajeto
       if (!simSession.route) {
-        const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)\b/i.test(msg);
+        const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)(?:\s+vip|\s+executiv[ao]|\s+plus|\s+rodovi[aá]rio|\s+ba[uú])?\s*$/i.test(msg);
         if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
           simSession.route = userText;
         }
@@ -1561,8 +1859,8 @@
       else if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma') || msg.includes('helicóptero') || msg.includes('helicoptero') || msg.includes('barco') || msg.includes('lancha') || msg.includes('mototáxi') || msg.includes('moto taxi') || msg.includes('avião') || msg.includes('aviao')) {
         if (msg.includes('guincho') || msg.includes('reboque') || msg.includes('socorro') || msg.includes('quebrou') || msg.includes('pane') || msg.includes('plataforma')) {
           reply = simSession.customerName
-            ? `Olá, ${simSession.customerName}! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Ônibus, Sedans) e logística de cargas em caminhões baú. Não realizamos serviço de guincho.`
-            : 'Olá! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Ônibus, Sedans) e logística de cargas em caminhões baú. Não realizamos serviço de guincho.';
+            ? `Olá, ${simSession.customerName}! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Micro-ônibus, Sedans) e logística de cargas em caminhões baú. Não operamos com serviço de guincho.`
+            : 'Olá! A Jansen Transportes atua exclusivamente com transporte executivo (Vans VIP, Micro-ônibus, Sedans) e logística de cargas em caminhões baú. Não operamos com serviço de guincho.';
           handoff = false;
         } else {
           reply = simSession.customerName
@@ -1573,34 +1871,47 @@
         }
       }
       // 4. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+      // REGRA DE OURO: JAMAIS pergunte o nome 2 vezes!
       else {
-        // Passo 1: Nome
-        if (!simSession.customerName) {
-          if (simSession.serviceType) {
-            reply = `É um prazer para a Jansen Transportes atender você! Nossas opções de ${simSession.serviceType} são de alto padrão. Como posso te chamar?`;
-          } else {
-            reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?';
-          }
+        // Se o cliente não informou nada e não temos nome
+        if (!simSession.customerName && !simSession.serviceType && !simSession.route && !simSession.passengers) {
+          reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar e qual transporte você precisa?';
+          simSession.askedName = true;
         }
         // Passo 2: Tipo de Veículo
         else if (!simSession.serviceType) {
-          reply = `Prazer, ${simSession.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`;
+          reply = simSession.customerName
+            ? `Prazer, ${simSession.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`
+            : 'Perfeito! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?';
         }
-        // Passo 3: Passageiros e Trajeto
+        // Passo 3: Passageiros e Trajeto (avança mesmo se o nome ainda não foi fornecido)
         else if (!simSession.passengers || !simSession.route) {
-          reply = `Excelente, ${simSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`;
+          reply = simSession.customerName
+            ? `Excelente, ${simSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`
+            : 'Excelente! Nossas opções contam com alto padrão. Para quantas pessoas seria a viagem e qual o trajeto (saída e destino)?';
         }
         // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
         else if (!simSession.tripDate || !simSession.tripType) {
-          reply = `Perfeito, ${simSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`;
+          reply = simSession.customerName
+            ? `Perfeito, ${simSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`
+            : 'Perfeito! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?';
         }
         // Passo 5: Horários
         else if (!simSession.times) {
           if (simSession.tripType === 'Só Ida') {
-            reply = `Combinado, ${simSession.customerName}! Qual o horário previsto para a saída?`;
+            reply = simSession.customerName
+              ? `Combinado, ${simSession.customerName}! Qual o horário previsto para a saída?`
+              : 'Combinado! Qual o horário previsto para a saída?';
           } else {
-            reply = `Combinado, ${simSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`;
+            reply = simSession.customerName
+              ? `Combinado, ${simSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`
+              : 'Combinado! Quais seriam os horários previstos de saída e de retorno?';
           }
+        }
+        // Passo 5.5: Se coletou tudo da viagem e ainda não temos o nome, pergunta uma única vez com cortesia
+        else if (!simSession.customerName) {
+          reply = 'Tudo anotado sobre sua viagem! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?';
+          simSession.askedName = true;
         }
         // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
         else {
@@ -1840,12 +2151,524 @@
       });
     }
 
+    // ==========================================
+    // MÓDULO CRM DE TRANSPORTE & GESTÃO DE FROTA
+    // ==========================================
+    const CRM_STAGES = [
+      { id: 'novo', title: 'Novos Leads', color: 'blue', border: 'border-blue-500/40', badge: 'bg-blue-600/30 text-blue-300', icon: 'fa-inbox' },
+      { id: 'orcamento_enviado', title: 'Cotação Enviada', color: 'cyan', border: 'border-cyan-500/40', badge: 'bg-cyan-600/30 text-cyan-300', icon: 'fa-file-lines' },
+      { id: 'negociacao', title: 'Negociação', color: 'amber', border: 'border-amber-500/40', badge: 'bg-amber-600/30 text-amber-300', icon: 'fa-comments' },
+      { id: 'confirmado', title: 'Confirmado (Sinal)', color: 'emerald', border: 'border-emerald-500/40', badge: 'bg-emerald-600/30 text-emerald-300', icon: 'fa-circle-check' },
+      { id: 'em_execucao', title: 'Na Estrada', color: 'indigo', border: 'border-indigo-500/40', badge: 'bg-indigo-600/30 text-indigo-300', icon: 'fa-van-shuttle' },
+      { id: 'concluido', title: 'Concluído', color: 'slate', border: 'border-slate-500/40', badge: 'bg-slate-700/50 text-slate-300', icon: 'fa-flag-checkered' }
+    ];
+
+    let crmData = {
+      config: { whatsappPadrao: '5527997392787', chavePix: '27997392787' },
+      motoristas: [
+        { id: "mot_1", nome: "Alex Jansen", telefone: "27997392787", cargo: "Gestor / Motorista Master" },
+        { id: "mot_2", nome: "Marcos Silva", telefone: "27998812233", cargo: "Motorista Executivo Vans" },
+        { id: "mot_3", nome: "Carlos Eduardo", telefone: "27997124455", cargo: "Motorista Especialista Micro/Ônibus" },
+        { id: "mot_4", nome: "Roberto Mendes", telefone: "27996547788", cargo: "Motorista Logística & Fretes" }
+      ],
+      veiculos: [
+        { id: "veic_van_15", modelo: "Mercedes Sprinter 15L VIP", placa: "JNS-1001", lugares: 15 },
+        { id: "veic_van_18", modelo: "Mercedes Sprinter 18L", placa: "JNS-1002", lugares: 18 },
+        { id: "veic_micro", modelo: "Volare DW9 Executivo (31L)", placa: "PQL-2J24", lugares: 31 },
+        { id: "veic_sedan", modelo: "Toyota Corolla XEi", placa: "JNS-4001", lugares: 4 },
+        { id: "veic_caminhao", modelo: "Mercedes Accelo 1016 Baú", placa: "JNS-6001", lugares: 0 }
+      ],
+      leads: [
+        {
+          id: "lead_101",
+          cliente: "Mariana Costa",
+          whatsapp: "27999811223",
+          tipoCliente: "Pessoa Física",
+          origem: "Aeroporto de Vitória (VIX)",
+          destino: "Pousada Pedra Azul • Domingos Martins",
+          dataIda: "2026-10-03",
+          horaIda: "08:30",
+          dataRetorno: "2026-10-04",
+          horaRetorno: "17:00",
+          passageiros: 12,
+          veiculo: "Mercedes Sprinter 15L VIP",
+          veiculoId: "veic_van_15",
+          motoristaId: "mot_1",
+          status: "novo",
+          canalOrigem: "WhatsApp IA",
+          valorTotal: 1750.00,
+          formaPagamento: "Pix (50% sinal + saldo)",
+          observacoes: "Grupo para fim de semana na Rota do Lagarto. Cortesia de água gelada."
+        },
+        {
+          id: "lead_102",
+          cliente: "Dr. Bruno Mendonça",
+          whatsapp: "27998234455",
+          tipoCliente: "Corporativo",
+          origem: "Praia do Canto, Vitória",
+          destino: "Centro de Convenções de Vitória",
+          dataIda: "2026-10-08",
+          horaIda: "07:45",
+          dataRetorno: "2026-10-08",
+          horaRetorno: "19:00",
+          passageiros: 3,
+          veiculo: "Sedan Executivo VIP",
+          veiculoId: "veic_sedan",
+          motoristaId: "mot_2",
+          status: "orcamento_enviado",
+          canalOrigem: "Site Web",
+          valorTotal: 650.00,
+          formaPagamento: "Faturamento 15 dias (NF)",
+          observacoes: "Palestrantes convidados do Congresso de Medicina."
+        },
+        {
+          id: "lead_103",
+          cliente: "Camila Guimarães",
+          whatsapp: "27997456677",
+          tipoCliente: "Casamento / Noiva",
+          origem: "Salão Mulher Bonita • Praia da Costa",
+          destino: "Igreja Santa Rita e Cerimonial Le Buffet",
+          dataIda: "2026-11-14",
+          horaIda: "16:00",
+          passageiros: 15,
+          veiculo: "Mercedes Sprinter 15L VIP",
+          veiculoId: "veic_van_15",
+          motoristaId: "mot_1",
+          status: "negociacao",
+          canalOrigem: "Instagram",
+          valorTotal: 2200.00,
+          formaPagamento: "Pix em 2x",
+          observacoes: "Transporte das madrinhas e noiva com motorista a rigor."
+        },
+        {
+          id: "lead_104",
+          cliente: "Igreja Batista de Jardim Camburi",
+          whatsapp: "27996118899",
+          tipoCliente: "Religioso / Excursão",
+          origem: "Vitória (Jardim Camburi)",
+          destino: "Acampamento Sítio Recanto da Mata • Guarapari",
+          dataIda: "2026-10-12",
+          horaIda: "07:00",
+          dataRetorno: "2026-10-12",
+          horaRetorno: "18:00",
+          passageiros: 30,
+          veiculo: "Micro-ônibus Turismo",
+          veiculoId: "veic_micro",
+          motoristaId: "mot_3",
+          status: "confirmado",
+          canalOrigem: "Indicação",
+          valorTotal: 2800.00,
+          formaPagamento: "Pix (Sinal de R$ 1.400 pago)",
+          observacoes: "Retiro de jovens. Ônibus já vistoriado e reservado com Carlos Eduardo."
+        },
+        {
+          id: "lead_105",
+          cliente: "Construtora Vale do Sol",
+          whatsapp: "27995332211",
+          tipoCliente: "Cargas & Logística",
+          origem: "Cariacica (Centro de Distribuição)",
+          destino: "Obra Linhares • BR-101 Norte",
+          dataIda: "2026-09-26",
+          horaIda: "06:00",
+          passageiros: 1,
+          veiculo: "Caminhão Baú Logística",
+          veiculoId: "veic_caminhao",
+          motoristaId: "mot_4",
+          status: "em_execucao",
+          canalOrigem: "WhatsApp",
+          valorTotal: 3400.00,
+          formaPagamento: "Boleto Faturado 28 dias",
+          observacoes: "Carga de 4.2 toneladas com NF anexada. Motorista Roberto em trânsito."
+        },
+        {
+          id: "lead_106",
+          cliente: "Rafael Alvarenga",
+          whatsapp: "27998990011",
+          tipoCliente: "Pessoa Física",
+          origem: "Vila Velha",
+          destino: "Hotel Fazenda China Park",
+          dataIda: "2026-09-19",
+          horaIda: "08:00",
+          dataRetorno: "2026-09-20",
+          horaRetorno: "17:00",
+          passageiros: 14,
+          veiculo: "Mercedes Sprinter 15L VIP",
+          veiculoId: "veic_van_15",
+          motoristaId: "mot_1",
+          status: "concluido",
+          canalOrigem: "Site Web",
+          valorTotal: 1850.00,
+          formaPagamento: "Pix 100% quitado",
+          observacoes: "Viagem finalizada com nota 5 no Google! Cliente satisfeito."
+        }
+      ]
+    };
+
+    async function fetchCrmDataFromServer() {
+      try {
+        const resp = await fetch('/api/crm/data');
+        if (resp.ok) {
+          const json = await resp.json();
+          if (json.data && json.data.leads) {
+            crmData = json.data;
+            renderCrmKanban();
+            return;
+          }
+        }
+      } catch (err) {}
+      renderCrmKanban();
+    }
+
+    function saveCrmDataLocally() {
+      try {
+        localStorage.setItem('jansen_crm_data', JSON.stringify(crmData));
+      } catch (e) {}
+    }
+
+    function renderCrmKanban() {
+      const board = document.getElementById('crm-kanban-board');
+      if (!board) return;
+
+      // 1. Atualizar métricas do header
+      let totalPipeline = 0;
+      let confirmedCount = 0;
+      crmData.leads.forEach(l => {
+        if (['novo', 'orcamento_enviado', 'negociacao', 'confirmado', 'em_execucao'].includes(l.status)) {
+          totalPipeline += Number(l.valorTotal || 0);
+        }
+        if (l.status === 'confirmado' || l.status === 'em_execucao') {
+          confirmedCount++;
+        }
+      });
+
+      const statPipeline = document.getElementById('crm-stat-pipeline');
+      const statConfirmed = document.getElementById('crm-stat-confirmed');
+      const statFleet = document.getElementById('crm-stat-fleet');
+      const statDrivers = document.getElementById('crm-stat-drivers');
+      const totalBadge = document.getElementById('crm-total-badge');
+
+      if (statPipeline) statPipeline.innerText = 'R$ ' + totalPipeline.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+      if (statConfirmed) statConfirmed.innerText = confirmedCount + (confirmedCount === 1 ? ' Viagem' : ' Viagens');
+      if (statFleet) statFleet.innerText = (crmData.veiculos ? crmData.veiculos.length : 5) + ' Veículos';
+      if (statDrivers) statDrivers.innerText = (crmData.motoristas ? crmData.motoristas.length : 4) + ' Condutores';
+      if (totalBadge) totalBadge.innerText = crmData.leads.length + ' LEADS';
+
+      // 2. Renderizar colunas
+      board.innerHTML = '';
+      CRM_STAGES.forEach(stage => {
+        const stageLeads = crmData.leads.filter(l => l.status === stage.id);
+        const col = document.createElement('div');
+        col.className = `glass-card rounded-2xl p-3 border ${stage.border} flex flex-col min-w-[280px] space-y-3 bg-[#0a1128]/70`;
+
+        let cardsHtml = '';
+        if (stageLeads.length === 0) {
+          cardsHtml = `
+            <div class="p-6 text-center text-slate-500 border border-dashed border-white/10 rounded-xl text-xs">
+              Nenhuma viagem nesta fase
+            </div>
+          `;
+        } else {
+          cardsHtml = stageLeads.map(lead => {
+            const motorista = crmData.motoristas.find(m => m.id === lead.motoristaId) || { nome: 'Não escalado' };
+            const cleanPhone = lead.whatsapp ? lead.whatsapp.replace(/\D/g, '') : '';
+            const fullPhone = cleanPhone.startsWith('55') ? cleanPhone : '55' + cleanPhone;
+
+            return `
+              <div class="p-3.5 rounded-xl bg-[#060c1d] border border-white/15 hover:border-amber-400/50 space-y-2.5 transition-all shadow-md group">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-mono text-slate-400">#${lead.id}</span>
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${stage.badge}">
+                    ${escapeHtml(lead.tipoCliente || 'Geral')}
+                  </span>
+                </div>
+
+                <div>
+                  <h4 class="font-heading text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
+                    ${escapeHtml(lead.cliente)}
+                  </h4>
+                  <a href="https://wa.me/${fullPhone}" target="_blank" class="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 mt-0.5">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>(${cleanPhone.slice(-11, -9) || '27'}) ${cleanPhone.slice(-9, -4)}-${cleanPhone.slice(-4)}</span>
+                  </a>
+                </div>
+
+                <div class="p-2 rounded-lg bg-black/40 border border-white/5 space-y-1 text-[11px] text-slate-300">
+                  <div class="flex items-start gap-1.5 truncate">
+                    <i class="fa-solid fa-location-dot text-red-400 mt-0.5 shrink-0"></i>
+                    <span class="truncate" title="${escapeHtml(lead.origem)} ➔ ${escapeHtml(lead.destino)}">${escapeHtml(lead.origem)} ➔ ${escapeHtml(lead.destino)}</span>
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] text-slate-400 pt-0.5">
+                    <span><i class="fa-regular fa-calendar text-blue-400 mr-1"></i>${escapeHtml(lead.dataIda || 'A def.')}</span>
+                    <span><i class="fa-solid fa-users text-amber-400 mr-1"></i>${lead.passageiros || 1} pax</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block">Cotação</span>
+                    <span class="text-xs font-bold text-white">R$ ${Number(lead.valorTotal || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] text-slate-400 block">Condutor</span>
+                    <span class="text-[11px] font-semibold text-purple-300 truncate max-w-[100px] block" title="${escapeHtml(motorista.nome)}">
+                      ${escapeHtml(motorista.nome.split(' ')[0])}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Ações do Card -->
+                <div class="pt-2 border-t border-white/10 flex items-center gap-1.5">
+                  <button onclick="openOsModal('${lead.id}')" class="flex-1 py-1.5 px-2 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold flex items-center justify-center gap-1 transition-all" title="Gerar e Despachar OS WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Despachar OS</span>
+                  </button>
+
+                  <select onchange="changeLeadStage('${lead.id}', this.value)" class="py-1 px-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-[10px] font-medium focus:outline-none focus:border-amber-400">
+                    ${CRM_STAGES.map(s => `<option value="${s.id}" ${s.id === lead.status ? 'selected' : ''}>Mover: ${s.title.split(' ')[0]}</option>`).join('')}
+                  </select>
+
+                  <button onclick="editCrmLead('${lead.id}')" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-[10px]" title="Editar Cotação">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        col.innerHTML = `
+          <div class="flex items-center justify-between pb-2 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid ${stage.icon} text-${stage.color}-400 text-xs"></i>
+              <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">${stage.title}</h4>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-extrabold">
+              ${stageLeads.length}
+            </span>
+          </div>
+          <div class="space-y-3 overflow-y-auto max-h-[680px] pr-1">
+            ${cardsHtml}
+          </div>
+        `;
+
+        board.appendChild(col);
+      });
+    }
+
+    // Mover Fase do Lead no Kanban
+    window.changeLeadStage = async function(leadId, newStage) {
+      const lead = crmData.leads.find(l => l.id === leadId);
+      if (!lead) return;
+      lead.status = newStage;
+      lead.atualizadoEm = new Date().toISOString();
+      saveCrmDataLocally();
+      renderCrmKanban();
+
+      try {
+        await fetch('/api/crm/leads/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: leadId, status: newStage })
+        });
+      } catch (e) {}
+    };
+
+    // Modal de Ordem de Serviço WhatsApp
+    const osModal = document.getElementById('crm-os-modal');
+    const closeOsBtn = document.getElementById('close-os-modal-btn');
+    const osDriverSelect = document.getElementById('os-driver-select');
+    const osVehicleSelect = document.getElementById('os-vehicle-select');
+    const osTextPreview = document.getElementById('os-text-preview');
+    const copyOsBtn = document.getElementById('copy-os-btn');
+    const sendOsWhatsappBtn = document.getElementById('send-os-whatsapp-btn');
+    let currentOsLead = null;
+
+    window.openOsModal = function(leadId) {
+      currentOsLead = crmData.leads.find(l => l.id === leadId);
+      if (!currentOsLead || !osModal) return;
+
+      // Popula motoristas
+      osDriverSelect.innerHTML = crmData.motoristas.map(m => `
+        <option value="${m.id}" ${m.id === currentOsLead.motoristaId ? 'selected' : ''}>
+          ${escapeHtml(m.nome)} (${escapeHtml(m.cargo)})
+        </option>
+      `).join('');
+
+      // Popula veículos
+      osVehicleSelect.innerHTML = crmData.veiculos.map(v => `
+        <option value="${v.id}" ${v.id === currentOsLead.veiculoId || v.modelo === currentOsLead.veiculo ? 'selected' : ''}>
+          ${escapeHtml(v.modelo)} • Placa: ${escapeHtml(v.placa)}
+        </option>
+      `).join('');
+
+      updateOsTextPreview();
+      osModal.classList.remove('hidden');
+      osModal.classList.add('flex');
+    };
+
+    function updateOsTextPreview() {
+      if (!currentOsLead) return;
+      const mot = crmData.motoristas.find(m => m.id === osDriverSelect.value) || crmData.motoristas[0];
+      const veic = crmData.veiculos.find(v => v.id === osVehicleSelect.value) || crmData.veiculos[0];
+
+      const cleanClientPhone = currentOsLead.whatsapp ? currentOsLead.whatsapp.replace(/\D/g, '') : '';
+      const text = `📋 *ORDEM DE SERVIÇO • JANSEN TRANSPORTES*\n` +
+        `🔢 *OS:* #${currentOsLead.id}\n` +
+        `👤 *Passageiro Principal:* ${currentOsLead.cliente}\n` +
+        `📱 *Contato Cliente:* (27) ${cleanClientPhone.slice(-9, -4)}-${cleanClientPhone.slice(-4)}\n` +
+        `🚐 *Veículo Escalado:* ${veic.modelo} (${veic.placa})\n` +
+        `👨‍✈️ *Motorista Responsável:* ${mot.nome}\n\n` +
+        `📍 *Embarque:* ${currentOsLead.origem}\n` +
+        `📅 *Data Ida:* ${currentOsLead.dataIda || 'A combinar'} às ${currentOsLead.horaIda || 'A combinar'}\n` +
+        `🏁 *Destino:* ${currentOsLead.destino}\n` +
+        (currentOsLead.dataRetorno ? `🔄 *Retorno:* ${currentOsLead.dataRetorno} às ${currentOsLead.horaRetorno || ''}\n` : '') +
+        `👥 *Passageiros:* ${currentOsLead.passageiros || 1} pessoas\n` +
+        `💰 *Forma Pgto:* ${currentOsLead.formaPagamento || 'A combinar'}\n` +
+        (currentOsLead.observacoes ? `📝 *Observações:* ${currentOsLead.observacoes}\n` : '') +
+        `\n_Jansen Transportes • Pontualidade e Conforto Executivo_`;
+
+      osTextPreview.value = text;
+
+      const cleanDriverPhone = mot.telefone ? mot.telefone.replace(/\D/g, '') : '27997392787';
+      const fullDriverPhone = cleanDriverPhone.startsWith('55') ? cleanDriverPhone : '55' + cleanDriverPhone;
+      sendOsWhatsappBtn.href = `https://wa.me/${fullDriverPhone}?text=${encodeURIComponent(text)}`;
+    }
+
+    if (osDriverSelect) osDriverSelect.addEventListener('change', updateOsTextPreview);
+    if (osVehicleSelect) osVehicleSelect.addEventListener('change', updateOsTextPreview);
+
+    if (closeOsBtn) {
+      closeOsBtn.addEventListener('click', () => {
+        osModal.classList.add('hidden');
+        osModal.classList.remove('flex');
+      });
+    }
+
+    if (copyOsBtn) {
+      copyOsBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(osTextPreview.value);
+        copyOsBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Copiado!';
+        setTimeout(() => {
+          copyOsBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Copiar Mensagem';
+        }, 2000);
+      });
+    }
+
+    // Modal de Novo / Editar Lead
+    const leadModal = document.getElementById('crm-lead-modal');
+    const closeLeadBtn = document.getElementById('close-lead-modal-btn');
+    const cancelLeadBtn = document.getElementById('cancel-lead-btn');
+    const leadForm = document.getElementById('crm-lead-form');
+    const crmNewLeadBtn = document.getElementById('crm-new-lead-btn');
+    const crmSyncBtn = document.getElementById('crm-sync-btn');
+
+    if (crmSyncBtn) {
+      crmSyncBtn.addEventListener('click', () => {
+        fetchCrmDataFromServer();
+        crmSyncBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Atualizado';
+        setTimeout(() => {
+          crmSyncBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> <span>Atualizar</span>';
+        }, 1500);
+      });
+    }
+
+    if (crmNewLeadBtn) {
+      crmNewLeadBtn.addEventListener('click', () => {
+        document.getElementById('crm-lead-modal-title').innerText = 'Nova Cotação / Viagem';
+        leadForm.reset();
+        document.getElementById('lead-form-id').value = '';
+        leadModal.classList.remove('hidden');
+        leadModal.classList.add('flex');
+      });
+    }
+
+    window.editCrmLead = function(leadId) {
+      const lead = crmData.leads.find(l => l.id === leadId);
+      if (!lead || !leadModal) return;
+
+      document.getElementById('crm-lead-modal-title').innerText = 'Editar Cotação #' + lead.id;
+      document.getElementById('lead-form-id').value = lead.id;
+      document.getElementById('lead-form-cliente').value = lead.cliente || '';
+      document.getElementById('lead-form-whatsapp').value = lead.whatsapp || '';
+      document.getElementById('lead-form-origem').value = lead.origem || '';
+      document.getElementById('lead-form-destino').value = lead.destino || '';
+      document.getElementById('lead-form-data-ida').value = lead.dataIda || '';
+      document.getElementById('lead-form-hora-ida').value = lead.horaIda || '';
+      document.getElementById('lead-form-data-retorno').value = lead.dataRetorno || '';
+      document.getElementById('lead-form-hora-retorno').value = lead.horaRetorno || '';
+      document.getElementById('lead-form-pax').value = lead.passageiros || 1;
+      document.getElementById('lead-form-veiculo').value = lead.veiculo || 'Van Executiva VIP';
+      document.getElementById('lead-form-valor').value = lead.valorTotal || '';
+      document.getElementById('lead-form-status').value = lead.status || 'novo';
+      document.getElementById('lead-form-obs').value = lead.observacoes || '';
+
+      leadModal.classList.remove('hidden');
+      leadModal.classList.add('flex');
+    };
+
+    function closeLeadModal() {
+      if (leadModal) {
+        leadModal.classList.add('hidden');
+        leadModal.classList.remove('flex');
+      }
+    }
+
+    if (closeLeadBtn) closeLeadBtn.addEventListener('click', closeLeadModal);
+    if (cancelLeadBtn) cancelLeadBtn.addEventListener('click', closeLeadModal);
+
+    if (leadForm) {
+      leadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('lead-form-id').value || ('lead_' + Date.now());
+        const lead = {
+          id,
+          cliente: document.getElementById('lead-form-cliente').value.trim(),
+          whatsapp: document.getElementById('lead-form-whatsapp').value.trim().replace(/\D/g, ''),
+          tipoCliente: 'Cotação Manual',
+          origem: document.getElementById('lead-form-origem').value.trim(),
+          destino: document.getElementById('lead-form-destino').value.trim(),
+          dataIda: document.getElementById('lead-form-data-ida').value,
+          horaIda: document.getElementById('lead-form-hora-ida').value,
+          dataRetorno: document.getElementById('lead-form-data-retorno').value,
+          horaRetorno: document.getElementById('lead-form-hora-retorno').value,
+          passageiros: parseInt(document.getElementById('lead-form-pax').value, 10) || 1,
+          veiculo: document.getElementById('lead-form-veiculo').value,
+          valorTotal: parseFloat(document.getElementById('lead-form-valor').value) || 0,
+          status: document.getElementById('lead-form-status').value,
+          observacoes: document.getElementById('lead-form-obs').value.trim(),
+          motoristaId: 'mot_1'
+        };
+
+        const existingIdx = crmData.leads.findIndex(l => l.id === id);
+        if (existingIdx >= 0) {
+          crmData.leads[existingIdx] = { ...crmData.leads[existingIdx], ...lead };
+        } else {
+          crmData.leads.unshift(lead);
+        }
+
+        saveCrmDataLocally();
+        renderCrmKanban();
+        closeLeadModal();
+
+        try {
+          await fetch('/api/crm/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(lead)
+          });
+        } catch (err) {}
+      });
+    }
+
     function escapeHtml(string) {
       if (!string) return '';
       const div = document.createElement('div');
       div.innerText = string;
       return div.innerHTML;
     }
+
+    // Inicializa carregando do backend se disponível
+    fetchCrmDataFromServer();
 
     // Iniciar
     if (urlParams.get('vip') === '1' || urlParams.get('demo') === '1') {
@@ -1854,6 +2677,8 @@
     checkAuth();
     if (urlParams.get('tab') === 'agent') {
       switchAdminTab('agent');
+    } else if (urlParams.get('tab') === 'crm') {
+      switchAdminTab('crm');
     }
     if (urlParams.get('modal') === 'new') {
       setTimeout(() => {

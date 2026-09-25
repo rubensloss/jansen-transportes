@@ -16,6 +16,72 @@ try {
   console.warn('Base de conhecimento nao carregada:', e.message);
 }
 
+const NON_NAMES = new Set([
+  'oi', 'ola', 'olá', 'bom', 'dia', 'boa', 'tarde', 'noite', 'opa', 'e ai', 'e aí',
+  'quero', 'preciso', 'cotar', 'orcamento', 'orçamento', 'cotacao', 'cotação', 'valor', 'preco', 'preço',
+  'quanto', 'custa', 'informacao', 'informação', 'alugar', 'locacao', 'locação', 'contratar', 'gostaria',
+  'van', 'vans', 'sprinter', 'master', 'sedan', 'sedã', 'seda', 'carro', 'corolla', 'byd', 'onibus', 'ônibus',
+  'micro', 'micro-onibus', 'micro-ônibus', 'volare', 'caminhao', 'caminhão', 'bau', 'baú', 'accelo', 'carga', 'cargas', 'frete', 'fretes',
+  'vitoria', 'vitória', 'vila', 'velha', 'serra', 'cariacica', 'guarapari', 'pedra', 'azul', 'domingos', 'martins', 'china', 'park', 'aeroporto', 'vix',
+  'sim', 'nao', 'não', 'ok', 'obrigado', 'obrigada', 'valeu', 'humano', 'atendente', 'alex', 'pessoa', 'pessoas', 'viagem', 'ida', 'volta',
+  'casamento', 'excursao', 'excursão', 'traslado', 'transfer', 'hotel', 'fazenda', 'praia', 'costa', 'evento', 'para', 'de', 'com', 'sem', 'ate', 'até'
+]);
+
+function formatName(str) {
+  return str.split(/\s+/)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+}
+
+function extractCustomerName(text, session = {}) {
+  if (session.customerName) return session.customerName;
+  if (!text || typeof text !== 'string') return null;
+
+  let clean = text.trim().replace(/^[\s,.;:!?\"'()\[\]{}]+|[\s,.;:!?\"'()\[\]{}]+$/g, '');
+  clean = clean.replace(/^[^\w\sÀ-ÿ]+/, '').trim();
+
+  // Padrão 1: Frases explícitas de apresentação (ex: "sou Rubens", "me chamo Rubens Loss", "aqui é Rubens")
+  const explicitPatterns = [
+    /(?:me chamo|meu nome [eé]|chamo-me|sou\s+(?:o|a\s+)?|pode\s+(?:me\s+)?chamar\s+de|me\s+chame\s+de|aqui [eé]\s+(?:o|a\s+)?|falando com\s+(?:o|a\s+)?|[eé]\s+o\s+|[eé]\s+a\s+)\s*([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)/i,
+    /^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s+aqui\b/i
+  ];
+
+  for (const pat of explicitPatterns) {
+    const match = clean.match(pat);
+    if (match && match[1]) {
+      const cand = match[1].trim();
+      const firstWord = cand.split(/\s+/)[0].toLowerCase();
+      if (!NON_NAMES.has(firstWord)) {
+        return formatName(cand);
+      }
+    }
+  }
+
+  // Padrão 2: Resposta direta de 1 a 3 palavras (ex: 'Rubens', 'Rubens Loss', 'Dr. Rubens')
+  const greetingStripped = clean.replace(/^(?:ol[aá]|oi|bom dia|boa tarde|boa noite)[\s,!-]+/i, '').trim();
+  const words = greetingStripped.split(/\s+/);
+  if (words.length >= 1 && words.length <= 3) {
+    const isAllLetters = words.every(w => /^[a-zA-ZÀ-ÿ]{2,20}$/.test(w));
+    if (isAllLetters) {
+      const anyNonName = words.some(w => NON_NAMES.has(w.toLowerCase()));
+      if (!anyNonName) {
+        return formatName(greetingStripped);
+      }
+    }
+  }
+
+  // Padrão 3: Nome antes de vírgula ou no início da frase (ex: 'Rubens, quanto custa a van?')
+  const commaMatch = clean.match(/^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s*[,]\s*/i);
+  if (commaMatch && commaMatch[1]) {
+    const cand = commaMatch[1].trim();
+    if (!NON_NAMES.has(cand.split(/\s+/)[0].toLowerCase())) {
+      return formatName(cand);
+    }
+  }
+
+  return null;
+}
+
 /**
  * Respostas Inteligentes Ultraconcisas & Triagem Qualificada de Lead
  */
@@ -31,21 +97,9 @@ function processLocalIntelligence(userMessage, session = {}) {
   // 1. Extração de Entidades
   // A. Nome do cliente
   if (!session.customerName) {
-    const namePatterns = [
-      /(?:me chamo|meu nome [eé]|sou o|sou a|pode me chamar de|aqui [eé] o|aqui [eé] a)\s+([a-zA-ZÀ-ÿ]+)/i,
-      /^([a-zA-ZÀ-ÿ]{2,15})(?:\s+[a-zA-ZÀ-ÿ]{2,15})?$/
-    ];
-
-    for (const pat of namePatterns) {
-      const match = userMessage.match(pat);
-      if (match && match[1]) {
-        const candidate = match[1].trim();
-        const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
-        if (!nonNames.includes(candidate.toLowerCase())) {
-          session.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
-          break;
-        }
-      }
+    const identifiedName = extractCustomerName(userMessage, session);
+    if (identifiedName) {
+      session.customerName = identifiedName;
     }
   }
 
@@ -57,7 +111,7 @@ function processLocalIntelligence(userMessage, session = {}) {
       session.serviceType = 'Sedan Executivo (Corolla/BYD)';
     } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
       session.serviceType = 'Micro / Ônibus Rodoviário';
-    } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
+    } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('fretes')) {
       session.serviceType = 'Caminhão Baú (Cargas)';
     }
   }
@@ -72,7 +126,7 @@ function processLocalIntelligence(userMessage, session = {}) {
 
   // D. Trajeto
   if (!session.route) {
-    const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)\b/i.test(msg);
+    const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)(?:\s+vip|\s+executiv[ao]|\s+plus|\s+rodovi[aá]rio|\s+ba[uú])?\s*$/i.test(msg);
     if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
       session.route = userMessage;
     }
@@ -134,34 +188,47 @@ function processLocalIntelligence(userMessage, session = {}) {
     }
   }
   // 4. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+  // REGRA DE OURO: JAMAIS pergunte o nome 2 vezes!
   else {
-    // Passo 1: Nome
-    if (!session.customerName) {
-      if (session.serviceType) {
-        reply = `É um prazer para a Jansen Transportes atender você! Nossas opções de ${session.serviceType} são de alto padrão. Como posso te chamar?`;
-      } else {
-        reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?';
-      }
+    // Se o cliente não informou nada e não temos nome
+    if (!session.customerName && !session.serviceType && !session.route && !session.passengers) {
+      reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar e qual transporte você precisa?';
+      session.askedName = true;
     }
     // Passo 2: Tipo de Veículo
     else if (!session.serviceType) {
-      reply = `Prazer, ${session.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`;
+      reply = session.customerName
+        ? `Prazer, ${session.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`
+        : 'Perfeito! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?';
     }
-    // Passo 3: Passageiros e Trajeto
+    // Passo 3: Passageiros e Trajeto (avança mesmo se o nome ainda não foi fornecido)
     else if (!session.passengers || !session.route) {
-      reply = `Excelente, ${session.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`;
+      reply = session.customerName
+        ? `Excelente, ${session.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`
+        : 'Excelente! Nossas opções contam com alto padrão. Para quantas pessoas seria a viagem e qual o trajeto (saída e destino)?';
     }
     // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
     else if (!session.tripDate || !session.tripType) {
-      reply = `Perfeito, ${session.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`;
+      reply = session.customerName
+        ? `Perfeito, ${session.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`
+        : 'Perfeito! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?';
     }
     // Passo 5: Horários
     else if (!session.times) {
       if (session.tripType === 'Só Ida') {
-        reply = `Combinado, ${session.customerName}! Qual o horário previsto para a saída?`;
+        reply = session.customerName
+          ? `Combinado, ${session.customerName}! Qual o horário previsto para a saída?`
+          : 'Combinado! Qual o horário previsto para a saída?';
       } else {
-        reply = `Combinado, ${session.customerName}! Quais seriam os horários previstos de saída e de retorno?`;
+        reply = session.customerName
+          ? `Combinado, ${session.customerName}! Quais seriam os horários previstos de saída e de retorno?`
+          : 'Combinado! Quais seriam os horários previstos de saída e de retorno?';
       }
+    }
+    // Passo 5.5: Se coletou tudo da viagem e ainda não temos o nome, pergunta uma única vez com cortesia
+    else if (!session.customerName) {
+      reply = 'Tudo anotado sobre sua viagem! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?';
+      session.askedName = true;
     }
     // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
     else {
@@ -209,6 +276,12 @@ function processLocalIntelligence(userMessage, session = {}) {
  * Se não estiver configurado, usa o motor local calibrado sem quebrar o sistema.
  */
 async function callGeminiAI(userMessage, session = {}) {
+  // 1. Extração prévia de nome e entidades para alimentar o prompt do Gemini
+  if (!session.customerName) {
+    const identified = extractCustomerName(userMessage, session);
+    if (identified) session.customerName = identified;
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === 'sua_chave_gemini_aqui') {
     return processLocalIntelligence(userMessage, session);
@@ -225,9 +298,16 @@ async function callGeminiAI(userMessage, session = {}) {
 
     history.push({ role: 'user', parts: [{ text: userMessage }] });
 
+    let systemInstruction = SYSTEM_PROMPT;
+    if (session.customerName) {
+      systemInstruction += `\n\n[CONDIÇÃO CRÍTICA DE OURO]: O cliente já se identificou como "${session.customerName}". Trate-o sempre como "${session.customerName}". NUNCA pergunte o nome do cliente novamente nem repita saudações iniciais!`;
+    } else if (session.askedName) {
+      systemInstruction += `\n\n[CONDIÇÃO CRÍTICA]: O nome já foi perguntado na abertura. NÃO insista no nome agora; avance com as informações da viagem (veículo, trajeto, passageiros, data).`;
+    }
+
     const payload = {
       system_instruction: {
-        parts: [{ text: SYSTEM_PROMPT }]
+        parts: [{ text: systemInstruction }]
       },
       contents: history,
       generationConfig: {
@@ -273,5 +353,6 @@ async function callGeminiAI(userMessage, session = {}) {
 module.exports = {
   processLocalIntelligence,
   callGeminiAI,
+  extractCustomerName,
   SYSTEM_PROMPT
 };

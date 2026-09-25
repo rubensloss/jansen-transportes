@@ -16,8 +16,83 @@
     tripDate: null,
     tripType: null,
     times: null,
+    askedName: false,
     history: []
   };
+
+  // Recupera nome salvo na sessão do navegador se existir
+  try {
+    const savedName = sessionStorage.getItem('jansen_lead_name');
+    if (savedName && savedName.trim().length >= 2) {
+      agentSession.customerName = savedName.trim();
+    }
+  } catch (e) {}
+
+  const NON_NAMES = new Set([
+    'oi', 'ola', 'olá', 'bom', 'dia', 'boa', 'tarde', 'noite', 'opa', 'e ai', 'e aí',
+    'quero', 'preciso', 'cotar', 'orcamento', 'orçamento', 'cotacao', 'cotação', 'valor', 'preco', 'preço',
+    'quanto', 'custa', 'informacao', 'informação', 'alugar', 'locacao', 'locação', 'contratar', 'gostaria',
+    'van', 'vans', 'sprinter', 'master', 'sedan', 'sedã', 'seda', 'carro', 'corolla', 'byd', 'onibus', 'ônibus',
+    'micro', 'micro-onibus', 'micro-ônibus', 'volare', 'caminhao', 'caminhão', 'bau', 'baú', 'accelo', 'carga', 'cargas', 'frete', 'fretes',
+    'vitoria', 'vitória', 'vila', 'velha', 'serra', 'cariacica', 'guarapari', 'pedra', 'azul', 'domingos', 'martins', 'china', 'park', 'aeroporto', 'vix',
+    'sim', 'nao', 'não', 'ok', 'obrigado', 'obrigada', 'valeu', 'humano', 'atendente', 'alex', 'pessoa', 'pessoas', 'viagem', 'ida', 'volta',
+    'casamento', 'excursao', 'excursão', 'traslado', 'transfer', 'hotel', 'fazenda', 'praia', 'costa', 'evento', 'para', 'de', 'com', 'sem', 'ate', 'até'
+  ]);
+
+  function formatName(str) {
+    return str.split(/\s+/)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  }
+
+  function extractCustomerName(text) {
+    if (agentSession.customerName) return agentSession.customerName;
+    if (!text || typeof text !== 'string') return null;
+
+    let clean = text.trim().replace(/^[\s,.;:!?\"'()\[\]{}]+|[\s,.;:!?\"'()\[\]{}]+$/g, '');
+    clean = clean.replace(/^[^\w\sÀ-ÿ]+/, '').trim();
+
+    // 1. Padrão explícito (ex: "sou Rubens", "me chamo Rubens Loss", "aqui é Rubens")
+    const explicitPatterns = [
+      /(?:me chamo|meu nome [eé]|chamo-me|sou\s+(?:o|a\s+)?|pode\s+(?:me\s+)?chamar\s+de|me\s+chame\s+de|aqui [eé]\s+(?:o|a\s+)?|falando com\s+(?:o|a\s+)?|[eé]\s+o\s+|[eé]\s+a\s+)\s*([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)/i,
+      /^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s+aqui\b/i
+    ];
+
+    for (const pat of explicitPatterns) {
+      const match = clean.match(pat);
+      if (match && match[1]) {
+        const cand = match[1].trim();
+        const firstWord = cand.split(/\s+/)[0].toLowerCase();
+        if (!NON_NAMES.has(firstWord)) {
+          return formatName(cand);
+        }
+      }
+    }
+
+    // 2. Resposta direta de 1 a 3 palavras (ex: 'Rubens', 'Rubens Loss', 'Dr. Rubens')
+    const greetingStripped = clean.replace(/^(?:ol[aá]|oi|bom dia|boa tarde|boa noite)[\s,!-]+/i, '').trim();
+    const words = greetingStripped.split(/\s+/);
+    if (words.length >= 1 && words.length <= 3) {
+      const isAllLetters = words.every(w => /^[a-zA-ZÀ-ÿ]{2,20}$/.test(w));
+      if (isAllLetters) {
+        const anyNonName = words.some(w => NON_NAMES.has(w.toLowerCase()));
+        if (!anyNonName) {
+          return formatName(greetingStripped);
+        }
+      }
+    }
+
+    // 3. Nome antes de vírgula ou no início da frase (ex: 'Rubens, quanto custa a van?')
+    const commaMatch = clean.match(/^([a-zA-ZÀ-ÿ]{2,20}(?:\s+[a-zA-ZÀ-ÿ]{2,20})?)\s*[,]\s*/i);
+    if (commaMatch && commaMatch[1]) {
+      const cand = commaMatch[1].trim();
+      if (!NON_NAMES.has(cand.split(/\s+/)[0].toLowerCase())) {
+        return formatName(cand);
+      }
+    }
+
+    return null;
+  }
 
   function processLocalMessage(userText) {
     const msg = userText.toLowerCase().trim();
@@ -30,21 +105,12 @@
     // 1. Extração de Entidades
     // A. Nome do cliente
     if (!agentSession.customerName) {
-      const namePatterns = [
-        /(?:me chamo|meu nome [eé]|sou o|sou a|pode me chamar de|aqui [eé] o|aqui [eé] a)\s+([a-zA-ZÀ-ÿ]+)/i,
-        /^([a-zA-ZÀ-ÿ]{2,15})(?:\s+[a-zA-ZÀ-ÿ]{2,15})?$/
-      ];
-
-      for (const pat of namePatterns) {
-        const match = userText.match(pat);
-        if (match && match[1]) {
-          const candidate = match[1].trim();
-          const nonNames = ['oi', 'olá', 'ola', 'bom', 'dia', 'boa', 'tarde', 'noite', 'van', 'sedan', 'onibus', 'quero', 'preciso', 'cotar'];
-          if (!nonNames.includes(candidate.toLowerCase())) {
-            agentSession.customerName = candidate.charAt(0).toUpperCase() + candidate.slice(1).toLowerCase();
-            break;
-          }
-        }
+      const identifiedName = extractCustomerName(userText);
+      if (identifiedName) {
+        agentSession.customerName = identifiedName;
+        try {
+          sessionStorage.setItem('jansen_lead_name', identifiedName);
+        } catch (e) {}
       }
     }
 
@@ -56,7 +122,7 @@
         agentSession.serviceType = 'Sedan Executivo (Corolla/BYD)';
       } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
         agentSession.serviceType = 'Micro / Ônibus Rodoviário';
-      } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete')) {
+      } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('fretes')) {
         agentSession.serviceType = 'Caminhão Baú (Cargas)';
       }
     }
@@ -71,7 +137,7 @@
 
     // D. Trajeto
     if (!agentSession.route) {
-      const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)\b/i.test(msg);
+      const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)(?:\s+vip|\s+executiv[ao]|\s+plus|\s+rodovi[aá]rio|\s+ba[uú])?\s*$/i.test(msg);
       if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
         agentSession.route = userText;
       }
@@ -133,34 +199,47 @@
       }
     }
     // 4. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+    // REGRA DE OURO: JAMAIS pergunte o nome 2 vezes!
     else {
-      // Passo 1: Nome
-      if (!agentSession.customerName) {
-        if (agentSession.serviceType) {
-          reply = `É um prazer para a Jansen Transportes atender você! Nossas opções de ${agentSession.serviceType} são de alto padrão. Como posso te chamar?`;
-        } else {
-          reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?';
-        }
+      // Se o cliente não informou nada e não temos nome
+      if (!agentSession.customerName && !agentSession.serviceType && !agentSession.route && !agentSession.passengers) {
+        reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar e qual transporte você precisa?';
+        agentSession.askedName = true;
       }
       // Passo 2: Tipo de Veículo
       else if (!agentSession.serviceType) {
-        reply = `Prazer, ${agentSession.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`;
+        reply = agentSession.customerName
+          ? `Prazer, ${agentSession.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`
+          : 'Perfeito! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?';
       }
-      // Passo 3: Passageiros e Trajeto
+      // Passo 3: Passageiros e Trajeto (avança mesmo se o nome ainda não foi fornecido)
       else if (!agentSession.passengers || !agentSession.route) {
-        reply = `Excelente, ${agentSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`;
+        reply = agentSession.customerName
+          ? `Excelente, ${agentSession.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`
+          : 'Excelente! Nossas opções contam com alto padrão. Para quantas pessoas seria a viagem e qual o trajeto (saída e destino)?';
       }
       // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
       else if (!agentSession.tripDate || !agentSession.tripType) {
-        reply = `Perfeito, ${agentSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`;
+        reply = agentSession.customerName
+          ? `Perfeito, ${agentSession.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`
+          : 'Perfeito! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?';
       }
       // Passo 5: Horários
       else if (!agentSession.times) {
         if (agentSession.tripType === 'Só Ida') {
-          reply = `Combinado, ${agentSession.customerName}! Qual o horário previsto para a saída?`;
+          reply = agentSession.customerName
+            ? `Combinado, ${agentSession.customerName}! Qual o horário previsto para a saída?`
+            : 'Combinado! Qual o horário previsto para a saída?';
         } else {
-          reply = `Combinado, ${agentSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`;
+          reply = agentSession.customerName
+            ? `Combinado, ${agentSession.customerName}! Quais seriam os horários previstos de saída e de retorno?`
+            : 'Combinado! Quais seriam os horários previstos de saída e de retorno?';
         }
+      }
+      // Passo 5.5: Se coletou tudo da viagem e ainda não temos o nome, pergunta uma única vez com cortesia
+      else if (!agentSession.customerName) {
+        reply = 'Tudo anotado sobre sua viagem! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?';
+        agentSession.askedName = true;
       }
       // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
       else {
@@ -216,6 +295,10 @@
     chatWindow.className = 'fixed bottom-20 sm:bottom-24 right-3 sm:right-6 z-50 w-[94vw] sm:w-[380px] max-h-[580px] h-[520px] bg-[#0a1128]/98 border border-blue-500/40 rounded-3xl shadow-2xl flex-col overflow-hidden backdrop-blur-2xl transition-all duration-300 hidden';
     chatWindow.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(29, 78, 216, 0.25)';
 
+    const welcomeGreeting = agentSession.customerName 
+      ? `Olá, ${agentSession.customerName}! É um prazer atender você na Jansen Transportes. Qual serviço ou cotação você precisa hoje?`
+      : 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos sua cotação, como posso te chamar ou qual veículo você precisa?';
+
     chatWindow.innerHTML = `
       <!-- Header do Chat -->
       <div class="p-4 bg-gradient-to-r from-blue-950 via-[#0d1733] to-[#070d1e] border-b border-white/10 flex items-center justify-between">
@@ -245,7 +328,7 @@
             <i class="fa-solid fa-robot"></i>
           </div>
           <div class="bg-white/5 border border-white/10 text-slate-100 p-3 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed shadow-sm">
-            Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar?
+            ${welcomeGreeting}
           </div>
         </div>
 

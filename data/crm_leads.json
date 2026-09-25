@@ -1,0 +1,299 @@
+{
+  "lastUpdated": "2026-09-25T12:22:04.844Z",
+  "config": {
+    "empresa": "Jansen Transportes Executivos",
+    "responsavel": "Alex Jansen",
+    "whatsappPadrao": "5527997392787",
+    "chavePix": "27997392787",
+    "moeda": "BRL"
+  },
+  "motoristas": [
+    {
+      "id": "mot_1",
+      "nome": "Alex Jansen",
+      "telefone": "27997392787",
+      "cargo": "Gestor / Motorista Master",
+      "veiculosHabilitados": [
+        "Vans VIP",
+        "Micro-ônibus",
+        "Sedan Corolla"
+      ]
+    },
+    {
+      "id": "mot_2",
+      "nome": "Marcos Silva",
+      "telefone": "27998812233",
+      "cargo": "Motorista Executivo Vans",
+      "veiculosHabilitados": [
+        "Vans VIP",
+        "Sedan Corolla"
+      ]
+    },
+    {
+      "id": "mot_3",
+      "nome": "Carlos Eduardo",
+      "telefone": "27997124455",
+      "cargo": "Motorista Especialista Micro/Ônibus",
+      "veiculosHabilitados": [
+        "Micro Volare DW9",
+        "Ônibus 46L"
+      ]
+    },
+    {
+      "id": "mot_4",
+      "nome": "Roberto Mendes",
+      "telefone": "27996547788",
+      "cargo": "Motorista Logística & Fretes",
+      "veiculosHabilitados": [
+        "Caminhão Accelo 1016 Baú"
+      ]
+    }
+  ],
+  "veiculos": [
+    {
+      "id": "veic_van_15",
+      "categoria": "Van Executiva VIP",
+      "modelo": "Mercedes-Benz Sprinter 516 CDI (15L)",
+      "placa": "JNS-1001",
+      "lugares": 15,
+      "status": "disponivel"
+    },
+    {
+      "id": "veic_van_18",
+      "categoria": "Van Executiva Plus",
+      "modelo": "Mercedes-Benz Sprinter (18L)",
+      "placa": "JNS-1002",
+      "lugares": 18,
+      "status": "disponivel"
+    },
+    {
+      "id": "veic_micro",
+      "categoria": "Micro-ônibus Turismo",
+      "modelo": "Volare DW9 Executivo (31L)",
+      "placa": "PQL-2J24",
+      "lugares": 31,
+      "status": "disponivel"
+    },
+    {
+      "id": "veic_sedan",
+      "categoria": "Sedan Executivo VIP",
+      "modelo": "Toyota Corolla XEi",
+      "placa": "JNS-4001",
+      "lugares": 4,
+      "status": "disponivel"
+    },
+    {
+      "id": "veic_caminhao",
+      "categoria": "Caminhão Baú Logística",
+      "modelo": "Mercedes-Benz Accelo 1016",
+      "placa": "JNS-6001",
+      "capacidade": "5.5 Toneladas",
+      "status": "disponivel"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead_chat_1790338924844",
+      "cliente": "Rubens",
+      "whatsapp": "123",
+      "tipoCliente": "Site / Chat IA",
+      "origem": "Preciso de uma van",
+      "destino": "Domingos Martins",
+      "dataIda": "dia 25",
+      "horaIda": "15 pessoas, dia 25/10 ida e volta das 8h às 18h",
+      "passageiros": 15,
+      "veiculo": "Van Executiva VIP",
+      "status": "novo",
+      "canalOrigem": "Site Web (Agente IA)",
+      "valorTotal": 0,
+      "observacoes": "Solicitação pelo site. Cotação qualificada para Alex Jansen. Rota: Preciso de uma van para Domingos Martins",
+      "criadoEm": "2026-09-25T12:22:04.844Z"
+    },
+    {
+      "id": "lead_101",
+      "cliente": "Mariana Costa",
+      "whatsapp": "27999811223",
+      "email": "mariana.costa@gmail.com",
+      "tipoCliente": "Pessoa Física",
+      "origem": "Aeroporto de Vitória (VIX)",
+      "destino": "Pousada Pedra Azul • Domingos Martins",
+      "dataIda": "2026-10-03",
+      "horaIda": "08:30",
+      "dataRetorno": "2026-10-04",
+      "horaRetorno": "17:00",
+      "passageiros": 12,
+      "veiculo": "Mercedes Sprinter 15L VIP",
+      "veiculoId": "veic_van_15",
+      "motoristaId": "mot_1",
+      "status": "novo",
+      "canalOrigem": "WhatsApp IA",
+      "valorTotal": 1750,
+      "sinalPago": 0,
+      "formaPagamento": "Pix (50% sinal + saldo no embarque)",
+      "observacoes": "Grupo de amigos para fim de semana gastronômico na Rota do Lagarto. Solicitou cortesia de água gelada.",
+      "criadoEm": "2026-09-25T07:10:00.000Z",
+      "conversaIA": [
+        {
+          "role": "user",
+          "text": "Bom dia, quanto fica uma van para Pedra Azul no próximo sábado?"
+        },
+        {
+          "role": "agent",
+          "text": "Olá, bom dia! Aqui é a Central Jansen. Temos Vans Executivas VIP Mercedes com Wi-Fi e ar duplo. Quantas pessoas irão?"
+        },
+        {
+          "role": "user",
+          "text": "Somos 12 pessoas com malas de mão, saída do aeroporto de Vitória."
+        },
+        {
+          "role": "agent",
+          "text": "Perfeito! A Sprinter 15L VIP atende vocês com máximo conforto. Estimativa média: R$ 1.750 ida e volta. Quer que o Alex Jansen confirme a reserva?"
+        }
+      ]
+    },
+    {
+      "id": "lead_102",
+      "cliente": "Dr. Bruno Mendonça",
+      "whatsapp": "27998234455",
+      "email": "bruno.mendonca@medclinica.com.br",
+      "tipoCliente": "Corporativo",
+      "origem": "Praia do Canto, Vitória",
+      "destino": "Centro de Convenções de Vitória",
+      "dataIda": "2026-09-28",
+      "horaIda": "07:45",
+      "dataRetorno": "2026-09-28",
+      "horaRetorno": "18:30",
+      "passageiros": 3,
+      "veiculo": "Toyota Corolla Sedan VIP",
+      "veiculoId": "veic_sedan",
+      "motoristaId": "mot_2",
+      "status": "novo",
+      "canalOrigem": "Site Simulador",
+      "valorTotal": 380,
+      "sinalPago": 0,
+      "formaPagamento": "Faturamento PJ 15 dias",
+      "observacoes": "Traslado executivo de palestrantes do Congresso de Medicina.",
+      "criadoEm": "2026-09-25T06:45:00.000Z"
+    },
+    {
+      "id": "lead_103",
+      "cliente": "Camila Guimarães (Noiva)",
+      "whatsapp": "27997658899",
+      "email": "camila.casamento@hotmail.com",
+      "tipoCliente": "Pessoa Física",
+      "origem": "Igreja Santa Rita, Praia do Canto",
+      "destino": "Cerimonial Le Buffet Lounge",
+      "dataIda": "2026-10-17",
+      "horaIda": "19:00",
+      "dataRetorno": "2026-10-18",
+      "horaRetorno": "03:30",
+      "passageiros": 28,
+      "veiculo": "Volare DW9 Executivo (31L)",
+      "veiculoId": "veic_micro",
+      "motoristaId": "mot_3",
+      "status": "orcamento_enviado",
+      "canalOrigem": "WhatsApp IA",
+      "valorTotal": 2400,
+      "sinalPago": 0,
+      "formaPagamento": "Pix ou Cartão em 3x",
+      "observacoes": "Transporte de convidados e padrinhos. Viagem noturna com retorno às 03:30 da madrugada.",
+      "criadoEm": "2026-09-24T18:20:00.000Z"
+    },
+    {
+      "id": "lead_104",
+      "cliente": "Construtora Vale do Moxuara",
+      "whatsapp": "27999123344",
+      "email": "logistica@valemoxuara.com.br",
+      "tipoCliente": "PJ / Contrato",
+      "origem": "Terminal de Vila Velha",
+      "destino": "Canteiro de Obras Porto de Tubarão",
+      "dataIda": "2026-10-01",
+      "horaIda": "06:00",
+      "dataRetorno": "2026-10-31",
+      "horaRetorno": "17:30",
+      "passageiros": 15,
+      "veiculo": "Mercedes Sprinter 18L Executiva",
+      "veiculoId": "veic_van_18",
+      "motoristaId": "mot_2",
+      "status": "negociacao",
+      "canalOrigem": "Telefone / Alex",
+      "valorTotal": 12800,
+      "sinalPago": 0,
+      "formaPagamento": "Faturamento Mensal PJ com NF",
+      "observacoes": "Contrato mensal de fretamento contínuo para transporte de equipe técnica especializada.",
+      "criadoEm": "2026-09-23T14:10:00.000Z"
+    },
+    {
+      "id": "lead_105",
+      "cliente": "Família Bittencourt",
+      "whatsapp": "27998771122",
+      "email": "claudia.bittencourt@globo.com",
+      "tipoCliente": "Pessoa Física",
+      "origem": "Mata da Praia, Vitória",
+      "destino": "Hotel Fazenda China Park • Domingos Martins",
+      "dataIda": "2026-09-26",
+      "horaIda": "08:00",
+      "dataRetorno": "2026-09-27",
+      "horaRetorno": "16:00",
+      "passageiros": 14,
+      "veiculo": "Mercedes Sprinter 15L VIP",
+      "veiculoId": "veic_van_15",
+      "motoristaId": "mot_1",
+      "status": "confirmado",
+      "canalOrigem": "WhatsApp IA",
+      "valorTotal": 1800,
+      "sinalPago": 900,
+      "formaPagamento": "Pix (Sinal de 50% pago, saldo de R$ 900 no embarque)",
+      "observacoes": "Viagem em família com idosos e crianças. Sinal de R$ 900 confirmado via Pix no dia 24/09.",
+      "criadoEm": "2026-09-24T09:30:00.000Z"
+    },
+    {
+      "id": "lead_106",
+      "cliente": "Petrobras Logística Tubarão",
+      "whatsapp": "27999554433",
+      "email": "transporte.es@petrobras.com.br",
+      "tipoCliente": "PJ Corporativo",
+      "origem": "Aeroporto de Vitória (VIX)",
+      "destino": "Sede Administrativa Petrobras • Reta da Penha",
+      "dataIda": "2026-09-25",
+      "horaIda": "09:30",
+      "dataRetorno": "2026-09-25",
+      "horaRetorno": "15:00",
+      "passageiros": 4,
+      "veiculo": "Toyota Corolla Sedan VIP",
+      "veiculoId": "veic_sedan",
+      "motoristaId": "mot_2",
+      "status": "em_execucao",
+      "canalOrigem": "Site Jansen",
+      "valorTotal": 420,
+      "sinalPago": 420,
+      "formaPagamento": "Faturamento Direto",
+      "observacoes": "Execução hoje! Motorista Marcos já no ponto de espera do Aeroporto VIX com placa de identificação.",
+      "criadoEm": "2026-09-24T16:00:00.000Z"
+    },
+    {
+      "id": "lead_107",
+      "cliente": "Agência Viagens & Destinos ES",
+      "whatsapp": "27998443322",
+      "email": "contato@viagenses.com.br",
+      "tipoCliente": "Agência de Turismo",
+      "origem": "Vitória / Vila Velha",
+      "destino": "Tour Gastronômico Santa Teresa",
+      "dataIda": "2026-09-20",
+      "horaIda": "07:30",
+      "dataRetorno": "2026-09-20",
+      "horaRetorno": "19:00",
+      "passageiros": 30,
+      "veiculo": "Volare DW9 Executivo (31L)",
+      "veiculoId": "veic_micro",
+      "motoristaId": "mot_3",
+      "status": "concluido",
+      "canalOrigem": "WhatsApp IA",
+      "valorTotal": 2900,
+      "sinalPago": 2900,
+      "formaPagamento": "Pix Integral Pago",
+      "observacoes": "Viagem concluída com sucesso. Pesquisa de satisfação enviada e cliente deixou avaliação 5 estrelas no Google!",
+      "criadoEm": "2026-09-18T10:00:00.000Z"
+    }
+  ]
+}

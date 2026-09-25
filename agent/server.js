@@ -86,6 +86,30 @@ function sendJson(res, statusCode, data) {
   res.end(body);
 }
 
+// Persistência e Sincronização do CRM Jansen
+const crmFilePath = path.join(__dirname, '..', 'data', 'crm_leads.json');
+function readCrmData() {
+  try {
+    if (fs.existsSync(crmFilePath)) {
+      return JSON.parse(fs.readFileSync(crmFilePath, 'utf-8'));
+    }
+  } catch (e) {
+    console.warn('[CRM ERROR] Falha ao ler crm_leads.json:', e.message);
+  }
+  return { config: {}, motoristas: [], veiculos: [], leads: [] };
+}
+
+function saveCrmData(data) {
+  try {
+    data.lastUpdated = new Date().toISOString();
+    fs.writeFileSync(crmFilePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
+  } catch (e) {
+    console.error('[CRM ERROR] Falha ao salvar crm_leads.json:', e.message);
+    return false;
+  }
+}
+
 const server = http.createServer((req, res) => {
   // CORS Preflight
   if (req.method === 'OPTIONS') {
@@ -132,6 +156,39 @@ const server = http.createServer((req, res) => {
             phone: sessionId,
             nome: session.customerName
           });
+        }
+
+        // Sincroniza lead qualificado automaticamente no CRM Jansen
+        if (result.handoff && session.customerName) {
+          try {
+            const crm = readCrmData();
+            const existingIdx = crm.leads.findIndex(l => l.whatsapp === sessionId || l.id === 'lead_chat_' + sessionId);
+            const leadData = {
+              id: existingIdx >= 0 ? crm.leads[existingIdx].id : 'lead_chat_' + Date.now(),
+              cliente: session.customerName,
+              whatsapp: sessionId.replace(/\D/g, '') || '27997392787',
+              tipoCliente: 'Site / Chat IA',
+              origem: session.route ? (session.route.toLowerCase().includes('para') ? session.route.split(/para/i)[0].trim() : session.route) : 'Vitória / Vila Velha',
+              destino: session.route ? (session.route.toLowerCase().includes('para') ? session.route.split(/para/i)[1].trim() : session.route) : 'A definir',
+              dataIda: session.tripDate || 'A definir',
+              horaIda: session.times || 'A definir',
+              passageiros: session.passengers ? (parseInt(session.passengers, 10) || 1) : 1,
+              veiculo: session.serviceType || 'Van Executiva VIP',
+              status: 'novo',
+              canalOrigem: 'Site Web (Agente IA)',
+              valorTotal: 0,
+              observacoes: `Solicitação pelo site. Cotação qualificada para Alex Jansen. Rota: ${session.route || 'Pendente'}`,
+              criadoEm: new Date().toISOString()
+            };
+            if (existingIdx >= 0) {
+              crm.leads[existingIdx] = { ...crm.leads[existingIdx], ...leadData };
+            } else {
+              crm.leads.unshift(leadData);
+            }
+            saveCrmData(crm);
+          } catch (err) {
+            console.warn('[CRM SYNC]: Falha ao sincronizar lead do chat:', err.message);
+          }
         }
 
         return sendJson(res, 200, {
@@ -212,7 +269,109 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 7. Webhook WhatsApp - Handshake de Verificação da Meta (GET)
+  // 7. CRM API - Dados Completos (GET)
+  if (req.method === 'GET' && url.pathname === '/api/crm/data') {
+    const data = readCrmData();
+    return sendJson(res, 200, { success: true, data });
+  }
+
+  // 8. CRM API - Criar ou Atualizar Lead (POST)
+  if (req.method === 'POST' && url.pathname === '/api/crm/leads') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const lead = JSON.parse(bodyData || '{}');
+        if (!lead.cliente) {
+          return sendJson(res, 400, { error: 'Nome do cliente é obrigatório' });
+        }
+        const crm = readCrmData();
+        const existingIdx = lead.id ? crm.leads.findIndex(l => l.id === lead.id) : -1;
+        if (existingIdx >= 0) {
+          crm.leads[existingIdx] = { ...crm.leads[existingIdx], ...lead, atualizadoEm: new Date().toISOString() };
+        } else {
+          lead.id = lead.id || 'lead_' + Date.now();
+          lead.status = lead.status || 'novo';
+          lead.criadoEm = lead.criadoEm || new Date().toISOString();
+          crm.leads.unshift(lead);
+        }
+        saveCrmData(crm);
+        return sendJson(res, 200, { success: true, lead });
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 9. CRM API - Atualizar Status / Fase do Kanban (POST)
+  if (req.method === 'POST' && url.pathname === '/api/crm/leads/status') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const { id, status } = JSON.parse(bodyData || '{}');
+        if (!id || !status) {
+          return sendJson(res, 400, { error: 'ID e status são obrigatórios' });
+        }
+        const crm = readCrmData();
+        const lead = crm.leads.find(l => l.id === id);
+        if (!lead) {
+          return sendJson(res, 404, { error: 'Lead não encontrado' });
+        }
+        lead.status = status;
+        lead.atualizadoEm = new Date().toISOString();
+        saveCrmData(crm);
+        return sendJson(res, 200, { success: true, lead });
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 10. CRM API - Gerador de Ordem de Serviço WhatsApp (POST)
+  if (req.method === 'POST' && url.pathname === '/api/crm/leads/os') {
+    let bodyData = '';
+    req.on('data', chunk => bodyData += chunk);
+    req.on('end', () => {
+      try {
+        const { leadId, motoristaId, veiculoId } = JSON.parse(bodyData || '{}');
+        const crm = readCrmData();
+        const lead = crm.leads.find(l => l.id === leadId);
+        if (!lead) return sendJson(res, 404, { error: 'Lead não encontrado' });
+
+        const motorista = crm.motoristas.find(m => m.id === (motoristaId || lead.motoristaId)) || { nome: 'A Definir', telefone: '27997392787' };
+        const veiculo = crm.veiculos.find(v => v.id === (veiculoId || lead.veiculoId)) || { modelo: lead.veiculo || 'Van VIP', placa: 'A definir' };
+
+        const osText = `📋 *ORDEM DE SERVIÇO • JANSEN TRANSPORTES*\n` +
+          `🔢 *OS:* #${lead.id}\n` +
+          `👤 *Passageiro:* ${lead.cliente}\n` +
+          `📱 *Contato:* ${lead.whatsapp}\n` +
+          `🚐 *Veículo:* ${veiculo.modelo} (${veiculo.placa})\n` +
+          `👨‍✈️ *Motorista:* ${motorista.nome}\n\n` +
+          `📍 *Embarque:* ${lead.origem}\n` +
+          `📅 *Data Ida:* ${lead.dataIda || 'A combinar'} às ${lead.horaIda || 'A combinar'}\n` +
+          `🏁 *Destino:* ${lead.destino}\n` +
+          (lead.dataRetorno ? `🔄 *Retorno:* ${lead.dataRetorno} às ${lead.horaRetorno || ''}\n` : '') +
+          `👥 *Passageiros:* ${lead.passageiros || 1} pessoas\n` +
+          `💰 *Pgto:* ${lead.formaPagamento || 'A combinar'} (Total: R$ ${Number(lead.valorTotal || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })})\n` +
+          (lead.observacoes ? `📝 *Obs:* ${lead.observacoes}\n` : '') +
+          `\n_Jansen Transportes • Viagem com Segurança e Pontualidade_`;
+
+        const targetPhone = motorista.telefone ? motorista.telefone.replace(/\D/g, '') : '27997392787';
+        const fullPhone = targetPhone.startsWith('55') ? targetPhone : '55' + targetPhone;
+        const whatsappUrl = `https://wa.me/${fullPhone}?text=${encodeURIComponent(osText)}`;
+
+        return sendJson(res, 200, { success: true, osText, whatsappUrl, motorista, veiculo });
+      } catch (e) {
+        return sendJson(res, 400, { error: e.message });
+      }
+    });
+    return;
+  }
+
+  // 11. Webhook WhatsApp - Handshake de Verificação da Meta (GET)
   if (req.method === 'GET' && url.pathname === '/webhook') {
     const mode = url.searchParams.get('hub.mode');
     const token = url.searchParams.get('hub.verify_token');
