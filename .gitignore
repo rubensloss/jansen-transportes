@@ -1,2 +1,16 @@
-
+# Videos pesados
 videos/video_hero_vans_desktop.mp4
+
+# Segredos e variaveis de ambiente
+.env
+*.env
+agent/.env
+.env.local
+
+# Dependencias
+node_modules/
+
+# Logs e arquivos de sistema
+*.log
+.DS_Store
+Thumbs.db
