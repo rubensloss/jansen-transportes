@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /data/
+Disallow: /agent/
+
+Sitemap: https://jansentransportes.com.br/sitemap.xml
