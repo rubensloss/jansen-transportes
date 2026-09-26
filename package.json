@@ -1,0 +1,15 @@
+{
+  "name": "jansen-transportes",
+  "version": "1.0.0",
+  "description": "Ecossistema Digital Jansen Transportes - Site Oficial, CRM Kanban e Agente de IA para WhatsApp",
+  "main": "agent/server.js",
+  "scripts": {
+    "start": "node agent/server.js",
+    "test": "node -e \"console.log('Jansen Agent Online')\""
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Creative Always - Rubens Loss",
+  "license": "ISC"
+}
