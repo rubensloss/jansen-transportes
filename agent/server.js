@@ -505,9 +505,61 @@ const server = http.createServer((req, res) => {
         // 3. Cliente novo chamando direto no WhatsApp -> Fluxo de Qualificação Ativo via Gemini / Motor Local
         const result = await callGeminiAI(text, session);
 
-        // Se o robô finalizou a qualificação ou o cliente pediu humano, pausa o bot
+        // Se o robô finalizou a qualificação ou o cliente pediu humano, pausa o bot e notifica Alex Jansen
         if (result.handoff) {
           session.botPaused = true;
+
+          // 1. Notifica o Alex Jansen no WhatsApp PESSOAL dele com os dados do lead prontos
+          const alexPhone = process.env.ALEX_PERSONAL_PHONE || '5527997392787';
+          const alertMessage = `🚨 *NOVO LEAD QUALIFICADO NO WHATSAPP!*` +
+            (session.customerName ? `\n👤 *Cliente:* ${session.customerName}` : '') +
+            `\n📱 *WhatsApp:* +${fromNumber}` +
+            (session.serviceType ? `\n🚐 *Veículo:* ${session.serviceType}` : '') +
+            (session.isCargo && session.cargoDetails ? `\n📦 *Carga:* ${session.cargoDetails}` : '') +
+            (!session.isCargo && session.passengers ? `\n👥 *Passageiros:* ${session.passengers}` : '') +
+            (session.route ? `\n📍 *Trajeto:* ${session.route}` : '') +
+            (session.tripDate ? `\n📅 *Data:* ${session.tripDate}` : '') +
+            (session.times ? `\n⏰ *Horários:* ${session.times}` : '') +
+            `\n\n👉 *Chamar cliente com 1 toque:* https://wa.me/${fromNumber}`;
+
+          try {
+            await sendMetaOutboundMessage(alexPhone, alertMessage);
+            console.log(`[ALERTA DESPACHADO PARA ALEX JANSEN (${alexPhone})]: Lead de ${session.customerName || fromNumber}`);
+          } catch (alertErr) {
+            console.warn('[ALERTA ALEX ERRO]: Falha ao despachar notificação para Alex:', alertErr.message);
+          }
+
+          // 2. Registra automaticamente o lead no CRM Jansen (Kanban)
+          try {
+            const crm = readCrmData();
+            const existingIdx = crm.leads.findIndex(l => l.whatsapp === fromNumber);
+            const leadData = {
+              id: existingIdx >= 0 ? crm.leads[existingIdx].id : 'lead_wa_' + Date.now(),
+              cliente: session.customerName || 'Cliente WhatsApp',
+              whatsapp: fromNumber,
+              tipoCliente: 'WhatsApp Oficial (Agente IA)',
+              origem: session.route ? (session.route.toLowerCase().includes('para') ? session.route.split(/para/i)[0].trim() : session.route) : 'Vitória',
+              destino: session.route ? (session.route.toLowerCase().includes('para') ? session.route.split(/para/i)[1].trim() : session.route) : 'A definir',
+              dataIda: session.tripDate || 'A definir',
+              horaIda: session.times || 'A definir',
+              passageiros: session.isCargo ? 1 : (session.passengers ? (parseInt(session.passengers, 10) || 1) : 1),
+              veiculo: session.serviceType || 'Van Executiva VIP',
+              status: 'novo',
+              canalOrigem: 'WhatsApp Oficial (Agente IA)',
+              valorTotal: 0,
+              observacoes: `Cotação via WhatsApp Bot. Rota: ${session.route || 'Pendente'}. Carga: ${session.cargoDetails || 'N/A'}`,
+              criadoEm: new Date().toISOString()
+            };
+            if (existingIdx >= 0) {
+              crm.leads[existingIdx] = { ...crm.leads[existingIdx], ...leadData };
+            } else {
+              crm.leads.unshift(leadData);
+            }
+            saveCrmData(crm);
+            console.log(`[CRM SYNC]: Lead ${session.customerName || fromNumber} salvo com sucesso no CRM Jansen.`);
+          } catch (crmErr) {
+            console.warn('[CRM SYNC ERRO]: Falha ao salvar lead no CRM:', crmErr.message);
+          }
         }
 
         console.log(`[AGENTE IA -> ${fromNumber}]: "${result.reply}" (Handoff: ${result.handoff})`);
@@ -530,7 +582,7 @@ const server = http.createServer((req, res) => {
           handoffTriggered: result.handoff,
           handoffReason: result.handoffReason,
           botPaused: session.botPaused,
-          alexJansenAlert: result.handoff ? `ALERTA JANSEN: Cliente ${fromNumber} qualificado no WhatsApp. Assuma para fechamento!` : null
+          alexJansenAlert: result.handoff ? `ALERTA JANSEN: Lead transferido para Alex Jansen (+55 27 99739-2787)` : null
         });
       } catch (e) {
         return sendJson(res, 500, { error: e.message });
