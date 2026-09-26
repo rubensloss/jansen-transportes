@@ -85,13 +85,22 @@ function setSlide(index) {
     heroMainCta.innerHTML = `<span>${slideData[index].ctaText}</span> <i class="fa-solid fa-arrow-right ml-2"></i>`;
   }
 
-  // Gerenciar reprodução do vídeo desktop conforme o slide
+  // Gerenciar reprodução do vídeo desktop e visibilidade do botão de áudio conforme o slide
   const desktopVideo = document.getElementById('desktop-hero-video');
+  const desktopSoundBtn = document.getElementById('desktop-video-sound-btn');
   if (desktopVideo) {
     if (index === 0) {
       desktopVideo.play().catch(() => {});
+      if (desktopSoundBtn) {
+        desktopSoundBtn.style.opacity = '1';
+        desktopSoundBtn.style.pointerEvents = 'auto';
+      }
     } else {
       desktopVideo.pause();
+      if (desktopSoundBtn) {
+        desktopSoundBtn.style.opacity = '0';
+        desktopSoundBtn.style.pointerEvents = 'none';
+      }
     }
   }
 }
@@ -602,16 +611,25 @@ function initHeroVideoAudioControls() {
     if (!video || !btn) return;
 
     function toggleAudio(e) {
-      if (e) e.stopPropagation();
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       if (video.muted) {
         video.muted = false;
         video.volume = 1.0;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.log('Video play on unmute:', err);
+          });
+        }
         if (icon) icon.className = 'fa-solid fa-volume-high text-emerald-400 text-xs sm:text-sm';
         if (text) text.textContent = 'Som Ligado';
       } else {
         video.muted = true;
         if (icon) icon.className = 'fa-solid fa-volume-xmark text-slate-400 text-xs sm:text-sm';
-        if (text) text.textContent = 'Ativar Som';
+        if (text) text.textContent = textId === 'desktop-sound-text' ? 'Ativar Som da Frota' : 'Ativar Som';
       }
     }
 

@@ -230,12 +230,6 @@
           <source src="videos/video_hero_vans_widescreen.mp4?v=4" type="video/mp4">
         </video>
         <div class="hero-scrim-overlay"></div>
-        
-        <!-- Botão Discreto de Ativar Som da Frota -->
-        <button id="desktop-video-sound-btn" class="absolute bottom-8 right-8 px-4 py-2 rounded-full bg-black/80 hover:bg-black text-white text-xs font-bold border border-white/25 shadow-2xl backdrop-blur-md flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 z-30 cursor-pointer" title="Ativar/Desativar Som da Frota">
-          <i class="fa-solid fa-volume-xmark text-emerald-400 text-sm" id="desktop-sound-icon"></i>
-          <span id="desktop-sound-text" class="text-[11px] uppercase tracking-wider">Ativar Som da Frota</span>
-        </button>
       </div>
 
       <!-- Camada 02: Micro-ônibus Volare DW9 (Foto Oficial Real com Letreiro Turismo) -->
@@ -423,6 +417,12 @@
         <div class="h-1.5"></div>
         <div class="step-number" data-slide="3">04</div>
       </div>
+
+      <!-- Botão Flutuante de Áudio do Vídeo Desktop (Z-50 com pointer-events garantidos) -->
+      <button id="desktop-video-sound-btn" class="absolute bottom-8 right-8 px-4 py-2.5 rounded-full bg-black/85 hover:bg-black text-white text-xs font-bold border border-white/30 shadow-2xl backdrop-blur-md flex items-center gap-2.5 transition-all duration-300 hover:scale-105 active:scale-95 z-50 cursor-pointer pointer-events-auto" title="Ativar/Desativar Som da Frota">
+        <i class="fa-solid fa-volume-xmark text-emerald-400 text-sm" id="desktop-sound-icon"></i>
+        <span id="desktop-sound-text" class="text-[11px] uppercase tracking-wider font-semibold">Ativar Som da Frota</span>
+      </button>
 
     </div> <!-- /WRAPPER DESKTOP -->
 

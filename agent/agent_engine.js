@@ -24,7 +24,13 @@ const NON_NAMES = new Set([
   'micro', 'micro-onibus', 'micro-ônibus', 'volare', 'caminhao', 'caminhão', 'bau', 'baú', 'accelo', 'carga', 'cargas', 'frete', 'fretes',
   'vitoria', 'vitória', 'vila', 'velha', 'serra', 'cariacica', 'guarapari', 'pedra', 'azul', 'domingos', 'martins', 'china', 'park', 'aeroporto', 'vix',
   'sim', 'nao', 'não', 'ok', 'obrigado', 'obrigada', 'valeu', 'humano', 'atendente', 'alex', 'pessoa', 'pessoas', 'viagem', 'ida', 'volta',
-  'casamento', 'excursao', 'excursão', 'traslado', 'transfer', 'hotel', 'fazenda', 'praia', 'costa', 'evento', 'para', 'de', 'com', 'sem', 'ate', 'até'
+  'casamento', 'excursao', 'excursão', 'traslado', 'transfer', 'hotel', 'fazenda', 'praia', 'costa', 'evento', 'para', 'de', 'com', 'sem', 'ate', 'até',
+  'zero', 'um', 'uma', 'dois', 'duas', 'tres', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez',
+  'onze', 'doze', 'treze', 'catorze', 'quatorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte',
+  'trinta', 'quarenta', 'cinquenta', 'sessenta', 'setenta', 'oitenta', 'noventa', 'cem', 'cento', 'mil',
+  'caixa', 'caixas', 'pallet', 'palete', 'paletes', 'peso', 'quilo', 'quilos', 'kg', 'kilos', 'volume', 'volumes',
+  'tonelada', 'toneladas', 'item', 'itens', 'mercadoria', 'mercadorias', 'mudanca', 'mudança', 'moveis', 'móveis',
+  'eletro', 'eletros', 'geladeira', 'fogao', 'fogão', 'cama', 'sofa', 'sofá', 'ajudante', 'ajudantes'
 ]);
 
 function formatName(str) {
@@ -111,23 +117,59 @@ function processLocalIntelligence(userMessage, session = {}) {
       session.serviceType = 'Sedan Executivo (Corolla/BYD)';
     } else if (msg.includes('onibus') || msg.includes('ônibus') || msg.includes('micro') || msg.includes('volare') || msg.includes('excursão') || msg.includes('excursao') || msg.includes('congresso')) {
       session.serviceType = 'Micro / Ônibus Rodoviário';
-    } else if (msg.includes('carga') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('fretes')) {
+    } else if (msg.includes('carga') || msg.includes('cargas') || msg.includes('caminhão') || msg.includes('caminhao') || msg.includes('baú') || msg.includes('bau') || msg.includes('frete') || msg.includes('fretes') || msg.includes('mudança') || msg.includes('mudanca')) {
       session.serviceType = 'Caminhão Baú (Cargas)';
+      session.isCargo = true;
+      session.passengers = 'N/A (Carga/Frete)';
     }
   }
 
-  // C. Passageiros
-  if (!session.passengers) {
-    const pMatch = msg.match(/(\d{1,3})\s*(?:pessoas?|passageiros?|lugares?|pax)?/);
-    if (pMatch && parseInt(pMatch[1], 10) > 0 && parseInt(pMatch[1], 10) <= 100 && (msg.includes('pessoa') || msg.includes('lugar') || msg.includes('passageiro') || session.serviceType)) {
-      session.passengers = `${pMatch[1]} pessoas`;
+  // Se já for identificado como serviço de cargas/baú, fixa flag e passageiros
+  if (session.serviceType === 'Caminhão Baú (Cargas)') {
+    session.isCargo = true;
+    if (!session.passengers) session.passengers = 'N/A (Carga/Frete)';
+  }
+
+  // Dicionário de números por extenso
+  const WORD_NUMBERS = {
+    'um': 1, 'uma': 1, 'dois': 2, 'duas': 2, 'três': 3, 'tres': 3, 'quatro': 4, 'cinco': 5,
+    'seis': 6, 'sete': 7, 'oito': 8, 'nove': 9, 'dez': 10, 'onze': 11, 'doze': 12,
+    'quinze': 15, 'vinte': 20, 'trinta': 30, 'quarenta': 40, 'cinquenta': 50
+  };
+
+  // C. Se for Carga: coletar detalhes da carga (volumes, peso, material)
+  if (session.isCargo) {
+    if (!session.cargoDetails) {
+      if (msg.includes('caixa') || msg.includes('palete') || msg.includes('pallet') || msg.includes('móvel') || msg.includes('movel') || msg.includes('equipamento') || msg.includes('peso') || msg.includes('kg') || msg.includes('tonelada') || msg.includes('volume') || msg.includes('mercadoria') || msg.includes('ajudante')) {
+        session.cargoDetails = userMessage;
+      } else {
+        // Se o usuário digitou um número (ex: "três", "3", "5 itens")
+        const numMatch = msg.match(/\b(um|uma|dois|duas|três|tres|quatro|cinco|seis|sete|oito|nove|dez|\d{1,3})\b/);
+        if (numMatch) {
+          const val = WORD_NUMBERS[numMatch[1]] || numMatch[1];
+          session.cargoDetails = `${val} volumes / itens de carga`;
+        }
+      }
+    }
+  } else {
+    // C. Se for Transporte de Passageiros: coletar passageiros
+    if (!session.passengers) {
+      const pMatch = msg.match(/(\d{1,3})\s*(?:pessoas?|passageiros?|lugares?|pax)?/);
+      if (pMatch && parseInt(pMatch[1], 10) > 0 && parseInt(pMatch[1], 10) <= 100) {
+        session.passengers = `${pMatch[1]} pessoas`;
+      } else {
+        const wordMatch = msg.match(/\b(um|uma|dois|duas|três|tres|quatro|cinco|seis|sete|oito|nove|dez|quinze|vinte|trinta)\b/);
+        if (wordMatch && WORD_NUMBERS[wordMatch[1]]) {
+          session.passengers = `${WORD_NUMBERS[wordMatch[1]]} pessoas`;
+        }
+      }
     }
   }
 
-  // D. Trajeto
+  // D. Trajeto (Origem e Destino)
   if (!session.route) {
     const isOnlyVehicleSelect = /^(?:preciso|quero|gostaria|cotar|alugar)?\s*(?:de\s+)?(?:uma?\s+)?(?:van|sedan|carro|onibus|ônibus|caminhão|caminhao)(?:\s+vip|\s+executiv[ao]|\s+plus|\s+rodovi[aá]rio|\s+ba[uú])?\s*$/i.test(msg);
-    if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
+    if (!isOnlyVehicleSelect && (msg.includes('para ') || msg.includes('até ') || msg.includes('ate ') || msg.includes('saindo') || msg.includes('partindo') || msg.includes('vitoria') || msg.includes('vitória') || msg.includes('vila velha') || msg.includes('serra') || msg.includes('cariacica') || msg.includes('linhares') || msg.includes('colatina') || msg.includes('cachoeiro') || msg.includes('domingos martins') || msg.includes('pedra azul') || msg.includes('guarapari') || msg.includes('aeroporto'))) {
       session.route = userMessage;
     }
   }
@@ -143,7 +185,7 @@ function processLocalIntelligence(userMessage, session = {}) {
 
   // F. Data
   if (!session.tripDate) {
-    const dateMatch = msg.match(/(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?|\bdia\s+\d{1,2}\b|\bs[aá]bado\b|\bsexta\b|\bamanh[aã]\b|\bferiado\b|\bdomingo\b(?!\s*martins))/i);
+    const dateMatch = msg.match(/(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?|\bdia\s+\d{1,2}\b|\bs[aá]bado\b|\bsexta\b|\bamanh[aã]\b|\bhoje\b|\bferiado\b|\bdomingo\b(?!\s*martins))/i);
     if (dateMatch) {
       session.tripDate = dateMatch[0];
     }
@@ -187,11 +229,11 @@ function processLocalIntelligence(userMessage, session = {}) {
       handoffReason = 'Transporte fora do escopo';
     }
   }
-  // 4. Fluxo Principal de Qualificação (Vans, Sedans, Ônibus, Cargas)
+  // 4. Fluxo Principal de Qualificação
   // REGRA DE OURO: JAMAIS pergunte o nome 2 vezes!
   else {
     // Se o cliente não informou nada e não temos nome
-    if (!session.customerName && !session.serviceType && !session.route && !session.passengers) {
+    if (!session.customerName && !session.serviceType && !session.route && !session.passengers && !session.cargoDetails) {
       reply = 'Olá! É um prazer para a Jansen Transportes atender você. Para começarmos, como posso te chamar e qual transporte você precisa?';
       session.askedName = true;
     }
@@ -201,33 +243,67 @@ function processLocalIntelligence(userMessage, session = {}) {
         ? `Prazer, ${session.customerName}! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?`
         : 'Perfeito! Você precisa de Van VIP, Carro Executivo, Micro-ônibus ou Caminhão Baú?';
     }
-    // Passo 3: Passageiros e Trajeto (avança mesmo se o nome ainda não foi fornecido)
-    else if (!session.passengers || !session.route) {
-      reply = session.customerName
-        ? `Excelente, ${session.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`
-        : 'Excelente! Nossas opções contam com alto padrão. Para quantas pessoas seria a viagem e qual o trajeto (saída e destino)?';
+    // Passo 3A: Se for Carga / Caminhão Baú (NUNCA pergunta por passageiros!)
+    else if (session.isCargo && (!session.cargoDetails || !session.route)) {
+      if (!session.cargoDetails && !session.route) {
+        reply = session.customerName
+          ? `Excelente, ${session.customerName}! Para cotação do Caminhão Baú, o que será transportado e qual o trajeto (cidade/bairro de saída e de entrega)?`
+          : 'Excelente! Para cotação do Caminhão Baú, o que será transportado e qual o trajeto (saída e entrega)?';
+      } else if (!session.route) {
+        reply = session.customerName
+          ? `Perfeito, ${session.customerName}! E qual o trajeto da carga (cidade/bairro de retirada e entrega)?`
+          : 'Perfeito! E qual o trajeto da carga (saída e entrega)?';
+      } else {
+        reply = session.customerName
+          ? `Combinado, ${session.customerName}! O que será transportado (tipo de carga, peso ou se precisa de ajudante)?`
+          : 'Combinado! O que será transportado (tipo de carga, peso ou se precisa de ajudante)?';
+      }
+    }
+    // Passo 3B: Se for Transporte de Passageiros (Vans, Ônibus, Sedans)
+    else if (!session.isCargo && (!session.passengers || !session.route)) {
+      if (!session.passengers && !session.route) {
+        reply = session.customerName
+          ? `Excelente, ${session.customerName}! Para quantas pessoas seria a viagem e qual o trajeto (cidade de saída e destino)?`
+          : 'Excelente! Nossas opções contam com alto padrão. Para quantas pessoas seria a viagem e qual o trajeto (saída e destino)?';
+      } else if (!session.route) {
+        reply = session.customerName
+          ? `Entendido, ${session.customerName}! E qual o trajeto da viagem (saída e destino)?`
+          : 'Entendido! E qual o trajeto da viagem (saída e destino)?';
+      } else {
+        reply = session.customerName
+          ? `Perfeito, ${session.customerName}! Para quantas pessoas seria a viagem?`
+          : 'Perfeito! Para quantas pessoas seria a viagem?';
+      }
     }
     // Passo 4: Data e Modalidade (Ida e Volta vs Só Ida)
-    else if (!session.tripDate || !session.tripType) {
-      reply = session.customerName
-        ? `Perfeito, ${session.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`
-        : 'Perfeito! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?';
+    else if (!session.tripDate || (!session.isCargo && !session.tripType)) {
+      if (session.isCargo) {
+        reply = session.customerName
+          ? `Perfeito, ${session.customerName}! Qual a data prevista para o transporte da carga?`
+          : 'Perfeito! Qual a data prevista para o transporte da carga?';
+      } else {
+        reply = session.customerName
+          ? `Perfeito, ${session.customerName}! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?`
+          : 'Perfeito! Qual a data prevista para a viagem? Será apenas ida ou ida e volta?';
+      }
     }
     // Passo 5: Horários
     else if (!session.times) {
-      if (session.tripType === 'Só Ida') {
+      if (session.isCargo || session.tripType === 'Só Ida') {
         reply = session.customerName
-          ? `Combinado, ${session.customerName}! Qual o horário previsto para a saída?`
-          : 'Combinado! Qual o horário previsto para a saída?';
+          ? `Combinado, ${session.customerName}! Qual o horário previsto para a saída/carregamento?`
+          : 'Combinado! Qual o horário previsto para a saída/carregamento?';
       } else {
         reply = session.customerName
           ? `Combinado, ${session.customerName}! Quais seriam os horários previstos de saída e de retorno?`
           : 'Combinado! Quais seriam os horários previstos de saída e de retorno?';
       }
     }
-    // Passo 5.5: Se coletou tudo da viagem e ainda não temos o nome, pergunta uma única vez com cortesia
+    // Passo 5.5: Se coletou tudo e ainda não temos o nome
     else if (!session.customerName) {
-      reply = 'Tudo anotado sobre sua viagem! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?';
+      reply = session.isCargo
+        ? 'Tudo anotado sobre a carga! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?'
+        : 'Tudo anotado sobre sua viagem! E qual o seu nome para o Alex Jansen já preparar sua cotação personalizada?';
       session.askedName = true;
     }
     // Passo 6: Qualificação Completa! Transbordo com Resumo Executivo
@@ -250,7 +326,8 @@ function processLocalIntelligence(userMessage, session = {}) {
   let waSummary = `Olá Alex! Cotação solicitada no site Jansen:`;
   if (session.customerName) waSummary += `\n👤 *Cliente:* ${session.customerName}`;
   if (session.serviceType) waSummary += `\n🚐 *Veículo:* ${session.serviceType}`;
-  if (session.passengers) waSummary += `\n👥 *Passageiros:* ${session.passengers}`;
+  if (session.isCargo && session.cargoDetails) waSummary += `\n📦 *Carga:* ${session.cargoDetails}`;
+  if (!session.isCargo && session.passengers) waSummary += `\n👥 *Passageiros:* ${session.passengers}`;
   if (session.route && session.route !== 'pendente') waSummary += `\n📍 *Trajeto:* ${session.route}`;
   if (session.tripDate) waSummary += `\n📅 *Data:* ${session.tripDate}`;
   if (session.tripType) waSummary += ` (${session.tripType})`;
